@@ -7,23 +7,36 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-
+ 	<uses-permission android:name="android.permission.INTERNET" />
+ 	
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.gobarnacle.HomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme" >
+        <activity android:name=".LoginActivity"
+                  android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RegisterActivity"
+                  android:label="@string/app_name"></activity>
+        <activity
+            android:name="com.elaineou.p2ppostal.PageListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.elaineou.p2ppostal.PageDetailActivity"
+            android:label="@string/title_page_detail"
+            android:parentActivityName=".PageListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PageListActivity" />
+        </activity>
+        <meta-data android:value="@string/app_id" android:name="com.facebook.sdk.ApplicationId"/>
+        <activity android:name="com.facebook.LoginActivity" android:label="@string/app_name"></activity>        
     </application>
-
+     	
 </manifest>

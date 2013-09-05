@@ -2,15 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#fff"
     tools:context=".HomeActivity" >
-
-    <!--
-         The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc.
-    -->
-
+  <RelativeLayout 
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content" 
+  		android:background="@layout/background" >	
+  		<!--  Header  Starts-->
+  		<LinearLayout android:id="@+id/header"
+  				android:layout_width="fill_parent"
+  				android:layout_height="wrap_content"
+  				android:paddingTop="5dip"
+  				android:paddingBottom="5dip">
+  				<!-- Logo Start-->
+  				<ImageView android:src="@drawable/barnacle"
+  				    		android:contentDescription="@string/imgLogoDesc"
+  							android:layout_width="wrap_content"
+  							android:layout_height="wrap_content"/>
+  				<!-- Logo Ends -->
+  		</LinearLayout>
+  		<!--  Header Ends -->  
+  		<!-- Footer Start -->
+  		<LinearLayout android:id="@+id/footer"
+  				android:layout_width="fill_parent"
+  				android:layout_height="90dip"
+  				android:background="@drawable/fback"
+  				android:layout_alignParentBottom="true">
+				<ImageView android:src="@drawable/footer"
+				    		android:contentDescription="@string/imgFooterDesc"
+				    		android:scaleType="fitStart"
+				    		android:layout_width="fill_parent"
+  							android:layout_height="90dip"/>
+  		</LinearLayout>
+  		<!-- Footer Ends -->
+  		
+  		
     <TextView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
@@ -50,6 +76,17 @@
                 android:layout_weight="1"
                 android:text="@string/dummy_button" />
         </LinearLayout>
-    </FrameLayout>
 
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:ems="10"
+            android:text="hello" >
+
+        </TextView>
+
+    </FrameLayout>
+    
+  </RelativeLayout>
 </FrameLayout>

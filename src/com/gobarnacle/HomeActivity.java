@@ -1,14 +1,20 @@
 package com.gobarnacle;
 
 import com.gobarnacle.util.SystemUiHider;
+import com.facebook.*;
+import com.facebook.model.*;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+import android.content.Intent;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -17,6 +23,7 @@ import android.view.View;
  * @see SystemUiHider
  */
 public class HomeActivity extends Activity {
+	public final static String TAG = "HomeActivity";
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -48,12 +55,36 @@ public class HomeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_home);
 
 		final View controlsView = findViewById(R.id.fullscreen_content_controls);
 		final View contentView = findViewById(R.id.fullscreen_content);
 
+		// start Facebook Login
+		Session.openActiveSession(this, true, new Session.StatusCallback() {
+
+			// callback when session changes state
+			@SuppressWarnings("deprecation")
+			@Override
+			public void call(Session session, SessionState state, Exception exception) {
+				if (session.isOpened()) {
+					// make request to the /me API
+					Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+
+					  // callback after Graph API response with user object
+					  @Override
+					  public void onCompleted(GraphUser user, Response response) {
+						  Log.d(TAG,"Logged in");
+						  if (user != null) {
+							  TextView welcome = (TextView) findViewById(R.id.fullscreen_content);
+							  welcome.setText("Hello " + user.getName() + "!");
+							}
+					  }
+					});
+				}
+			}
+		});		
+		
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
@@ -99,6 +130,8 @@ public class HomeActivity extends Activity {
 					}
 				});
 
+		
+		
 		// Set up the user interaction to manually show or hide the system UI.
 		contentView.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -127,6 +160,12 @@ public class HomeActivity extends Activity {
 		// are available.
 		delayedHide(100);
 	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  super.onActivityResult(requestCode, resultCode, data);
+	  Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+	}	
+	
 
 	/**
 	 * Touch listener to use for in-layout UI controls to delay hiding the
