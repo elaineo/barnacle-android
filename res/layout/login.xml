@@ -67,11 +67,12 @@
 		  		android:singleLine="true"
 		  		android:inputType="textPassword"  />
 		  <!-- Login button -->	
-		  <Button android:id="@+id/btnLogin" 
-		  		android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:layout_marginTop="10dip"
-		  		android:text="@string/label_login"/>
+		  <com.facebook.widget.LoginButton
+	        android:id="@+id/btnLogin"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:layout_marginTop="10dp"/>
 		  <!-- Link to Registration Screen -->		
 		  <TextView android:id="@+id/link_to_register" 
 		  		android:layout_width="fill_parent"

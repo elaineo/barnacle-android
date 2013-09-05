@@ -3,6 +3,8 @@ package com.gobarnacle;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,8 +19,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +33,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.model.GraphUser;
 
 public class LoginActivity extends Activity implements OnClickListener  {
 	 public final static String P2PLoginUri = "https://p2ppostal.appspot.com/signin/mobile";
@@ -43,7 +56,7 @@ public class LoginActivity extends Activity implements OnClickListener  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.login);                
         
         TextView registerScreen = (TextView) findViewById(R.id.link_to_register);
     	pEmail = (EditText) findViewById(R.id.LoginEmail);
@@ -62,39 +75,39 @@ public class LoginActivity extends Activity implements OnClickListener  {
 			}
 		});
     }
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+      super.onActivityResult(requestCode, resultCode, data);
+      Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }    
 	 public void onClick(View view) {
 	      if (view.getId() == R.id.btnLogin) { 	   
-	    	 // form validation and login
-	    	  txtEmail = pEmail.getText().toString();
-	    	  txtPasswd = pPasswd.getText().toString();
-		      if(txtEmail.equalsIgnoreCase("") || txtPasswd.equalsIgnoreCase("") ) {
-		    	  showToastMessage("All Fields Required.");  
-		    	  return;
-		      }
-		      final Boolean echeck = validEmail(txtEmail);
-		      if(echeck==true) {
-		    	  //send info to p2ppostal
-		    	  GetLogin login_getter = new GetLogin();
-		    	  try {
-					login_token = login_getter.execute(txtEmail,txtPasswd).get();
-			    	if(login_token!=null) {
-			    		callPageActivity(login_token);
-			    	} else {
-			    		showToastMessage("Login Failed.");
-				    	return;	
-			    	}
-				  } catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				  } catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		      } else {
-		    	  showToastMessage("Invalid Email address.");
-		    	  return;
-		      }
-	      }
+	  		// start Facebook Login
+	  		Session.openActiveSession(this, true, new Session.StatusCallback() {
+	  			
+	  			// callback when session changes state
+	  			@SuppressWarnings("deprecation")
+	  			@Override
+	  			public void call(Session session, SessionState state, Exception exception) {
+	  				if (session.isOpened()) {
+	  					// make request to the /me API
+	  					Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+
+	  					  // callback after Graph API response with user object
+	  					  @Override
+	  					  public void onCompleted(GraphUser user, Response response) {
+	  						  Log.d(TAG,"Logged in");
+	  						  if (user != null) {
+	  							  TextView welcome = (TextView) findViewById(R.id.link_to_register);
+	  							  welcome.setText("Hello " + user.getName() + "!");
+	  							}
+	  					  }
+	  					});
+	  				}
+	  			}
+	  		});
+  		}		
 	 }
 	public Boolean validEmail(String email)
 	{
