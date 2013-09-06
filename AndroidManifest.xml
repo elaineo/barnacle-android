@@ -21,8 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"
-                  android:label="@string/app_name"></activity>
         <activity
             android:name="com.gobarnacle.PageListActivity"
             android:label="@string/app_name" >

@@ -2,8 +2,6 @@ package com.gobarnacle;
 
 import java.util.Arrays;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,11 +16,13 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.internal.Utility;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
 public class FBFragment extends Fragment {
 	public final static String TAG = "FBLoginFragment";
+
 	
 	private UiLifecycleHelper uiHelper;
 

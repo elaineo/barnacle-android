@@ -43,29 +43,6 @@
 		  android:layout_height="wrap_content"
 		  android:padding="10dip"
 		  android:layout_below="@id/header" >
-		  <!--  Email Label -->
-		  <TextView android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:textColor="#372c24"
-		  		android:text="@string/label_email"/>
-		  <EditText android:id="@+id/LoginEmail" 
-		        android:inputType="textEmailAddress"  
-		        android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:layout_marginTop="5dip"
-		  		android:layout_marginBottom="20dip"
-		  		android:singleLine="true"/>
-		  <!--  Password Label -->
-		  <TextView android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:textColor="#372c24"
-		  		android:text="@string/label_password"/>
-		  <EditText android:id="@+id/LoginPassword"  
-		      	android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:layout_marginTop="5dip"
-		  		android:singleLine="true"
-		  		android:inputType="textPassword"  />
 		  <!-- Login button -->	
 		  <com.facebook.widget.LoginButton
 	        android:id="@+id/btnLogin"
@@ -73,17 +50,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center_horizontal"
 	        android:layout_marginTop="10dp"/>
-		  <!-- Link to Registration Screen -->		
-		  <TextView android:id="@+id/link_to_register" 
-		  		android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:layout_marginTop="40dip"
-		  		android:layout_marginBottom="40dip"
-		  		android:text="@string/label_linkreg"
-		  		android:gravity="center"
-		  		android:textSize="20sp"
-		  		android:textColor="#0b84aa"/>
-		    
+
 		</LinearLayout>
   		<!-- Login Form Ends --> 		
   		

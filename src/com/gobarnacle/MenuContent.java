@@ -15,8 +15,10 @@ public class MenuContent {
 	static {
 		addItem(new MenuItem("1", "Search"));
 		addItem(new MenuItem("2", "Add Route"));
-		addItem(new MenuItem("3", "Account"));
-		addItem(new MenuItem("3", "Settings"));
+		addItem(new MenuItem("3", "Send It"));
+		addItem(new MenuItem("4", "Account"));
+		addItem(new MenuItem("5", "My Reservations"));
+		addItem(new MenuItem("6", "Logout"));
 	}
 
 	private static void addItem(MenuItem item) {

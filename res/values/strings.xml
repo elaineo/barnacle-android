@@ -6,16 +6,6 @@
     <string name="imgFooterDesc">Footer Image</string>
     <string name="imgLogoDesc">Logo Image</string>
         
-    <string name="welcome">Test FB</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">B..</string>
-    <string name="label_name">Full Name</string>
-    <string name="label_email">Email</string>
-    <string name="label_password">Password</string>
-    <string name="label_login">Login</string>
-    <string name="label_register">Register</string>
-    <string name="label_linkreg">New to P2P Postal? Register Here.</string>
-    <string name="label_linklogin">Already have an account? Login Here.</string>
-    <string name="title_page_detail">Page Detail</string>    
+    <string name="title_page_detail">Barnacle Page</string>    
 
 </resources>
