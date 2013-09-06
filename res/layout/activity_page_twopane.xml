@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/page_list"
-        android:name="com.elaineou.p2ppostal.PageListFragment"
+        android:name="com.gobarnacle.PageListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
