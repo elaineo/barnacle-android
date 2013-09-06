@@ -223,9 +223,10 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020023;
     }
     public static final class id {
-        public static final int LoginEmail=0x7f04001d;
-        public static final int LoginPassword=0x7f04001e;
-        public static final int btnLogin=0x7f04001f;
+        public static final int LoginEmail=0x7f04001e;
+        public static final int LoginPassword=0x7f04001f;
+        public static final int authButton=0x7f04001a;
+        public static final int btnLogin=0x7f040020;
         public static final int com_facebook_login_activity_progress_bar=0x7f040007;
         public static final int com_facebook_picker_activity_circle=0x7f040006;
         public static final int com_facebook_picker_checkbox=0x7f040009;
@@ -246,12 +247,12 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_login_button=0x7f040019;
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f040017;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f040018;
-        public static final int footer=0x7f04001c;
-        public static final int header=0x7f04001b;
+        public static final int footer=0x7f04001d;
+        public static final int header=0x7f04001c;
         public static final int large=0x7f040002;
-        public static final int link_to_register=0x7f040020;
+        public static final int link_to_register=0x7f040021;
         public static final int normal=0x7f040001;
-        public static final int page_detail=0x7f04001a;
+        public static final int page_detail=0x7f04001b;
         public static final int page_detail_container=0x7f040003;
         public static final int page_list=0x7f040004;
         public static final int picker_subtitle=0x7f040014;
@@ -276,8 +277,10 @@ containing a value of this type.
         public static final int com_facebook_placepickerfragment_list_row=0x7f03000f;
         public static final int com_facebook_search_bar_layout=0x7f030010;
         public static final int com_facebook_usersettingsfragment=0x7f030011;
-        public static final int fragment_page_detail=0x7f030012;
-        public static final int login=0x7f030013;
+        public static final int fblogin=0x7f030012;
+        public static final int fragment_page_detail=0x7f030013;
+        public static final int login=0x7f030014;
+        public static final int main=0x7f030015;
     }
     public static final class string {
         public static final int app_id=0x7f07001a;

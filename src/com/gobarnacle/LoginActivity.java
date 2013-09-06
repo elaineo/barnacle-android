@@ -3,9 +3,6 @@ package com.gobarnacle;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,15 +14,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Base64;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,7 +32,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 
-public class LoginActivity extends Activity implements OnClickListener  {
+public class LoginActivity extends FragmentActivity implements OnClickListener  {
 	 public final static String P2PLoginUri = "https://p2ppostal.appspot.com/signin/mobile";
 	 public final static String LOGIN_TOKEN = "com.elaineou.p2ppostal.TOKEN"; 
 	 public final static String TAG = "LoginActivity";
@@ -52,28 +44,32 @@ public class LoginActivity extends Activity implements OnClickListener  {
 	 private String txtEmail;
 	 private String txtPasswd;
 	 private String login_token;
+	 
+	 private MainFragment mainFragment;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);                
-        
+        if (savedInstanceState == null) {
+            // Add the fragment on initial activity setup
+            mainFragment = new MainFragment();
+            getSupportFragmentManager()
+            .beginTransaction()
+            .add(android.R.id.content, mainFragment)
+            .commit();
+        } else {
+            // Or set the fragment from restored state info
+            mainFragment = (MainFragment) getSupportFragmentManager()
+            .findFragmentById(android.R.id.content);
+        }
+        //setContentView(R.layout.login);                
+        /*
         TextView registerScreen = (TextView) findViewById(R.id.link_to_register);
     	pEmail = (EditText) findViewById(R.id.LoginEmail);
     	pPasswd = (EditText) findViewById(R.id.LoginPassword);
         bLogin = (Button) findViewById(R.id.btnLogin);
         bLogin.setOnClickListener(this);
-        
-        // Listening to register new account link
-        registerScreen.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// Switching to Register screen
-				Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
-				startActivity(i);
-				finish();
-			}
-		});
+        */
     }
     
     @Override
@@ -109,6 +105,7 @@ public class LoginActivity extends Activity implements OnClickListener  {
 	  		});
   		}		
 	 }
+ 
 	public Boolean validEmail(String email)
 	{
 	    Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
