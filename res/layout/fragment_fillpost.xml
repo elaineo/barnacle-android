@@ -8,7 +8,7 @@
     tools:context=".FillPostFrag" >
 
     <!-- origin and destination -->
-
+	<include android:id="@+id/postmap0" android:layout_width="256dip"  layout="@layout/maptap" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
