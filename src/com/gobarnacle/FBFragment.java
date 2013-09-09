@@ -16,7 +16,6 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.internal.Utility;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 

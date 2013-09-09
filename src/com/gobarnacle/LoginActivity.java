@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -27,7 +26,6 @@ import com.facebook.Session;
 import com.facebook.model.GraphUser;
 import com.gobarnacle.utils.BarnacleClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
 
 public class LoginActivity extends FragmentActivity implements FBFragment.LoginListener  {
 	 public final static String LoginUri = "/signup/fb";
@@ -35,26 +33,25 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 	 public final static String LOGIN_TOKEN = "com.gobarnacle.TOKEN"; 
 
 	 HttpClient httpClient = new DefaultHttpClient();
-	 private String login_token;  //don't need this cuz we can use kookies
 	 
 	 private FBFragment fbFragment;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (savedInstanceState == null) {
-            // Add the fragment on initial activity setup
-            fbFragment = new FBFragment();
-            getSupportFragmentManager()
-            .beginTransaction()
-            .add(android.R.id.content, fbFragment)
-            .commit();
-        } else {
-            // Or set the fragment from restored state info
-            fbFragment = (FBFragment) getSupportFragmentManager()
-            .findFragmentById(android.R.id.content);
-        }
+        callPageActivity("219360");
+//        if (savedInstanceState == null) {
+//            // Add the fragment on initial activity setup
+//            fbFragment = new FBFragment();
+//            getSupportFragmentManager()
+//            .beginTransaction()
+//            .add(android.R.id.content, fbFragment)
+//            .commit();
+//        } else {
+//            // Or set the fragment from restored state info
+//            fbFragment = (FBFragment) getSupportFragmentManager()
+//            .findFragmentById(android.R.id.content);
+//        }
 
         /* Check if already logged in, bypass to home screen */
         /* SharedPreferences */
@@ -96,7 +93,7 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 	 public void callPageActivity(String token) {
 	        //Start the actual app
 	        Intent intent = new Intent(this, PageListActivity.class);
-	        intent.putExtra(LOGIN_TOKEN, token);
+	        //intent.putExtra(LOGIN_TOKEN, token);
 			startActivity(intent);
 			finish();
 	 }
@@ -111,6 +108,7 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
                 String status;
 				try {
 					status = response.getString("status");
+					Log.d(TAG, status);
 			        if (status.equals("new") || status.equals("existing")) {
 				      	// start page activity
 			        	callPageActivity(userid);

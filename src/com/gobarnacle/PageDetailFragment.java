@@ -2,6 +2,7 @@ package com.gobarnacle;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
  * {@link PageDetailActivity} on handsets.
  */
 public class PageDetailFragment extends Fragment {
+	public final static String TAG = "PageDetailFragment";
 	/**
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
@@ -34,12 +36,17 @@ public class PageDetailFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Bundle q =  getArguments();
+		Log.d(TAG, q.toString());
+		Boolean x = q.containsKey(ARG_ITEM_ID);
+		Log.d(TAG, x.toString());
 		if (getArguments().containsKey(ARG_ITEM_ID)) {
 			// Load the content specified by the fragment
 			// arguments. In a real-world scenario, use a Loader
 			// to load content from a content provider.
 			mItem = MenuContent.ITEM_MAP.get(getArguments().getString(
+					ARG_ITEM_ID));
+			Log.d(TAG, getArguments().getString(
 					ARG_ITEM_ID));
 		}
 	}
@@ -50,7 +57,7 @@ public class PageDetailFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_page_detail,
 				container, false);
 
-		// Show the content as text in a TextView.
+		// Each page view
 		if (mItem != null) {
 			((TextView) rootView.findViewById(R.id.page_detail))
 					.setText(mItem.content);

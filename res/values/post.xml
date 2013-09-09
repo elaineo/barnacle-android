@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fillpost_head">Drive a New Route</string>
+    <string name="start">Start Address</string>
+    <string name="dest">Destination</string>
+    <string name="startdate">Departure Date</string>
+    <string name="enddate">Arrival Date</string>
+    <string name="roundt">Roundtrip?</string>
+    <string name="repeat">Repeat Route</string>
+    <string name="repeatno">No</string>
+    <string name="repeatr1">Weekly</string>
+    <string name="repeatr2">Monthly</string>
+    <string name="capacity">Vehicle Capacity</string>
+    <string name="details">Details</string>
+    <string name="submit">Submit</string>
+    <string name="share">Share on Facebook</string>
+</resources>

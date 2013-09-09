@@ -15,7 +15,8 @@ import android.view.MenuItem;
  * a {@link PageDetailFragment}.
  */
 public class PageDetailActivity extends FragmentActivity {
-
+	public final static String TAG = "PageDetailActivity";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,20 +30,26 @@ public class PageDetailActivity extends FragmentActivity {
 		// (e.g. when rotating the screen from portrait to landscape).
 		// In this case, the fragment will automatically be re-added
 		// to its container so we don't need to manually add it.
-		// For more information, see the Fragments API guide at:
-		//
-		// http://developer.android.com/guide/components/fragments.html
-		//
+
+			
 		if (savedInstanceState == null) {
-			// Create the detail fragment and add it to the activity
-			// using a fragment transaction.
+			
+			int Id = Integer.parseInt(getIntent()
+					.getStringExtra(PageDetailFragment.ARG_ITEM_ID));
 			Bundle arguments = new Bundle();
 			arguments.putString(PageDetailFragment.ARG_ITEM_ID, getIntent()
-					.getStringExtra(PageDetailFragment.ARG_ITEM_ID));
-			PageDetailFragment fragment = new PageDetailFragment();
-			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.page_detail_container, fragment).commit();
+					.getStringExtra(PageDetailFragment.ARG_ITEM_ID));			
+			switch (Id) {
+				case 1: PageDetailFragment fragment = new PageDetailFragment();
+						fragment.setArguments(arguments);
+						getSupportFragmentManager().beginTransaction()
+								.add(R.id.page_detail_container, fragment).commit();
+						break;
+				default: FillPostFrag fpFragment = new FillPostFrag();
+						fpFragment.setArguments(arguments);
+						getSupportFragmentManager().beginTransaction()
+								.add(R.id.page_detail_container, fpFragment).commit();
+			}
 		}
 	}
 

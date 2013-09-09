@@ -1,7 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/page_detail_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@layout/background"
     tools:context=".PageDetailActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
+
+ 		<!-- Footer Start -->
+ 		<LinearLayout android:id="@+id/footer"
+ 				android:layout_width="fill_parent"
+ 				android:layout_height="90dip"
+ 				android:background="@drawable/fback"
+ 				android:layout_alignParentBottom="true">
+
+ 			<ImageView
+ 			    android:layout_width="fill_parent"
+ 			    android:layout_height="90dip"
+ 			    android:contentDescription="@string/imgFooterDesc"
+ 			    android:scaleType="fitStart"
+ 			    android:src="@drawable/footer" />
+
+ 		</LinearLayout>
+ 		<!-- Footer Ends -->
+  		
+</RelativeLayout>

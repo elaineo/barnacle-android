@@ -3,6 +3,7 @@ package com.gobarnacle;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 
 /**
@@ -23,19 +24,18 @@ import android.support.v4.app.FragmentActivity;
 public class PageListActivity extends FragmentActivity implements
 		PageListFragment.Callbacks {
 
+	public final static String TAG = "PageListActivity";
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 * device.
 	 */
 	private boolean mTwoPane;
-    private String login_token;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
+		Log.d(TAG, "ok...");
 		setContentView(R.layout.activity_page_list);
-		 Intent intent = getIntent();
-		 login_token = intent.getStringExtra(LoginActivity.LOGIN_TOKEN);
 		
 		if (findViewById(R.id.page_detail_container) != null) {
 			// The detail container view will be present only in the
@@ -59,6 +59,15 @@ public class PageListActivity extends FragmentActivity implements
 	 */
 	@Override
 	public void onItemSelected(String id) {
+		int pageId;
+		int Id = Integer.parseInt(id);
+		switch (Id) {
+			case 1: pageId = R.id.page_detail_container; 
+					break;
+			default: pageId = R.id.page_detail_container;						
+		}
+			
+		
 		if (mTwoPane) {
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
@@ -68,11 +77,18 @@ public class PageListActivity extends FragmentActivity implements
 			PageDetailFragment fragment = new PageDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.page_detail_container, fragment).commit();
+					.replace(pageId, fragment).commit();
+			
+//			FillPostFrag fragment = new FillPostFrag();
+
+			Log.i(TAG, id+" 2pane");
+			
 
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
+			Log.i(TAG, id+" 1pane");
+			
 			Intent detailIntent = new Intent(this, PageDetailActivity.class);
 			detailIntent.putExtra(PageDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
