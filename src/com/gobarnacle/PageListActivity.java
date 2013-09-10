@@ -89,7 +89,7 @@ public class PageListActivity extends FragmentActivity implements
 			// for the selected item ID.
 			Log.i(TAG, id+" 1pane");
 			
-			Intent detailIntent = new Intent(this, PageDetailActivity.class);
+			Intent detailIntent = new Intent(this, MapActivity.class);
 			//Intent detailIntent = new Intent(this, PageDetailActivity.class);
 			detailIntent.putExtra(PageDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);

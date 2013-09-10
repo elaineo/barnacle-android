@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_sendloc"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip"
+    tools:context=".MapActivity" >
+
+    <!-- origin and destination -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start"
+        android:textColor="#372c24" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dest"
+        android:textColor="#372c24" />
+<!-- FIXME -->
+    <include
+        android:id="@+id/postmap0"
+        android:layout_width="fill_parent"
+        android:layout_height="512dip" 
+        layout="@layout/maptap" />
+
+    <Button
+        android:id="@+id/get_my_location_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showMyLocation"
+        android:padding="8dp"
+        android:text="@string/submit_loc" />
+
+</LinearLayout>

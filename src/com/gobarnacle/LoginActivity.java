@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -16,9 +18,14 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -39,19 +46,20 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        callPageActivity("219360");
-//        if (savedInstanceState == null) {
-//            // Add the fragment on initial activity setup
-//            fbFragment = new FBFragment();
-//            getSupportFragmentManager()
-//            .beginTransaction()
-//            .add(android.R.id.content, fbFragment)
-//            .commit();
-//        } else {
-//            // Or set the fragment from restored state info
-//            fbFragment = (FBFragment) getSupportFragmentManager()
-//            .findFragmentById(android.R.id.content);
-//        }
+        printHashKey();
+        //callPageActivity("219360");
+        if (savedInstanceState == null) {
+            // Add the fragment on initial activity setup
+            fbFragment = new FBFragment();
+            getSupportFragmentManager()
+            .beginTransaction()
+            .add(android.R.id.content, fbFragment)
+            .commit();
+        } else {
+            // Or set the fragment from restored state info
+            fbFragment = (FBFragment) getSupportFragmentManager()
+            .findFragmentById(android.R.id.content);
+        }
 
         /* Check if already logged in, bypass to home screen */
         /* SharedPreferences */
@@ -187,4 +195,22 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 	  Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	 }
 
+	 public void printHashKey() {
+
+	        try {
+	            PackageInfo info = getPackageManager().getPackageInfo("com.gobarnacle",
+	                    PackageManager.GET_SIGNATURES);
+	            for (Signature signature : info.signatures) {
+	                MessageDigest md = MessageDigest.getInstance("SHA");
+	                md.update(signature.toByteArray());
+	                Log.d("TEMPTAGHASH KEY:",
+	                        Base64.encodeToString(md.digest(), Base64.DEFAULT));
+	            }
+	        } catch (NameNotFoundException e) {
+
+	        } catch (NoSuchAlgorithmException e) {
+
+	        }
+
+    }
 }
