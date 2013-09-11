@@ -10,22 +10,51 @@
     <!-- origin and destination -->
 
     <TextView
+        android:id="@+id/route_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/start"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#372c24" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/dest"
-        android:textColor="#372c24" />
-<!-- FIXME -->
-    <include
-        android:id="@+id/postmap0"
-        android:layout_width="fill_parent"
-        android:layout_height="512dip" 
-        layout="@layout/maptap" />
+		<FrameLayout android:id="@+id/map_frame"
+      		android:layout_width="fill_parent"
+      		android:layout_height="wrap_content" > 
+		 	<fragment
+		      	android:id="@+id/map0"
+		      	android:layout_width="wrap_content"
+		      	android:layout_height="wrap_content"
+		      	android:layout_weight="0.1"
+		      	class="com.google.android.gms.maps.SupportMapFragment"/>
+		 	  <TextView
+    				android:id="@+id/addr_text"
+    				android:layout_width="wrap_content"
+    				android:layout_height="wrap_content"/>      
+    	</FrameLayout>
+    <LinearLayout 
+            android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+   			android:weightSum="2"
+ 			android:orientation="vertical">
+		<LinearLayout 
+            android:layout_width="match_parent"
+        	android:layout_height="0dp"
+   			android:layout_weight="1"
+ 			android:orientation="horizontal">
+			<CheckBox
+			    android:id="@+id/checkBox1"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Auto submit every " />
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+			<TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="minutes"
+		        android:textColor="#372c24" />
+		</LinearLayout>
+	</LinearLayout>
 
     <Button
         android:id="@+id/get_my_location_button"
@@ -34,5 +63,6 @@
         android:onClick="showMyLocation"
         android:padding="8dp"
         android:text="@string/submit_loc" />
+
 
 </LinearLayout>

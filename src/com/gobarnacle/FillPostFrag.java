@@ -19,11 +19,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 
-/**
- * A fragment representing a single Page detail screen. This fragment is either
- * contained in a {@link PageListActivity} in two-pane mode (on tablets) or a
- * {@link PageDetailActivity} on handsets.
- */
 public class FillPostFrag extends Fragment implements
 								ConnectionCallbacks,
 								OnConnectionFailedListener,
@@ -61,7 +56,7 @@ public class FillPostFrag extends Fragment implements
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_fillpost,
 				container, false);
-		mMessageView = (TextView)  rootView.findViewById(R.id.message_text);
+		mMessageView = (TextView)  rootView.findViewById(R.id.route_text);
 
 		return rootView;
 	}

@@ -45,10 +45,11 @@ public class PageDetailActivity extends FragmentActivity {
 						getSupportFragmentManager().beginTransaction()
 								.add(R.id.page_detail_container, fragment).commit();
 						break;
-				default: FillPostFrag fpFragment = new FillPostFrag();
-						fpFragment.setArguments(arguments);
-						getSupportFragmentManager().beginTransaction()
-								.add(R.id.page_detail_container, fpFragment).commit();
+				default: break;
+//				default: FillPostFrag fpFragment = new FillPostFrag();
+//						fpFragment.setArguments(arguments);
+//						getSupportFragmentManager().beginTransaction()
+//								.add(R.id.page_detail_container, fpFragment).commit();
 			}
 		}
 	}

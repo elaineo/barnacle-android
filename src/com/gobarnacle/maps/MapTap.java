@@ -1,4 +1,7 @@
-package com.gobarnacle;
+package com.gobarnacle.maps;
+
+import com.gobarnacle.R;
+import com.gobarnacle.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

@@ -1,5 +1,7 @@
 package com.gobarnacle;
 
+import com.gobarnacle.maps.MapActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

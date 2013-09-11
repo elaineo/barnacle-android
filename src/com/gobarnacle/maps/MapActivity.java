@@ -1,4 +1,4 @@
-package com.gobarnacle;
+package com.gobarnacle.maps;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +24,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gobarnacle.PageDetailActivity;
+import com.gobarnacle.PageListActivity;
+import com.gobarnacle.R;
+import com.gobarnacle.R.id;
+import com.gobarnacle.R.layout;
 import com.gobarnacle.utils.BarnacleClient;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -58,7 +63,7 @@ public class MapActivity extends FragmentActivity implements
     private GoogleMap mMap;
 
     private LocationClient mLocationClient;
-    private TextView mMessageView;	
+    private TextView mRouteView;	
     private static TextView mAddrView;	
 
 	/**
@@ -78,7 +83,7 @@ public class MapActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_sendloc);
-        mMessageView = (TextView) findViewById(R.id.message_text);
+        mRouteView = (TextView) findViewById(R.id.route_text);
         mAddrView = (TextView) findViewById(R.id.addr_text);
     }
 
@@ -156,7 +161,7 @@ public class MapActivity extends FragmentActivity implements
      */
     @Override
     public void onLocationChanged(Location location) {
-        mMessageView.setText("Location = " + location);
+        mRouteView.setText("Location = " + location);
     }
 
     /**
