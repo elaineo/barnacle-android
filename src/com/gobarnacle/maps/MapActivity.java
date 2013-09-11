@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -32,9 +33,12 @@ import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailed
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -47,15 +51,19 @@ public class MapActivity extends FragmentActivity implements
 								ConnectionCallbacks,
 								OnConnectionFailedListener,
 								LocationListener,
-								OnMyLocationButtonClickListener {
+								OnMyLocationButtonClickListener, android.location.LocationListener {
 	
     private static AsyncHttpClient client = new AsyncHttpClient();
 	 
     public final static String TrackUri = "/track/updateloc";
 	public final static String TAG = "MapActivity";
 	public static final String ARG_ITEM_ID = "item_id";
+	public static final Integer ZOOM = 8;
 	
     private GoogleMap mMap;
+    private LocationManager locationManager;
+    private static final long MIN_TIME = 400;
+    private static final float MIN_DISTANCE = 1000;
 
     private LocationClient mLocationClient;
     private TextView mRouteView;	
@@ -90,6 +98,8 @@ public class MapActivity extends FragmentActivity implements
         mMins = (NumberPicker) findViewById(R.id.mininterval);
         mMins.setMaxValue(60);
         mMins.setMinValue(1);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER        
     }
 
     @Override
@@ -162,42 +172,13 @@ public class MapActivity extends FragmentActivity implements
     @Override
     public void onLocationChanged(Location location) {
         mRouteView.setText("Location = " + location);
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
+        mMap.animateCamera(cameraUpdate);
+        locationManager.removeUpdates(this);
     }
 
-    /**
-     * Callback called when connected to GCore. Implementation of {@link ConnectionCallbacks}.
-     */
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        mLocationClient.requestLocationUpdates(
-                REQUEST,
-                this);  // LocationListener
-    }
 
-    /**
-     * Callback called when disconnected from GCore. Implementation of {@link ConnectionCallbacks}.
-     */
-    @Override
-    public void onDisconnected() {
-        // Do nothing
-    }
-
-    /**
-     * Implementation of {@link OnConnectionFailedListener}.
-     */
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        // Do nothing
-    }
-
-    @Override
-    public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
-        return false;
-    }
-    
     public static void getStringFromLocation(final Location loc, final Context context)
             throws ClientProtocolException, IOException, JSONException {
 
@@ -272,5 +253,48 @@ public class MapActivity extends FragmentActivity implements
 	 static void showToastMessage(String message, Context context){
 		  Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 	 }    
-        
-}
+	 @Override
+	 public void onStatusChanged(String provider, int status, Bundle extras) { }
+
+	 @Override
+	 public void onProviderEnabled(String provider) { }
+
+	 @Override
+	 public void onProviderDisabled(String provider) { }
+	    /**
+	     * Callback called when connected to GCore. Implementation of {@link ConnectionCallbacks}.
+	     */
+	    @Override
+	    public void onConnected(Bundle connectionHint) {
+	        mLocationClient.requestLocationUpdates(
+	                REQUEST,
+	                this);  // LocationListener
+	    }
+
+	    /**
+	     * Callback called when disconnected from GCore. Implementation of {@link ConnectionCallbacks}.
+	     */
+	    @Override
+	    public void onDisconnected() {
+	        // Do nothing
+	    }
+
+	    /**
+	     * Implementation of {@link OnConnectionFailedListener}.
+	     */
+	    @Override
+	    public void onConnectionFailed(ConnectionResult result) {
+	        // Do nothing
+	    }
+
+	    @Override
+	    public boolean onMyLocationButtonClick() {
+	        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+	        // Return false so that we don't consume the event and the default behavior still occurs
+	        // (the camera animates to the user's current position).
+	        return false;
+	    }
+	    	 
+}        
+	
+
