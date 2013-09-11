@@ -23,18 +23,19 @@
 	      	android:id="@+id/map0"
 	      	android:layout_width="wrap_content"
 	      	android:layout_height="wrap_content"
-	      	class="com.google.android.gms.maps.SupportMapFragment"/>
-	 	  <TextView
-   				android:id="@+id/addr_text"
-   				android:textAppearance="?android:attr/textAppearanceLarge"
-   				android:layout_width="wrap_content"
-   				android:layout_height="wrap_content"/>      
+	      	class="com.google.android.gms.maps.SupportMapFragment"/> 
    	</FrameLayout>
+   	
     <LinearLayout 
             android:layout_width="fill_parent"
         	android:layout_height="fill_parent"
    			android:weightSum="10"
  			android:orientation="vertical">
+ 	    <TextView
+			android:id="@+id/addr_text"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>     
 		<LinearLayout 
             android:layout_width="match_parent"
         	android:layout_height="0dp"
@@ -86,7 +87,7 @@
         android:id="@+id/location_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="showMyLocation"
+        android:onClick="submitLocation"
         android:padding="8dp"
         android:text="@string/submit_loc" />
     <Button
@@ -94,6 +95,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="submitConfirm"
         android:text="End Drive" />
 	</LinearLayout>
 </LinearLayout>

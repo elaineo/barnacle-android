@@ -60,9 +60,9 @@ public class MapActivity extends FragmentActivity implements
     private LocationClient mLocationClient;
     private TextView mRouteView;	
     private static TextView mAddrView;	
-    private CheckBox mAutoSub;
-    private NumberPicker mMins;
-    private EditText mMsg;
+    private static CheckBox mAutoSub;
+    private static NumberPicker mMins;
+    private static EditText mMsg;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -132,11 +132,11 @@ public class MapActivity extends FragmentActivity implements
     }
 
     /**
-     * Button to get current Location. This demonstrates how to get the current Location as required
-     * without needing to register a LocationListener.
+     * Button to submit Location. 
+     * @throws ClientProtocolException 
      * @throws IOException 
      */
-    public void showMyLocation(View view) {
+    public void submitLocation(View view) throws ClientProtocolException, IOException {
         if (mLocationClient != null && mLocationClient.isConnected()) {
         	Location lastLoc = mLocationClient.getLastLocation();
 
@@ -144,8 +144,8 @@ public class MapActivity extends FragmentActivity implements
         	Context context = this.getApplicationContext();
 			
 			try {
-				//getStringFromLocation(lastLoc.getLatitude(), lastLoc.getLongitude());
-				submitLocation(lastLoc, context);
+				getStringFromLocation(lastLoc, context);
+				// updateLocation(lastLoc, context);
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -153,11 +153,6 @@ public class MapActivity extends FragmentActivity implements
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-        	
-    
- 
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -203,38 +198,56 @@ public class MapActivity extends FragmentActivity implements
         return false;
     }
     
-    public static void getStringFromLocation(double lat, double lng)
+    public static void getStringFromLocation(final Location loc, final Context context)
             throws ClientProtocolException, IOException, JSONException {
 
+    	
         String address = String
-                .format(Locale.ENGLISH,                                 "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language="
-                                + Locale.getDefault().getCountry(), lat, lng);
+                .format(Locale.ENGLISH, "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language="
+                                + Locale.getDefault().getCountry(), loc.getLatitude(), loc.getLongitude());
         
-	    client.get(address, null, new JsonHttpResponseHandler() {
+        client.get(address, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject response) {
                 String status;
                 String indiStr;
+                Log.d(TAG, response.toString());
 				try {
 					status = response.getString("status");
-					Log.d(TAG, status);
 		            if ("OK".equalsIgnoreCase(status)) {
 		                JSONArray results = response.getJSONArray("results");
 	                    indiStr = results.getJSONObject(0).getString("formatted_address");
 	                    mAddrView.setText(indiStr);
 	                }			        
+		            updateLocation(loc,context);
 				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
 	    });
     }    
-    public static void submitLocation(Location loc, final Context context) throws JSONException, UnsupportedEncodingException {
+    public static void updateLocation(Location loc, final Context context) throws JSONException, UnsupportedEncodingException {
     	
     	JSONObject locParams = new JSONObject();
     	locParams.put("lat",loc.getLatitude());
     	locParams.put("lon",loc.getLongitude());
+    	
+    	String locstr = (String) mAddrView.getText();
+    	locParams.put("locstr",locstr);
+    	String msg = mMsg.getText().toString();
+    	locParams.put("msg",msg);
+    	Integer mins = mMins.getValue();
+    	locParams.put("mins",mins);
+    	Boolean auto = mAutoSub.isChecked();
+    	if (auto)
+    		locParams.put("auto", 1);
+    	else
+    		locParams.put("auto",0);
+    	
     	BarnacleClient.postJSON(context, TrackUri, locParams, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject response) {
