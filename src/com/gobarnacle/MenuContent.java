@@ -13,12 +13,9 @@ public class MenuContent {
 	public static Map<String, MenuItem> ITEM_MAP = new HashMap<String, MenuItem>();
 
 	static {
-		addItem(new MenuItem("1", "Search"));
-		addItem(new MenuItem("2", "Add Route"));
-		addItem(new MenuItem("3", "Send It"));
-		addItem(new MenuItem("4", "Account"));
-		addItem(new MenuItem("5", "My Reservations"));
-		addItem(new MenuItem("6", "Logout"));
+		addItem(new MenuItem("1", "Create Route"));
+		addItem(new MenuItem("2", "Track Drive"));
+		addItem(new MenuItem("3", "Manage Routes"));
 	}
 
 	private static void addItem(MenuItem item) {

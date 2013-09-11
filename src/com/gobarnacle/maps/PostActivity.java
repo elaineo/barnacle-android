@@ -17,9 +17,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.NumberPicker;
+import android.widget.DatePicker;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +35,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -47,10 +47,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * contained in a {@link PageListActivity} in two-pane mode (on tablets) or a
  * {@link PageDetailActivity} on handsets.
  */
-public class MapActivity extends FragmentActivity implements
+public class PostActivity extends FragmentActivity implements
 								ConnectionCallbacks,
 								OnConnectionFailedListener,
-								LocationListener,
+								LocationListener,  OnMapClickListener,
 								OnMyLocationButtonClickListener, android.location.LocationListener {
 	
     private static AsyncHttpClient client = new AsyncHttpClient();
@@ -66,17 +66,19 @@ public class MapActivity extends FragmentActivity implements
     private static final float MIN_DISTANCE = 1000;
 
     private LocationClient mLocationClient;
-    private TextView mRouteView;	
-    private static TextView mAddrView;	
-    private static CheckBox mAutoSub;
-    private static NumberPicker mMins;
-    private static EditText mMsg;
+    private TextView mLocStart;
+    private TextView mLocEnd;
+    private static TextView mTapped;	
+    private static TextView mAddr;	
+    private static RadioGroup mStartSel;
+    private static DatePicker mDate;
+    
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
 	 */
-	public MapActivity() {
+	public PostActivity() {
 	}
     // These settings are the same as the settings for the map. They will in fact give you updates
     // at the maximal rates currently possible.
@@ -88,17 +90,15 @@ public class MapActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_sendloc);
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
-        mRouteView = (TextView) findViewById(R.id.route_text);
-        //mRouteView.setText("Location = " + location);
-        mAddrView = (TextView) findViewById(R.id.addr_text);
-        
-        mAutoSub = (CheckBox) findViewById(R.id.auto_submit);
-        mMsg = (EditText) findViewById(R.id.msg_text);
-        mMins = (NumberPicker) findViewById(R.id.mininterval);
-        mMins.setMaxValue(60);
-        mMins.setMinValue(1);
+        setContentView(R.layout.fragment_fillpost);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);         
+
+        mDate = (DatePicker) findViewById(R.id.arrival_date);
+        mLocStart = (TextView) findViewById(R.id.locstart);
+        mLocEnd = (TextView) findViewById(R.id.locend);
+        mTapped = (TextView) findViewById(R.id.tapped_text);
+        mAddr = (TextView) findViewById(R.id.tapped_addr);
+        mStartSel = (RadioGroup) findViewById(R.id.startsel);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER        
     }
@@ -109,6 +109,7 @@ public class MapActivity extends FragmentActivity implements
         setUpMapIfNeeded();
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
+
     }
 
     @Override
@@ -123,7 +124,7 @@ public class MapActivity extends FragmentActivity implements
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map0))
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maptap))
                     .getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
@@ -172,10 +173,13 @@ public class MapActivity extends FragmentActivity implements
      */
     @Override
     public void onLocationChanged(Location location) {
-
     }
 
-
+    @Override
+    public void onMapClick(LatLng point) {
+        mTapped.setText("tapped, point=" + point);
+    }
+    
     public static void getStringFromLocation(final Location loc, final Context context)
             throws ClientProtocolException, IOException, JSONException {
 
@@ -195,7 +199,7 @@ public class MapActivity extends FragmentActivity implements
 		            if ("OK".equalsIgnoreCase(status)) {
 		                JSONArray results = response.getJSONArray("results");
 	                    indiStr = results.getJSONObject(0).getString("formatted_address");
-	                    mAddrView.setText(indiStr);
+	                    mTapped.setText(indiStr);
 	                }			        
 		            updateLocation(loc,context);
 				} catch (JSONException e) {
@@ -213,13 +217,7 @@ public class MapActivity extends FragmentActivity implements
     	JSONObject locParams = new JSONObject();
     	locParams.put("lat",loc.getLatitude());
     	locParams.put("lon",loc.getLongitude());
-    	
-    	String locstr = (String) mAddrView.getText();
-    	locParams.put("locstr",locstr);
-    	String msg = mMsg.getText().toString();
-    	locParams.put("msg",msg);
-    	Integer mins = mMins.getValue();
-    	Boolean auto = mAutoSub.isChecked();
+
     	
     	BarnacleClient.postJSON(context, TrackUri, locParams, new JsonHttpResponseHandler() {
             @Override
@@ -290,7 +288,7 @@ public class MapActivity extends FragmentActivity implements
 	        // Return false so that we don't consume the event and the default behavior still occurs
 	        // (the camera animates to the user's current position).
 	        return false;
-	    }
+	    }	    
 	    	 
 }        
 	

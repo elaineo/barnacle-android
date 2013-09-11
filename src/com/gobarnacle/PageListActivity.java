@@ -1,11 +1,12 @@
 package com.gobarnacle;
 
-import com.gobarnacle.maps.MapActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+
+import com.gobarnacle.maps.MapActivity;
+import com.gobarnacle.maps.PostActivity;
 
 
 /**
@@ -61,40 +62,19 @@ public class PageListActivity extends FragmentActivity implements
 	 */
 	@Override
 	public void onItemSelected(String id) {
-		int pageId;
+		Intent detailIntent;
+
 		int Id = Integer.parseInt(id);
 		switch (Id) {
-			case 1: pageId = R.id.page_detail_container; 
+			case 1: detailIntent = new Intent(this, PostActivity.class); 
 					break;
-			default: pageId = R.id.page_detail_container;						
-		}
-			
+			case 3: detailIntent = new Intent(this, ManageActivity.class); 
+					break;
+			default: detailIntent = new Intent(this, MapActivity.class);
+		}										
+
+		detailIntent.putExtra(PageDetailFragment.ARG_ITEM_ID, id);
+		startActivity(detailIntent);
 		
-		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(PageDetailFragment.ARG_ITEM_ID, id);
-			PageDetailFragment fragment = new PageDetailFragment();
-			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.replace(pageId, fragment).commit();
-			
-//			FillPostFrag fragment = new FillPostFrag();
-
-			Log.i(TAG, id+" 2pane");
-			
-
-		} else {
-			// In single-pane mode, simply start the detail activity
-			// for the selected item ID.
-			Log.i(TAG, id+" 1pane");
-			
-			Intent detailIntent = new Intent(this, MapActivity.class);
-			//Intent detailIntent = new Intent(this, PageDetailActivity.class);
-			detailIntent.putExtra(PageDetailFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
-		}
 	}
 }

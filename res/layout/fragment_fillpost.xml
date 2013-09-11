@@ -1,82 +1,155 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/page_fillpost"
+    android:id="@+id/fragment_sendloc"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dip"
-    tools:context=".FillPostFrag" >
+    tools:context=".PostActivity" >
 
     <!-- origin and destination -->
-	<include android:id="@+id/postmap0" android:layout_width="256dip"  layout="@layout/maptap" />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/start"
-        android:textColor="#372c24" />
-
-    <EditText
-        android:id="@+id/StartLoc"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dip"
-        android:layout_marginTop="5dip"
-        android:inputType="textPostalAddress"
-        android:singleLine="true" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dest"
+        android:text="Create Route"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#372c24" />
+	<LinearLayout 
+	    android:orientation="horizontal" 
+	    android:layout_height="fill_parent"
+	    android:layout_width="wrap_content">
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Start" />
+	    <RadioGroup
+    		android:id="@+id/startsel"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content" >
+	    <RadioButton
+	        android:id="@+id/startsel0"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:checked="true"
+	        android:text="Use Current Location" />
+	    <RadioButton
+	        android:id="@+id/startsel1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Tap on Map to Select Location" />
+   	    <TextView
+   	        android:id="@+id/locstart" 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+		</RadioGroup>
+	</LinearLayout>
+	<LinearLayout 
+	    android:orientation="horizontal" 
+	    android:layout_height="fill_parent"
+	    android:layout_width="wrap_content">
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Destination" />
+   	    <TextView
+   	        android:id="@+id/locend" 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	</LinearLayout>    
+    <FrameLayout
+        android:id="@+id/map_frame"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.1"
+        android:padding="10dip" >
 
-    <EditText
-        android:id="@+id/DestLoc"
+        <fragment
+            android:id="@+id/maptap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="com.google.android.gms.maps.SupportMapFragment" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="10" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+	        <TextView
+	            android:id="@+id/tapped_text"
+	            android:gravity="center_horizontal"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	        <TextView
+	            android:id="@+id/tapped_addr"
+	            android:gravity="center_horizontal"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+		</LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:orientation="horizontal" >
+        	<TextView
+	            android:text="set to "
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	        <Button
+	            style="?android:attr/buttonStyleSmall"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:onClick="setStartLocation"
+	            android:enabled="false"
+	            android:text="start" />
+	        <Button
+	            style="?android:attr/buttonStyleSmall"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:onClick="setDestLocation"
+	            android:enabled="false"
+	            android:text="destination" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+        <TextView
+	            android:text="Arrival Date: "
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	    <DatePicker
+	        android:id="@+id/arrival_date"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+        android:calendarViewShown="false" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dip"
-        android:layout_marginTop="5dip"
-        android:inputType="textPostalAddress"
-        android:singleLine="true" />
-    <CheckedTextView
-        android:id="@+id/repeatr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/roundt" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-    <DatePicker
-        android:id="@+id/datePicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <RadioButton
-            android:id="@+id/repeat0"
+        <Button
+            android:id="@+id/location_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/repeatno" />
-        <RadioButton
-            android:id="@+id/repeat1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/repeatr1" />
-        <RadioButton
-            android:id="@+id/repeat2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/repeatr2" />
-    </RadioGroup>
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:text="@string/submit" />
-    
+            android:gravity="center"
+            android:onClick="submitLocation"
+            android:padding="8dp"
+            android:text="@string/submit_loc" />
+
+    </LinearLayout>
+
 </LinearLayout>

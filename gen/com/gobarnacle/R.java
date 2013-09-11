@@ -379,12 +379,10 @@ containing a value of this type.
         public static final int ic_launcher=0x7f02003b;
     }
     public static final class id {
-        public static final int DestLoc=0x7f050022;
-        public static final int StartLoc=0x7f050021;
-        public static final int addr_text=0x7f05002f;
-        public static final int auto_submit=0x7f050030;
-        public static final int btnLogin=0x7f050036;
-        public static final int btnSubmit=0x7f050029;
+        public static final int addr_text=0x7f05002e;
+        public static final int arrival_date=0x7f050029;
+        public static final int auto_submit=0x7f05002f;
+        public static final int btnLogin=0x7f050034;
         public static final int com_facebook_login_activity_progress_bar=0x7f05000c;
         public static final int com_facebook_picker_activity_circle=0x7f05000b;
         public static final int com_facebook_picker_checkbox=0x7f05000e;
@@ -405,35 +403,34 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_login_button=0x7f05001e;
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f05001c;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f05001d;
-        public static final int datePicker1=0x7f050024;
-        public static final int end_btn=0x7f050034;
+        public static final int end_btn=0x7f050032;
         public static final int footer=0x7f050008;
-        public static final int fragment_sendloc=0x7f05002b;
-        public static final int header=0x7f050035;
+        public static final int fragment_sendloc=0x7f05001f;
+        public static final int header=0x7f050033;
         public static final int hybrid=0x7f050004;
         public static final int large=0x7f050006;
-        public static final int location_btn=0x7f050033;
-        public static final int map0=0x7f05002e;
-        public static final int map_container=0x7f050037;
-        public static final int map_frame=0x7f05002d;
-        public static final int mininterval=0x7f050031;
-        public static final int msg_text=0x7f050032;
+        public static final int location_btn=0x7f05002a;
+        public static final int locend=0x7f050024;
+        public static final int locstart=0x7f050023;
+        public static final int map0=0x7f05002d;
+        public static final int map_frame=0x7f050025;
+        public static final int maptap=0x7f050026;
+        public static final int mininterval=0x7f050030;
+        public static final int msg_text=0x7f050031;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int page_detail=0x7f05002a;
+        public static final int page_detail=0x7f05002b;
         public static final int page_detail_container=0x7f050007;
-        public static final int page_fillpost=0x7f05001f;
         public static final int page_list=0x7f050009;
         public static final int picker_subtitle=0x7f050019;
-        public static final int postmap0=0x7f050020;
-        public static final int radioGroup1=0x7f050025;
-        public static final int repeat0=0x7f050026;
-        public static final int repeat1=0x7f050027;
-        public static final int repeat2=0x7f050028;
-        public static final int repeatr=0x7f050023;
         public static final int route_text=0x7f05002c;
         public static final int satellite=0x7f050002;
         public static final int small=0x7f050005;
+        public static final int startsel=0x7f050020;
+        public static final int startsel0=0x7f050021;
+        public static final int startsel1=0x7f050022;
+        public static final int tapped_addr=0x7f050028;
+        public static final int tapped_text=0x7f050027;
         public static final int terrain=0x7f050003;
     }
     public static final class layout {
@@ -459,8 +456,6 @@ containing a value of this type.
         public static final int fragment_page_detail=0x7f030013;
         public static final int fragment_sendloc=0x7f030014;
         public static final int login=0x7f030015;
-        public static final int maploc=0x7f030016;
-        public static final int maptap=0x7f030017;
     }
     public static final class string {
         public static final int app_id=0x7f06003e;

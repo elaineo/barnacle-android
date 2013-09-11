@@ -1,4 +1,4 @@
-package com.gobarnacle.maps;
+package com.gobarnacle;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -23,8 +23,6 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gobarnacle.PageDetailActivity;
-import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
 import com.gobarnacle.utils.BarnacleClient;
 import com.google.android.gms.common.ConnectionResult;
@@ -47,7 +45,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * contained in a {@link PageListActivity} in two-pane mode (on tablets) or a
  * {@link PageDetailActivity} on handsets.
  */
-public class MapActivity extends FragmentActivity implements
+public class ManageActivity extends FragmentActivity implements
 								ConnectionCallbacks,
 								OnConnectionFailedListener,
 								LocationListener,
@@ -76,7 +74,7 @@ public class MapActivity extends FragmentActivity implements
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
 	 */
-	public MapActivity() {
+	public ManageActivity() {
 	}
     // These settings are the same as the settings for the map. They will in fact give you updates
     // at the maximal rates currently possible.
@@ -172,7 +170,10 @@ public class MapActivity extends FragmentActivity implements
      */
     @Override
     public void onLocationChanged(Location location) {
-
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
+        mMap.animateCamera(cameraUpdate);
+        locationManager.removeUpdates(this);
     }
 
 
@@ -261,11 +262,6 @@ public class MapActivity extends FragmentActivity implements
 	        mLocationClient.requestLocationUpdates(
 	                REQUEST,
 	                this);  // LocationListener
-	        Location location = mLocationClient.getLastLocation();
-	        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-	        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
-	        mMap.animateCamera(cameraUpdate);
-	        locationManager.removeUpdates(this);
 	    }
 
 	    /**
