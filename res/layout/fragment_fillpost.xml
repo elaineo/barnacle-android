@@ -24,7 +24,6 @@
 	        android:layout_height="wrap_content"
 	        android:text="Start" />
 	    <RadioGroup
-    		android:id="@+id/startsel"
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content" >
 	    <RadioButton
@@ -32,11 +31,13 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:checked="true"
+	        android:onClick="onStartSelClicked"
 	        android:text="Use Current Location" />
 	    <RadioButton
 	        android:id="@+id/startsel1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:onClick="onStartSelClicked"
 	        android:text="Tap on Map to Select Location" />
    	    <TextView
    	        android:id="@+id/locstart" 
@@ -103,6 +104,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
 	        <Button
+	            android:id="@+id/set_start_btn"
 	            style="?android:attr/buttonStyleSmall"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
@@ -110,6 +112,7 @@
 	            android:enabled="false"
 	            android:text="start" />
 	        <Button
+	            android:id="@+id/set_dest_btn"
 	            style="?android:attr/buttonStyleSmall"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
@@ -142,11 +145,12 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/location_btn"
+            android:id="@+id/post_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:onClick="submitLocation"
+            android:onClick="submitPost"
+            android:enabled="false"
             android:padding="8dp"
             android:text="@string/submit_loc" />
 

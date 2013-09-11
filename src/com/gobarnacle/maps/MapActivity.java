@@ -57,7 +57,6 @@ public class MapActivity extends FragmentActivity implements
 	 
     public final static String TrackUri = "/track/updateloc";
 	public final static String TAG = "MapActivity";
-	public static final String ARG_ITEM_ID = "item_id";
 	public static final Integer ZOOM = 8;
 	
     private GoogleMap mMap;

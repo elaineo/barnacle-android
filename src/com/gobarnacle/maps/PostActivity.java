@@ -17,8 +17,9 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.RadioGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,10 +56,13 @@ public class PostActivity extends FragmentActivity implements
 	
     private static AsyncHttpClient client = new AsyncHttpClient();
 	 
-    public final static String TrackUri = "/track/updateloc";
-	public final static String TAG = "MapActivity";
-	public static final String ARG_ITEM_ID = "item_id";
+    public final static String PostUri = "/track/create";
+	public final static String TAG = "PostActivity";
 	public static final Integer ZOOM = 8;
+	
+	private Boolean startSel = false;
+	private double startLat, startLon, destLat, destLon;
+	private LatLng lastTapped;
 	
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -69,9 +73,10 @@ public class PostActivity extends FragmentActivity implements
     private TextView mLocStart;
     private TextView mLocEnd;
     private static TextView mTapped;	
-    private static TextView mAddr;	
-    private static RadioGroup mStartSel;
+    private TextView mAddr;	
     private static DatePicker mDate;
+    private Button mStartBtn, mDestBtn;
+    private Button mPostBtn;
     
 
 	/**
@@ -94,11 +99,16 @@ public class PostActivity extends FragmentActivity implements
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);         
 
         mDate = (DatePicker) findViewById(R.id.arrival_date);
+        mDate.setMinDate(System.currentTimeMillis() - 1000);
+        
         mLocStart = (TextView) findViewById(R.id.locstart);
         mLocEnd = (TextView) findViewById(R.id.locend);
         mTapped = (TextView) findViewById(R.id.tapped_text);
         mAddr = (TextView) findViewById(R.id.tapped_addr);
-        mStartSel = (RadioGroup) findViewById(R.id.startsel);
+        mStartBtn = (Button) findViewById(R.id.set_start_btn);
+        mDestBtn = (Button) findViewById(R.id.set_dest_btn); 
+        mPostBtn = (Button) findViewById(R.id.post_btn); 
+        
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER        
     }
@@ -130,6 +140,7 @@ public class PostActivity extends FragmentActivity implements
             if (mMap != null) {
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
+                mMap.setOnMapClickListener(this);
             }
         }
     }
@@ -143,29 +154,45 @@ public class PostActivity extends FragmentActivity implements
         }
     }
 
-    /**
-     * Button to submit Location. 
+    /** 
      * @throws ClientProtocolException 
      * @throws IOException 
+     * @throws JSONException 
      */
-    public void submitLocation(View view) throws ClientProtocolException, IOException {
-        if (mLocationClient != null && mLocationClient.isConnected()) {
-        	Location lastLoc = mLocationClient.getLastLocation();
-
-        	String msg = "Location = " + lastLoc;
-        	Context context = this.getApplicationContext();
-			
-			try {
-				getStringFromLocation(lastLoc, context);
-				// updateLocation(lastLoc, context);
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        }
+    public void submitPost(View view) throws ClientProtocolException, IOException, JSONException {
+    	final Context context = this.getApplicationContext();
+    	JSONObject postParams = new JSONObject();
+    	
+    	postParams.put("startlat",startLat); 
+    	postParams.put("startlon",startLon);
+    	postParams.put("destlat",destLat);
+    	postParams.put("destlon",destLon);
+    	postParams.put("locstart",mLocStart.getText());
+    	postParams.put("locend",mLocEnd.getText());
+    	
+    	postParams.put("delivday",mDate.getDayOfMonth());
+    	postParams.put("delivmonth",mDate.getMonth());
+    	postParams.put("delivyear",mDate.getYear());
+    	    	
+    	BarnacleClient.postJSON(context, PostUri, postParams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                String status;
+				try {
+					status = response.getString("status");
+					Log.d(TAG, status);
+			        if (status.equals("ok")) {
+			        	showToastMessage("Route Created.", context);
+			        	// redirect to share page
+			        } else {
+			        	showToastMessage("Route failed.", context);
+			        }
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+        });				
     }
 
     /**
@@ -177,69 +204,82 @@ public class PostActivity extends FragmentActivity implements
 
     @Override
     public void onMapClick(LatLng point) {
-        mTapped.setText("tapped, point=" + point);
+    	Log.d(TAG, "tapped");
+        mTapped.setText("" + point);
+        lastTapped = point;
+        if (startSel)
+        	mStartBtn.setEnabled(true);
+        mDestBtn.setEnabled(true);
+        try {
+			getStringFromLatLng(point, mAddr);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
-    public static void getStringFromLocation(final Location loc, final Context context)
+    public static void getStringFromLatLng(final LatLng loc, final TextView addr)
             throws ClientProtocolException, IOException, JSONException {
-
     	
         String address = String
                 .format(Locale.ENGLISH, "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language="
-                                + Locale.getDefault().getCountry(), loc.getLatitude(), loc.getLongitude());
-        
+                                + Locale.getDefault().getCountry(), loc.latitude, loc.longitude);
+        addr.setText(" " +loc);
         client.get(address, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject response) {
                 String status;
                 String indiStr;
-                Log.d(TAG, response.toString());
+
 				try {
 					status = response.getString("status");
 		            if ("OK".equalsIgnoreCase(status)) {
 		                JSONArray results = response.getJSONArray("results");
 	                    indiStr = results.getJSONObject(0).getString("formatted_address");
-	                    mTapped.setText(indiStr);
+	                    addr.setText(indiStr);
 	                }			        
-		            updateLocation(loc,context);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
 	    });
     }    
-    public static void updateLocation(Location loc, final Context context) throws JSONException, UnsupportedEncodingException {
-    	
-    	JSONObject locParams = new JSONObject();
-    	locParams.put("lat",loc.getLatitude());
-    	locParams.put("lon",loc.getLongitude());
 
-    	
-    	BarnacleClient.postJSON(context, TrackUri, locParams, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                String status;
-				try {
-					status = response.getString("status");
-					Log.d(TAG, status);
-			        if (status.equals("ok")) {
-				      	// drop marker
-			        	showToastMessage("Location updated at Barnacle.", context);
-			        } else {
-			        	showToastMessage("Barnacle login failed.", context);
-			        }
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-        });		
-    	
-    }    
+    public void setStartLocation(View view) {
+    	mLocStart.setText(mAddr.getText());
+    	startLat = lastTapped.latitude;
+    	startLon = lastTapped.longitude;
+    }	        
+    public void setDestLocation(View view) {
+    	mLocEnd.setText(mAddr.getText());
+    	destLat = lastTapped.latitude;
+    	destLon = lastTapped.longitude;
+    	mPostBtn.setEnabled(true);
+    }	            
+    public void onStartSelClicked(View view) {
+    	boolean checked = ((RadioButton) view).isChecked();
+        
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.startsel0:
+                if (checked) {
+                	startSel=false;
+                	mStartBtn.setEnabled(false);
+                }
+                break;
+            case R.id.startsel1:
+                if (checked)
+                	startSel=true;
+                break;
+        }
+    }	            
 	 static void showToastMessage(String message, Context context){
 		  Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 	 }    
@@ -264,6 +304,19 @@ public class PostActivity extends FragmentActivity implements
 	        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
 	        mMap.animateCamera(cameraUpdate);
 	        locationManager.removeUpdates(this);
+	        Log.d(TAG,""+latLng);
+			try {
+				getStringFromLatLng(latLng, mLocStart);
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    }
 
 	    /**
@@ -285,8 +338,6 @@ public class PostActivity extends FragmentActivity implements
 	    @Override
 	    public boolean onMyLocationButtonClick() {
 	        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-	        // Return false so that we don't consume the event and the default behavior still occurs
-	        // (the camera animates to the user's current position).
 	        return false;
 	    }	    
 	    	 
