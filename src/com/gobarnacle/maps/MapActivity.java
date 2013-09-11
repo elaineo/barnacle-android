@@ -1,16 +1,10 @@
 package com.gobarnacle.maps;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,14 +15,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gobarnacle.PageDetailActivity;
 import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
-import com.gobarnacle.R.id;
-import com.gobarnacle.R.layout;
 import com.gobarnacle.utils.BarnacleClient;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -39,7 +35,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -65,6 +60,9 @@ public class MapActivity extends FragmentActivity implements
     private LocationClient mLocationClient;
     private TextView mRouteView;	
     private static TextView mAddrView;	
+    private CheckBox mAutoSub;
+    private NumberPicker mMins;
+    private EditText mMsg;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -83,8 +81,15 @@ public class MapActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_sendloc);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
         mRouteView = (TextView) findViewById(R.id.route_text);
         mAddrView = (TextView) findViewById(R.id.addr_text);
+        
+        mAutoSub = (CheckBox) findViewById(R.id.auto_submit);
+        mMsg = (EditText) findViewById(R.id.msg_text);
+        mMins = (NumberPicker) findViewById(R.id.mininterval);
+        mMins.setMaxValue(60);
+        mMins.setMinValue(1);
     }
 
     @Override
