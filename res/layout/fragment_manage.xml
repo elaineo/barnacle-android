@@ -43,5 +43,6 @@
  	<ListView
 	  android:id="@+id/listrview"
 	  android:layout_width="fill_parent"
-	  android:layout_height="fill_parent" />
+	  android:layout_height="fill_parent" 
+	  android:layout_below="@id/tbl_head"/>
   </RelativeLayout> 

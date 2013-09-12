@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_track"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+  	android:orientation="vertical"
+    android:padding="10dip">	
+  		<!--  Header  Starts-->
+</WebView>

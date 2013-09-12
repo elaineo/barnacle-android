@@ -440,6 +440,7 @@ containing a value of this type.
         public static final int tapped_text=0x7f050026;
         public static final int tbl_head=0x7f05002d;
         public static final int terrain=0x7f050003;
+        public static final int view_track=0x7f05003d;
     }
     public static final class layout {
         public static final int activity_page_detail=0x7f030000;
@@ -466,6 +467,7 @@ containing a value of this type.
         public static final int fragment_sendloc=0x7f030015;
         public static final int login=0x7f030016;
         public static final int manage_list=0x7f030017;
+        public static final int view_track=0x7f030018;
     }
     public static final class string {
         public static final int app_id=0x7f060042;

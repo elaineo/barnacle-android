@@ -1,42 +1,20 @@
 package com.gobarnacle;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Locale;
 
-import org.apache.http.client.ClientProtocolException;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.EditText;
+import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.RouteLinkAdapter;
-import com.gobarnacle.utils.Tools;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /* Manage Routes */
 public class ManageActivity extends FragmentActivity {
@@ -71,13 +49,26 @@ public class ManageActivity extends FragmentActivity {
         RouteLinkAdapter adapter = new RouteLinkAdapter(this, routes);
 	    listview.setAdapter(adapter);    
 	    
-	    // set click listener
+	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+	        @Override
+	        public void onItemClick(AdapterView<?> parent, final View view,
+	            int position, long id) {
+        	  setContentView(R.layout.view_track);
+	          Route item = (Route) parent.getItemAtPosition(position);
+	          Log.d(TAG,item.URL());
+	          callTrackingPage(item.URL());
+	        }
+
+	      });	
         
 
     }
 
-    public void callTrackingPage(Route r) {
+    public void callTrackingPage(String url) {
     	// load up webview
+    	WebView myWebView = (WebView) findViewById(R.id.view_track);
+    	myWebView.loadUrl(url);
     }
 
 }        
