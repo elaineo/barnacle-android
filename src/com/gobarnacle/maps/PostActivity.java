@@ -1,7 +1,6 @@
 package com.gobarnacle.maps;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 import org.apache.http.client.ClientProtocolException;
@@ -27,6 +26,7 @@ import com.gobarnacle.PageDetailActivity;
 import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
 import com.gobarnacle.utils.BarnacleClient;
+import com.gobarnacle.utils.Tools;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -170,9 +170,8 @@ public class PostActivity extends FragmentActivity implements
     	postParams.put("locstart",mLocStart.getText());
     	postParams.put("locend",mLocEnd.getText());
     	
-    	postParams.put("delivday",mDate.getDayOfMonth());
-    	postParams.put("delivmonth",mDate.getMonth());
-    	postParams.put("delivyear",mDate.getYear());
+    	Log.d("YEAR", ""+mDate.getYear());
+    	postParams.put("delivend",mDate.getMonth() + "/" + mDate.getDayOfMonth()+"/" + mDate.getYear());
     	    	
     	BarnacleClient.postJSON(context, PostUri, postParams, new JsonHttpResponseHandler() {
             @Override
@@ -182,10 +181,10 @@ public class PostActivity extends FragmentActivity implements
 					status = response.getString("status");
 					Log.d(TAG, status);
 			        if (status.equals("ok")) {
-			        	showToastMessage("Route Created.", context);
+			        	Tools.showToast("Route Created.", context);
 			        	// redirect to share page
 			        } else {
-			        	showToastMessage("Route failed.", context);
+			        	Tools.showToast("Route failed.", context);
 			        }
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -280,9 +279,7 @@ public class PostActivity extends FragmentActivity implements
                 break;
         }
     }	            
-	 static void showToastMessage(String message, Context context){
-		  Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-	 }    
+
 	 @Override
 	 public void onStatusChanged(String provider, int status, Bundle extras) { }
 
@@ -305,6 +302,8 @@ public class PostActivity extends FragmentActivity implements
 	        mMap.animateCamera(cameraUpdate);
 	        locationManager.removeUpdates(this);
 	        Log.d(TAG,""+latLng);
+	        startLat = latLng.latitude;
+	        startLon = latLng.longitude;
 			try {
 				getStringFromLatLng(latLng, mLocStart);
 			} catch (ClientProtocolException e) {

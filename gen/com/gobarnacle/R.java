@@ -379,10 +379,10 @@ containing a value of this type.
         public static final int ic_launcher=0x7f02003b;
     }
     public static final class id {
-        public static final int addr_text=0x7f05002f;
+        public static final int addr_text=0x7f050032;
         public static final int arrival_date=0x7f05002a;
-        public static final int auto_submit=0x7f050030;
-        public static final int btnLogin=0x7f050036;
+        public static final int auto_submit=0x7f050033;
+        public static final int btnLogin=0x7f050039;
         public static final int com_facebook_login_activity_progress_bar=0x7f05000c;
         public static final int com_facebook_picker_activity_circle=0x7f05000b;
         public static final int com_facebook_picker_checkbox=0x7f05000e;
@@ -403,36 +403,42 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_login_button=0x7f05001e;
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f05001c;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f05001d;
-        public static final int end_btn=0x7f050034;
+        public static final int date=0x7f05003c;
+        public static final int dest=0x7f05003b;
+        public static final int end_btn=0x7f050037;
         public static final int footer=0x7f050008;
+        public static final int fragment_manage=0x7f05002c;
         public static final int fragment_sendloc=0x7f05001f;
-        public static final int header=0x7f050035;
+        public static final int header=0x7f050038;
         public static final int hybrid=0x7f050004;
         public static final int large=0x7f050006;
-        public static final int location_btn=0x7f050033;
+        public static final int listrview=0x7f05002e;
+        public static final int location_btn=0x7f050036;
         public static final int locend=0x7f050023;
         public static final int locstart=0x7f050022;
-        public static final int map0=0x7f05002e;
+        public static final int map0=0x7f050031;
         public static final int map_frame=0x7f050024;
         public static final int maptap=0x7f050025;
-        public static final int mininterval=0x7f050031;
-        public static final int msg_text=0x7f050032;
+        public static final int mininterval=0x7f050034;
+        public static final int msg_text=0x7f050035;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int page_detail=0x7f05002c;
+        public static final int page_detail=0x7f05002f;
         public static final int page_detail_container=0x7f050007;
         public static final int page_list=0x7f050009;
         public static final int picker_subtitle=0x7f050019;
         public static final int post_btn=0x7f05002b;
-        public static final int route_text=0x7f05002d;
+        public static final int route_text=0x7f050030;
         public static final int satellite=0x7f050002;
         public static final int set_dest_btn=0x7f050029;
         public static final int set_start_btn=0x7f050028;
         public static final int small=0x7f050005;
+        public static final int start=0x7f05003a;
         public static final int startsel0=0x7f050020;
         public static final int startsel1=0x7f050021;
         public static final int tapped_addr=0x7f050027;
         public static final int tapped_text=0x7f050026;
+        public static final int tbl_head=0x7f05002d;
         public static final int terrain=0x7f050003;
     }
     public static final class layout {
@@ -455,13 +461,15 @@ containing a value of this type.
         public static final int com_facebook_search_bar_layout=0x7f030010;
         public static final int com_facebook_usersettingsfragment=0x7f030011;
         public static final int fragment_fillpost=0x7f030012;
-        public static final int fragment_page_detail=0x7f030013;
-        public static final int fragment_sendloc=0x7f030014;
-        public static final int login=0x7f030015;
+        public static final int fragment_manage=0x7f030013;
+        public static final int fragment_page_detail=0x7f030014;
+        public static final int fragment_sendloc=0x7f030015;
+        public static final int login=0x7f030016;
+        public static final int manage_list=0x7f030017;
     }
     public static final class string {
-        public static final int app_id=0x7f06003e;
-        public static final int app_name=0x7f06003d;
+        public static final int app_id=0x7f060042;
+        public static final int app_name=0x7f060041;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -485,7 +493,7 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f06000f;
-        public static final int capacity=0x7f060039;
+        public static final int capacity=0x7f06003d;
         public static final int com_facebook_choose_friends=0x7f060024;
         public static final int com_facebook_dialogloginactivity_ok_button=0x7f060015;
         public static final int com_facebook_internet_permission_error_message=0x7f060028;
@@ -566,23 +574,27 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06000e;
-        public static final int dest=0x7f060031;
-        public static final int details=0x7f06003a;
-        public static final int enddate=0x7f060033;
-        public static final int fillpost_head=0x7f06002f;
-        public static final int imgFooterDesc=0x7f06003f;
-        public static final int imgLogoDesc=0x7f060040;
-        public static final int repeat=0x7f060035;
-        public static final int repeatno=0x7f060036;
-        public static final int repeatr1=0x7f060037;
-        public static final int repeatr2=0x7f060038;
-        public static final int roundt=0x7f060034;
-        public static final int share=0x7f06003c;
-        public static final int start=0x7f060030;
-        public static final int startdate=0x7f060032;
-        public static final int submit=0x7f06003b;
-        public static final int submit_loc=0x7f06002e;
-        public static final int title_page_detail=0x7f060041;
+        public static final int dest=0x7f060035;
+        public static final int details=0x7f06003e;
+        public static final int enddate=0x7f060037;
+        public static final int fillpost_head=0x7f060033;
+        public static final int imgFooterDesc=0x7f060043;
+        public static final int imgLogoDesc=0x7f060044;
+        public static final int label_date=0x7f060031;
+        public static final int label_dest=0x7f060030;
+        public static final int label_start=0x7f06002f;
+        public static final int manage_head=0x7f06002e;
+        public static final int repeat=0x7f060039;
+        public static final int repeatno=0x7f06003a;
+        public static final int repeatr1=0x7f06003b;
+        public static final int repeatr2=0x7f06003c;
+        public static final int roundt=0x7f060038;
+        public static final int share=0x7f060040;
+        public static final int start=0x7f060034;
+        public static final int startdate=0x7f060036;
+        public static final int submit=0x7f06003f;
+        public static final int submit_loc=0x7f060032;
+        public static final int title_page_detail=0x7f060045;
     }
     public static final class style {
         /** 

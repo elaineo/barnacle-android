@@ -20,18 +20,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 import com.gobarnacle.utils.BarnacleClient;
+import com.gobarnacle.utils.Tools;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class LoginActivity extends FragmentActivity implements FBFragment.LoginListener  {
@@ -46,8 +46,7 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        printHashKey();
-        //callPageActivity("219360");
+        //printHashKey();
         if (savedInstanceState == null) {
             // Add the fragment on initial activity setup
             fbFragment = new FBFragment();
@@ -77,16 +76,6 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		GetLogin login_getter = new PostLogin();
-//  	  	try {
-//			login_getter.execute(user).get();
-//		  } catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		  } catch (ExecutionException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 
     }
 				 
@@ -107,7 +96,7 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 	 }
 	 
 	public void PostLogin(GraphUser user) throws JSONException, UnsupportedEncodingException {
-		Context context = this.getApplicationContext();
+		final Context context = this.getApplicationContext();
 		final String userid = user.getId();
 		BarnacleClient.setCookie(context,"user_id", userid);
 		BarnacleClient.postJSON(context, LoginUri, user.getInnerJSONObject(), new JsonHttpResponseHandler() {
@@ -121,7 +110,7 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 				      	// start page activity
 			        	callPageActivity(userid);
 			        } else {
-			        	showToastMessage("Barnacle login failed.");
+			        	Tools.showToast("Barnacle login failed.",context);
 			        }
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -131,72 +120,8 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
         });		
 	}
 
-	 
-	class GetLogin extends AsyncTask<GraphUser,Void,String> {
-		@Override
-		protected String doInBackground(GraphUser... params) {		      
-			HttpPost httpPost = new HttpPost(LoginUri);
-			httpPost.setHeader("Content-Type", "application/json");
-			String userid = params[0].getId(); 
-			 			
-	    	StringEntity se;
-			try {
-				se = new StringEntity( params[0].getInnerJSONObject().toString());
-		        Log.d(TAG, params[0].getInnerJSONObject().toString());
-		        httpPost.setEntity(se);
-			} catch (UnsupportedEncodingException e1) {
-				e1.printStackTrace();
-				return null;
-			}  
-		        
-		    // Making HTTP Request
-		    try {             
-		    	HttpResponse response = httpClient.execute(httpPost);
-		        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
-		        StringBuilder builder = new StringBuilder();
-		        for (String line = null; (line = reader.readLine()) != null;) {
-		        	builder.append(line).append("\n");
-		        }
-		        Log.d("Http Response:", builder.toString());
-		        try {
-			        JSONObject tokener = new JSONObject(builder.toString());
-			        String status = tokener.getString("status");
-			        if (status.equals("new") || status.equals("existing")) {
-			      	  // start page activity
-			        	callPageActivity(userid);
-			        } else {
-			        	showToastMessage("Barnacle login failed.");
-			        }
-		        } catch (JSONException e) {
-		            // TODO Auto-generated catch block
-		            e.printStackTrace();
-		        }  			 
-		    } catch (ClientProtocolException e) {
-		        // writing exception to log
-		        e.printStackTrace();
-		    } catch (IOException e) {
-		        // writing exception to log
-		        e.printStackTrace();
-		    }
-
-		    return userid;
-	   }
-	    protected void onPostExecute(String result) {
-	        returnToken(result);
-	    }
-	    private String returnToken(String result) {
-	    	return result;
-	    }
-	 }	 
-	 /**
-	 * Helper method to show the toast message
-	 **/
-	 void showToastMessage(String message){
-	  Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-	 }
-
+	
 	 public void printHashKey() {
-
 	        try {
 	            PackageInfo info = getPackageManager().getPackageInfo("com.gobarnacle",
 	                    PackageManager.GET_SIGNATURES);
@@ -212,5 +137,5 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 
 	        }
 
-    }
+	 }		
 }

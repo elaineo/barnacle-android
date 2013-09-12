@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="manage_head">Manage Routes</string>
+    <string name="label_start">Origin</string>
+    <string name="label_dest">Destination</string>
+    <string name="label_date">Arrive By Date</string>
+</resources>

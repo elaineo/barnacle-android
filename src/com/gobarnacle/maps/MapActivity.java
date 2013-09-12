@@ -27,6 +27,7 @@ import com.gobarnacle.PageDetailActivity;
 import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
 import com.gobarnacle.utils.BarnacleClient;
+import com.gobarnacle.utils.Tools;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -229,9 +230,9 @@ public class MapActivity extends FragmentActivity implements
 					Log.d(TAG, status);
 			        if (status.equals("ok")) {
 				      	// drop marker
-			        	showToastMessage("Location updated at Barnacle.", context);
+			        	Tools.showToast("Location updated at Barnacle.", context);
 			        } else {
-			        	showToastMessage("Barnacle login failed.", context);
+			        	Tools.showToast("Barnacle login failed.", context);
 			        }
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -240,10 +241,7 @@ public class MapActivity extends FragmentActivity implements
             }
         });		
     	
-    }    
-	 static void showToastMessage(String message, Context context){
-		  Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-	 }    
+    }      
 	 @Override
 	 public void onStatusChanged(String provider, int status, Bundle extras) { }
 

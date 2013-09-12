@@ -1,5 +1,8 @@
 package com.gobarnacle;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -7,6 +10,8 @@ import android.util.Log;
 
 import com.gobarnacle.maps.MapActivity;
 import com.gobarnacle.maps.PostActivity;
+import com.gobarnacle.utils.Route;
+import com.gobarnacle.utils.RouteSync;
 
 
 /**
@@ -28,16 +33,17 @@ public class PageListActivity extends FragmentActivity implements
 		PageListFragment.Callbacks {
 
 	public final static String TAG = "PageListActivity";
+	public final static String ROUTE_LINKS = "com.gobarnacle.ROUTE_LINKS"; 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 * device.
 	 */
 	private boolean mTwoPane;
+	private ArrayList<Route> routes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
-		Log.d(TAG, "ok...");
 		setContentView(R.layout.activity_page_list);
 		
 		if (findViewById(R.id.page_detail_container) != null) {
@@ -53,7 +59,20 @@ public class PageListActivity extends FragmentActivity implements
 					R.id.page_list)).setActivateOnItemClick(true);
 		}
 
-		// TODO: If exposing deep links into your app, handle intents here.
+		/** Sync stored routes with server **/
+		RouteSync rSync = new RouteSync();
+		Log.d("CALLING", "RouteSync");
+		
+		try {
+			routes = rSync.execute(this).get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+				
 	}
 
 	/**
@@ -62,19 +81,20 @@ public class PageListActivity extends FragmentActivity implements
 	 */
 	@Override
 	public void onItemSelected(String id) {
-		Intent detailIntent;
+		Intent intent;
 
 		int Id = Integer.parseInt(id);
 		switch (Id) {
-			case 1: detailIntent = new Intent(this, PostActivity.class); 
+			case 1: intent = new Intent(this, PostActivity.class); 
 					break;
-			case 3: detailIntent = new Intent(this, ManageActivity.class); 
+			case 3: intent = new Intent(this, ManageActivity.class); 
 					break;
-			default: detailIntent = new Intent(this, MapActivity.class);
+			default: intent = new Intent(this, MapActivity.class);
 		}										
-
-		detailIntent.putExtra(PageDetailFragment.ARG_ITEM_ID, id);
-		startActivity(detailIntent);
+		
+		intent.putParcelableArrayListExtra(ROUTE_LINKS, routes);
+		startActivity(intent);
 		
 	}
+	   	
 }
