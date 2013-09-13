@@ -13,6 +13,13 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:padding="5dp" >
+   	    <TextView
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/label_status"
+	        android:textSize="20sp" >
+	    </TextView>
 	    <TextView
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
@@ -24,7 +31,6 @@
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="4"
-	        android:gravity="right"
 	        android:text="@string/label_dest"
 	        android:textSize="18sp" >
 	    </TextView>
@@ -32,10 +38,16 @@
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="2"
-	        android:gravity="right"
   	        android:text="@string/label_date"
 	        android:textSize="18sp" >
 	    </TextView>
+   	    <TextView
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/label_delete"
+	        android:textSize="20sp" >
+	    </TextView>	    
     </LinearLayout>
     
      	<!--  List of routes -->	    

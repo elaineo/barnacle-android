@@ -21,12 +21,9 @@ import com.gobarnacle.utils.RouteLinkAdapter;
 public class ManageActivity extends FragmentActivity {
 	
 	 
-    public final static String TrackUri = "/track/status";
 	public final static String TAG = "ManageActivity";
 	public final static String TRACK_URL = "com.gobarnacle.TRACK_URL"; 
 
-    private TextView mRouteView;	
-    private static TextView mAddrView;	
     private ArrayList<Route> routes;
 
 

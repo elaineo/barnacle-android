@@ -78,6 +78,7 @@ public class PostActivity extends FragmentActivity implements
     private Button mStartBtn, mDestBtn;
     private Button mPostBtn;
     
+    private Boolean initialized = false;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -199,6 +200,29 @@ public class PostActivity extends FragmentActivity implements
      */
     @Override
     public void onLocationChanged(Location location) {
+        LatLng latLng;
+        if (initialized == false) {
+        	latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        	CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
+	        mMap.animateCamera(cameraUpdate);
+	        locationManager.removeUpdates(this);
+	        Log.d(TAG,""+latLng);
+	        startLat = latLng.latitude;
+	        startLon = latLng.longitude;
+			try {
+				getStringFromLatLng(latLng, mLocStart);
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			initialized = true;
+        }
     }
 
     @Override
@@ -295,27 +319,7 @@ public class PostActivity extends FragmentActivity implements
 	    public void onConnected(Bundle connectionHint) {
 	        mLocationClient.requestLocationUpdates(
 	                REQUEST,
-	                this);  // LocationListener
-	        Location location = mLocationClient.getLastLocation();
-	        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-	        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
-	        mMap.animateCamera(cameraUpdate);
-	        locationManager.removeUpdates(this);
-	        Log.d(TAG,""+latLng);
-	        startLat = latLng.latitude;
-	        startLon = latLng.longitude;
-			try {
-				getStringFromLatLng(latLng, mLocStart);
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	                this);  // LocationListener	        	        
 	    }
 
 	    /**

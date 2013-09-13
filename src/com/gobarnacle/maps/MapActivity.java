@@ -71,6 +71,8 @@ public class MapActivity extends FragmentActivity implements
     private static CheckBox mAutoSub;
     private static NumberPicker mMins;
     private static EditText mMsg;
+    
+    private Boolean initialized = false;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -172,7 +174,13 @@ public class MapActivity extends FragmentActivity implements
      */
     @Override
     public void onLocationChanged(Location location) {
-
+    	if (initialized==false) {
+	        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+	        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
+	        mMap.animateCamera(cameraUpdate);
+	        locationManager.removeUpdates(this);
+	        initialized = true;
+    	}
     }
 
 
@@ -258,11 +266,6 @@ public class MapActivity extends FragmentActivity implements
 	        mLocationClient.requestLocationUpdates(
 	                REQUEST,
 	                this);  // LocationListener
-	        Location location = mLocationClient.getLastLocation();
-	        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-	        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
-	        mMap.animateCamera(cameraUpdate);
-	        locationManager.removeUpdates(this);
 	    }
 
 	    /**

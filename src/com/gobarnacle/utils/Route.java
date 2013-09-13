@@ -37,6 +37,9 @@ public class Route implements Parcelable {
 	public Integer status() { 
 		return status;
 	}
+	public String routekey() { 
+		return routekey;
+	}	
     /* everything below here is for implementing Parcelable */
     public int describeContents() {
         return 0;
