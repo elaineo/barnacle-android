@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Route implements Parcelable {
-    private static final String BASE_URL = "http://www.gobarnacle.com/track/view/";
+    private static final String BASE_URL = "http://www.gobarnacle.com/track/mobile/";
 
 	private String post_url;
 	private String routekey;

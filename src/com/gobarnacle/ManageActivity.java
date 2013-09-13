@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ public class ManageActivity extends FragmentActivity {
 	 
     public final static String TrackUri = "/track/status";
 	public final static String TAG = "ManageActivity";
+	public final static String TRACK_URL = "com.gobarnacle.TRACK_URL"; 
 
     private TextView mRouteView;	
     private static TextView mAddrView;	
@@ -54,7 +56,6 @@ public class ManageActivity extends FragmentActivity {
 	        @Override
 	        public void onItemClick(AdapterView<?> parent, final View view,
 	            int position, long id) {
-        	  setContentView(R.layout.view_track);
 	          Route item = (Route) parent.getItemAtPosition(position);
 	          Log.d(TAG,item.URL());
 	          callTrackingPage(item.URL());
@@ -66,9 +67,10 @@ public class ManageActivity extends FragmentActivity {
     }
 
     public void callTrackingPage(String url) {
-    	// load up webview
-    	WebView myWebView = (WebView) findViewById(R.id.view_track);
-    	myWebView.loadUrl(url);
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra(TRACK_URL, url);
+		startActivity(intent);
+		//finish();
     }
 
 }        
