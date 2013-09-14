@@ -42,6 +42,8 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 	 HttpClient httpClient = new DefaultHttpClient();
 	 
 	 private FBFragment fbFragment;
+	 
+	 private static GraphUser FBuser;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 
 	@Override
 	public void onLoggedIn(GraphUser user) {
+		FBuser = user;
 		try {
 			PostLogin(user);
 		} catch (UnsupportedEncodingException e) {
@@ -137,5 +140,9 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 
 	        }
 
-	 }		
+	 }
+	 
+	 public static String userFirstName() {
+		 return (String) FBuser.getProperty("first_name");
+	 }
 }

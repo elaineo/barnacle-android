@@ -4,9 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Route implements Parcelable {
-    private static final String BASE_URL = "http://www.gobarnacle.com/track/mobile/";
-
-	private String post_url;
+    private static final String MOBILE_URL = "http://www.gobarnacle.com/track/mobile/";
+    private static final String BASE_URL = "http://www.gobarnacle.com/track/view/";
+    
+    private String share_url;
+    private String mobile_url;
 	private String routekey;
 	private String locstart;
 	private String locend;
@@ -20,10 +22,14 @@ public class Route implements Parcelable {
 		locend = inLocend;
 		delivend = inDelivend;
 		status = inStatus;
-		post_url = BASE_URL + inRoutekey;
+		share_url = BASE_URL + inRoutekey;
+		mobile_url = MOBILE_URL + inRoutekey;
 	}
 	public String URL() {
-		return post_url;
+		return mobile_url;
+	}
+	public String shareURL() {
+		return share_url;
 	}
 	public String locstart() {
 		return locstart;
@@ -46,7 +52,7 @@ public class Route implements Parcelable {
     }
     // write your object's data to the passed-in Parcel
     public void writeToParcel(Parcel out, int flags) {
-    	out.writeStringArray(new String[] {this.routekey,this.post_url,this.locstart,this.locend,this.delivend,this.status+""});
+    	out.writeStringArray(new String[] {this.routekey,this.mobile_url,this.share_url,this.locstart,this.locend,this.delivend,this.status+""});
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -64,10 +70,11 @@ public class Route implements Parcelable {
         String[] data = new String[6];
         in.readStringArray(data);
         this.routekey = data[0];
-        this.post_url = data[1];
-        this.locstart = data[2];
-        this.locend = data[3];
-        this.delivend = data[4];
-        this.status=Integer.parseInt(data[5]);
+        this.mobile_url = data[1];
+        this.share_url = data[2];
+        this.locstart = data[3];
+        this.locend = data[4];
+        this.delivend = data[5];
+        this.status=Integer.parseInt(data[6]);
     }	
 }

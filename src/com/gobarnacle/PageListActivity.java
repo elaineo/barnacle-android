@@ -39,7 +39,7 @@ public class PageListActivity extends FragmentActivity implements
 	 * device.
 	 */
 	private boolean mTwoPane;
-	private ArrayList<Route> routes;
+	private static ArrayList<Route> routes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
@@ -95,6 +95,11 @@ public class PageListActivity extends FragmentActivity implements
 		intent.putParcelableArrayListExtra(ROUTE_LINKS, routes);
 		startActivity(intent);
 		
+	}
+	
+	public static void addRoute(Route r) {
+		routes.add(r);
+		return;
 	}
 	   	
 }

@@ -10,7 +10,9 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="Status" />
+        android:text="Status"
+        android:focusable="false"
+		android:focusableInTouchMode="false" />
 		
 	<TextView
        	android:id="@+id/start"
@@ -45,5 +47,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="X" />
+        android:text="X"
+        android:focusable="false"
+		android:focusableInTouchMode="false" />
 </LinearLayout>

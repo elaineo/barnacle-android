@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -25,7 +26,9 @@ import android.widget.Toast;
 import com.gobarnacle.PageDetailActivity;
 import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
+import com.gobarnacle.ShareActivity;
 import com.gobarnacle.utils.BarnacleClient;
+import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.Tools;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -56,6 +59,7 @@ public class PostActivity extends FragmentActivity implements
 	
     private static AsyncHttpClient client = new AsyncHttpClient();
 	 
+	public final static String ROUTE_POST = "com.gobarnacle.ROUTE_POST"; 
     public final static String PostUri = "/track/create";
 	public final static String TAG = "PostActivity";
 	public static final Integer ZOOM = 8;
@@ -80,6 +84,7 @@ public class PostActivity extends FragmentActivity implements
     
     private Boolean initialized = false;
 
+    
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -171,7 +176,6 @@ public class PostActivity extends FragmentActivity implements
     	postParams.put("locstart",mLocStart.getText());
     	postParams.put("locend",mLocEnd.getText());
     	
-    	Log.d("YEAR", ""+mDate.getYear());
     	postParams.put("delivend",mDate.getMonth() + "/" + mDate.getDayOfMonth()+"/" + mDate.getYear());
     	    	
     	BarnacleClient.postJSON(context, PostUri, postParams, new JsonHttpResponseHandler() {
@@ -180,10 +184,13 @@ public class PostActivity extends FragmentActivity implements
                 String status;
 				try {
 					status = response.getString("status");
-					Log.d(TAG, status);
 			        if (status.equals("ok")) {
 			        	Tools.showToast("Route Created.", context);
-			        	// redirect to share page
+			        	// respond with route info to update list
+			        	JSONObject j = response.getJSONObject("route");
+		        		Route r = new Route(j.getString("routekey"), j.getString("locstart"), 
+		        				j.getString("locend"), j.getString("delivend"), Integer.parseInt(j.getString("statusint")));
+		        		callSharePage(r);
 			        } else {
 			        	Tools.showToast("Route failed.", context);
 			        }
@@ -312,38 +319,47 @@ public class PostActivity extends FragmentActivity implements
 
 	 @Override
 	 public void onProviderDisabled(String provider) { }
-	    /**
-	     * Callback called when connected to GCore. Implementation of {@link ConnectionCallbacks}.
-	     */
-	    @Override
-	    public void onConnected(Bundle connectionHint) {
-	        mLocationClient.requestLocationUpdates(
-	                REQUEST,
-	                this);  // LocationListener	        	        
-	    }
+    /**
+     * Callback called when connected to GCore. Implementation of {@link ConnectionCallbacks}.
+     */
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        mLocationClient.requestLocationUpdates(
+                REQUEST,
+                this);  // LocationListener	        	        
+    }
 
-	    /**
-	     * Callback called when disconnected from GCore. Implementation of {@link ConnectionCallbacks}.
-	     */
-	    @Override
-	    public void onDisconnected() {
-	        // Do nothing
-	    }
+    /**
+     * Callback called when disconnected from GCore. Implementation of {@link ConnectionCallbacks}.
+     */
+    @Override
+    public void onDisconnected() {
+        // Do nothing
+    }
 
-	    /**
-	     * Implementation of {@link OnConnectionFailedListener}.
-	     */
-	    @Override
-	    public void onConnectionFailed(ConnectionResult result) {
-	        // Do nothing
-	    }
+    /**
+     * Implementation of {@link OnConnectionFailedListener}.
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // Do nothing
+    }
 
-	    @Override
-	    public boolean onMyLocationButtonClick() {
-	        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-	        return false;
-	    }	    
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        return false;
+    }	    
 	    	 
+	    
+    public void callSharePage(Route route) {
+        Intent intent = new Intent(this, ShareActivity.class);
+        intent.putExtra(ROUTE_POST, route);
+		startActivity(intent);
+		
+		PageListActivity.addRoute(route);
+		finish();
+    }
 }        
 	
 

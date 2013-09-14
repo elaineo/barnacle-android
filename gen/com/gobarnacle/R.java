@@ -382,7 +382,7 @@ containing a value of this type.
         public static final int addr_text=0x7f050032;
         public static final int arrival_date=0x7f05002a;
         public static final int auto_submit=0x7f050033;
-        public static final int btnLogin=0x7f050039;
+        public static final int btnLogin=0x7f05003f;
         public static final int com_facebook_login_activity_progress_bar=0x7f05000c;
         public static final int com_facebook_picker_activity_circle=0x7f05000b;
         public static final int com_facebook_picker_checkbox=0x7f05000e;
@@ -403,15 +403,20 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_login_button=0x7f05001e;
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f05001c;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f05001d;
-        public static final int date=0x7f05003d;
-        public static final int delete=0x7f05003e;
-        public static final int dest=0x7f05003c;
+        public static final int contact_list=0x7f05003b;
+        public static final int date=0x7f050043;
+        public static final int delete=0x7f050044;
+        public static final int dest=0x7f050042;
+        public static final int do_email_picker=0x7f05003a;
         public static final int end_btn=0x7f050037;
+        public static final int fb_checkbox=0x7f05003c;
         public static final int footer=0x7f050008;
         public static final int fragment_manage=0x7f05002c;
         public static final int fragment_sendloc=0x7f05001f;
-        public static final int header=0x7f050038;
+        public static final int header=0x7f05003e;
         public static final int hybrid=0x7f050004;
+        public static final int invite_email=0x7f050038;
+        public static final int invite_phone=0x7f050039;
         public static final int large=0x7f050006;
         public static final int listrview=0x7f05002e;
         public static final int location_btn=0x7f050036;
@@ -433,16 +438,17 @@ containing a value of this type.
         public static final int satellite=0x7f050002;
         public static final int set_dest_btn=0x7f050029;
         public static final int set_start_btn=0x7f050028;
+        public static final int share_btn=0x7f05003d;
         public static final int small=0x7f050005;
-        public static final int start=0x7f05003b;
+        public static final int start=0x7f050041;
         public static final int startsel0=0x7f050020;
         public static final int startsel1=0x7f050021;
-        public static final int status=0x7f05003a;
+        public static final int status=0x7f050040;
         public static final int tapped_addr=0x7f050027;
         public static final int tapped_text=0x7f050026;
         public static final int tbl_head=0x7f05002d;
         public static final int terrain=0x7f050003;
-        public static final int view_track=0x7f05003f;
+        public static final int view_track=0x7f050045;
     }
     public static final class layout {
         public static final int activity_page_detail=0x7f030000;
@@ -467,11 +473,13 @@ containing a value of this type.
         public static final int fragment_manage=0x7f030013;
         public static final int fragment_page_detail=0x7f030014;
         public static final int fragment_sendloc=0x7f030015;
-        public static final int login=0x7f030016;
-        public static final int manage_list=0x7f030017;
-        public static final int view_track=0x7f030018;
+        public static final int fragment_share=0x7f030016;
+        public static final int login=0x7f030017;
+        public static final int manage_list=0x7f030018;
+        public static final int view_track=0x7f030019;
     }
     public static final class string {
+        public static final int add_label=0x7f06004b;
         public static final int app_id=0x7f060044;
         public static final int app_name=0x7f060043;
         /**   Title for notification shown when GooglePlayServices needs to be
@@ -580,22 +588,30 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f06000e;
         public static final int dest=0x7f060037;
         public static final int details=0x7f060040;
+        public static final int eml_head=0x7f06004e;
         public static final int enddate=0x7f060039;
         public static final int fillpost_head=0x7f060035;
         public static final int imgFooterDesc=0x7f060045;
         public static final int imgLogoDesc=0x7f060046;
+        public static final int invite_email_hint=0x7f060048;
+        public static final int invite_phone_hint=0x7f060049;
         public static final int label_date=0x7f060031;
         public static final int label_delete=0x7f060033;
         public static final int label_dest=0x7f060030;
         public static final int label_start=0x7f06002f;
         public static final int label_status=0x7f060032;
         public static final int manage_head=0x7f06002e;
+        public static final int name_head=0x7f06004c;
+        public static final int pick_email_label=0x7f06004a;
         public static final int repeat=0x7f06003b;
         public static final int repeatno=0x7f06003c;
         public static final int repeatr1=0x7f06003d;
         public static final int repeatr2=0x7f06003e;
         public static final int roundt=0x7f06003a;
         public static final int share=0x7f060042;
+        public static final int share_btn=0x7f06004f;
+        public static final int share_fb=0x7f060050;
+        public static final int sms_head=0x7f06004d;
         public static final int start=0x7f060036;
         public static final int startdate=0x7f060038;
         public static final int submit=0x7f060041;
