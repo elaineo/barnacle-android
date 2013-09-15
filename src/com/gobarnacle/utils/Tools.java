@@ -25,5 +25,11 @@ public class Tools {
 			return;
 		  }
 	}
-
+	public final static boolean validEmail(CharSequence target) {
+	    if (target == null) {
+	        return false;
+	    } else {
+	        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+	    }
+	}
 }

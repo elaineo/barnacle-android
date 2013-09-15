@@ -101,5 +101,23 @@ public class PageListActivity extends FragmentActivity implements
 		routes.add(r);
 		return;
 	}
-	   	
+	public static void deleteRoute(String routekey) {
+		int d = getRouteByKey(routekey);
+		routes.remove(d);
+		return;
+	}
+	public static void updateRoute(String routekey, int newStat) {
+		int d = getRouteByKey(routekey);
+		Route r = routes.get(d);
+		r.setStatus(newStat);
+		routes.set(d,r);
+		return;
+	}
+	public static int getRouteByKey(String routekey) {
+		Route r = new Route(routekey,"","","",0);
+		if (routes.contains(r)) 
+		   return routes.indexOf(r);
+		else 
+			return -1;
+	}
 }

@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -38,14 +38,17 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
     public void killView(View convertView) {
     	convertView.setVisibility(View.GONE);
     }
-    public void updateStatBtn(View convertView, Integer s) {
-    	Button btn = (Button) convertView.findViewById(R.id.status);		
+    public String updateStatBtn(View convertView, Integer s) {
+    	Button btn = (Button) convertView.findViewById(R.id.status);
+    	String statDescr = (String) btn.getText();
 		if (s==1)
-			btn.setText("inactive");
+			statDescr = "inactive";
 		else if (s==0)
-			btn.setText("active");
+			statDescr = "active";
 		else 
-			btn.setText("waiting");
+			statDescr = "waiting";
+		btn.setText(statDescr);
+		return statDescr;
     }
     
 	@Override
@@ -96,7 +99,7 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 		return rowView;
 	}
 	
-	public void submitStatus(String routekey, final Integer statAction, final View view, final View rowView) {
+	public void submitStatus(final String routekey, final Integer statAction, final View view, final View rowView) {
     	JSONObject postParams = new JSONObject();
     	
     	try {
@@ -111,11 +114,13 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 				        if (status.equals("ok")) {
 				        	if (statAction<1) {
 				        		Tools.showToast("Deleted.", context);
+				        		PageListActivity.deleteRoute(routekey);
 				        		killView(rowView);
 				        	} else {
 				        		Integer newStat = Integer.parseInt(response.getString("newstat"));
-				        		updateStatBtn(rowView, newStat);
-				        		Tools.showToast("Route is now "+newStat+".", context);
+				        		String statDescr = updateStatBtn(rowView, newStat);
+				        		PageListActivity.updateRoute(routekey, newStat);
+				        		Tools.showToast("Route is now "+statDescr+".", context);
 				        	}
 				        } else {
 				        	Tools.showToast(status, context);

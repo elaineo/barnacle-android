@@ -16,6 +16,30 @@ public class Route implements Parcelable {
 	private Integer status;
 
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((routekey == null) ? 0 : routekey.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Route other = (Route) obj;
+		if (routekey == null) {
+			if (other.routekey != null)
+				return false;
+		} else if (!routekey.equals(other.routekey))
+			return false;
+		return true;
+	}
 	public Route(String inRoutekey, String inLocstart, String inLocend, String inDelivend, Integer inStatus) {
 		routekey = inRoutekey;
 		locstart = inLocstart;
@@ -46,6 +70,9 @@ public class Route implements Parcelable {
 	public String routekey() { 
 		return routekey;
 	}	
+	public void setStatus(Integer newStat) {
+		status = newStat;
+	}
     /* everything below here is for implementing Parcelable */
     public int describeContents() {
         return 0;

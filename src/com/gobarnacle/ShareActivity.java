@@ -144,10 +144,14 @@ public class ShareActivity extends FragmentActivity {
 	public void addEmailContact(View view) {
 		EditText textField = (EditText) findViewById(R.id.invite_email);
 		String newAddr = textField.getText().toString();
-		textField.setText("");
-		emailAddrs.add(newAddr);
-		smsNumbers.add("");
-		addtoContactList(newAddr, false, true);		
+		Boolean valid = Tools.validEmail(newAddr);
+		if (valid) {
+			textField.setText("");
+			emailAddrs.add(newAddr);
+			smsNumbers.add("");
+			addtoContactList(newAddr, false, true);
+		} else
+			Tools.showToast("Invalid Email.", this.getApplicationContext() );
 	}
 	
 	public void addPhoneContact(View view) {
