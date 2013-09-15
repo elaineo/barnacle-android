@@ -67,7 +67,7 @@ public class Route implements Parcelable {
 
     //takes a Parcel and craps out Route
     private Route(Parcel in) {
-        String[] data = new String[6];
+        String[] data = new String[7];
         in.readStringArray(data);
         this.routekey = data[0];
         this.mobile_url = data[1];

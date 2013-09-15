@@ -111,11 +111,11 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 				        if (status.equals("ok")) {
 				        	if (statAction<1) {
 				        		Tools.showToast("Deleted.", context);
-				        		killView(view);
+				        		killView(rowView);
 				        	} else {
 				        		Integer newStat = Integer.parseInt(response.getString("newstat"));
 				        		updateStatBtn(rowView, newStat);
-				        		Tools.showToast("Activated.", context);
+				        		Tools.showToast("Route is now "+newStat+".", context);
 				        	}
 				        } else {
 				        	Tools.showToast(status, context);

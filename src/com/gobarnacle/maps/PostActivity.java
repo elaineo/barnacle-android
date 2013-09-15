@@ -176,7 +176,7 @@ public class PostActivity extends FragmentActivity implements
     	postParams.put("locstart",mLocStart.getText());
     	postParams.put("locend",mLocEnd.getText());
     	
-    	postParams.put("delivend",mDate.getMonth() + "/" + mDate.getDayOfMonth()+"/" + mDate.getYear());
+    	postParams.put("delivend",(mDate.getMonth()+1) + "/" + mDate.getDayOfMonth()+"/" + mDate.getYear());
     	    	
     	BarnacleClient.postJSON(context, PostUri, postParams, new JsonHttpResponseHandler() {
             @Override

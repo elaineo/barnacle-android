@@ -2,6 +2,11 @@ package com.gobarnacle.utils;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import android.content.Context;
 import android.telephony.SmsManager;
 import android.widget.Toast;
@@ -20,7 +25,5 @@ public class Tools {
 			return;
 		  }
 	}
-	public static void sendEmail(ArrayList<String> emailAddrs, String subj, String msg ) {
-		
-	}
+
 }
