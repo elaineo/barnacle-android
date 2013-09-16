@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="confirm1">Please enter your confirmation code. The recipient should provide this to you.</string> 
+	<string name="confirm_sel">Select the destination you would like to confirm.</string>    
+	<string name="confirm2">Or, click below and we will notify the sender with instructions to confirm your delivery.</string>    
+	<string name="notify">Notify Sender</string>
+	<string name="ok">ok</string>
+</resources>

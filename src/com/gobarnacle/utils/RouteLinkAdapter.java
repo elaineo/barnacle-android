@@ -117,7 +117,7 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 				        		PageListActivity.deleteRoute(routekey);
 				        		killView(rowView);
 				        	} else {
-				        		Integer newStat = Integer.parseInt(response.getString("newstat"));
+				        		int newStat = Integer.parseInt(response.getString("newstat"));
 				        		String statDescr = updateStatBtn(rowView, newStat);
 				        		PageListActivity.updateRoute(routekey, newStat);
 				        		Tools.showToast("Route is now "+statDescr+".", context);

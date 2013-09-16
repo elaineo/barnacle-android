@@ -3,6 +3,10 @@ package com.gobarnacle;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,8 +14,11 @@ import android.util.Log;
 
 import com.gobarnacle.maps.MapActivity;
 import com.gobarnacle.maps.PostActivity;
+import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.RouteSync;
+import com.gobarnacle.utils.Tools;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 
 /**
@@ -33,7 +40,9 @@ public class PageListActivity extends FragmentActivity implements
 		PageListFragment.Callbacks {
 
 	public final static String TAG = "PageListActivity";
-	public final static String ROUTE_LINKS = "com.gobarnacle.ROUTE_LINKS"; 
+	public final static String ROUTE_LINKS = "com.gobarnacle.ROUTE_LINKS";
+	
+	private final static String InactiveStatusUri = "/track/inactivate";
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 * device.
@@ -119,5 +128,33 @@ public class PageListActivity extends FragmentActivity implements
 		   return routes.indexOf(r);
 		else 
 			return -1;
+	}
+	
+	public static void setAllInactive(final Context context) {
+		BarnacleClient.post(context, InactiveStatusUri, null, new JsonHttpResponseHandler() {
+		    @Override
+		    public void onSuccess(JSONObject response) {
+		        String status;
+				try {
+					status = response.getString("status");
+			        if (status.equals("ok")) 
+		        		Tools.showToast("All routes are now inactive.", context);		        	
+			        else {
+			        	Tools.showToast(status, context);
+			        }
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		    }
+		});
+	}
+	public static ArrayList <Route> getActives() {
+		ArrayList <Route> actives = new ArrayList<Route>();
+		for(int i=0;i<routes.size();i++) {
+			if (routes.get(i).status()!=1) 
+				actives.add(routes.get(i));
+		}
+    	return actives;
 	}
 }

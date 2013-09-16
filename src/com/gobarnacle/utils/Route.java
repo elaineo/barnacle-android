@@ -13,7 +13,7 @@ public class Route implements Parcelable {
 	private String locstart;
 	private String locend;
 	private String delivend;
-	private Integer status;
+	private Integer status; // 1 inactive, 0 active, 2 waiting
 
 	
 	@Override

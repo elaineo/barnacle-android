@@ -9,7 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -23,6 +26,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gobarnacle.ConfirmActivity;
 import com.gobarnacle.PageDetailActivity;
 import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
@@ -146,14 +150,11 @@ public class MapActivity extends FragmentActivity implements
 
     /**
      * Button to submit Location. 
-     * @throws ClientProtocolException 
-     * @throws IOException 
      */
     public void submitLocation(View view) throws ClientProtocolException, IOException {
         if (mLocationClient != null && mLocationClient.isConnected()) {
         	Location lastLoc = mLocationClient.getLastLocation();
 
-        	String msg = "Location = " + lastLoc;
         	Context context = this.getApplicationContext();
 			
 			try {
@@ -167,6 +168,29 @@ public class MapActivity extends FragmentActivity implements
 				e.printStackTrace();
 			}
         }
+    }
+    public void submitConfirm(View view) {
+    	/** end drive. Start next intent. Don't care if destination has been reached. **/
+    	final Context context = this.getApplicationContext();
+    	
+    	new AlertDialog.Builder(this)
+    	.setMessage("Do you want to confirm your arrival?")
+    	.setIcon(android.R.drawable.ic_dialog_alert)
+    	.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				Intent intent = new Intent(context, ConfirmActivity.class);
+				startActivity(intent);
+				finish();				
+			}})
+    	 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+ 			@Override
+ 			public void onClick(DialogInterface arg0, int arg1) {
+ 				PageListActivity.setAllInactive(context); 
+ 				// go to manage page
+ 				finish();				
+ 			}}).show();            			
+
     }
 
     /**
