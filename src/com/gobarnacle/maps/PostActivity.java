@@ -85,6 +85,8 @@ public class PostActivity extends FragmentActivity implements
     private Button mPostBtn;
     
     private Boolean initialized = false;
+    private static int timeZone = 0;
+    private int destTZ;
 
     
 	/**
@@ -171,6 +173,7 @@ public class PostActivity extends FragmentActivity implements
     	final Context context = this.getApplicationContext();
     	JSONObject postParams = new JSONObject();
     	
+    	postParams.put("tzoffset",destTZ);
     	postParams.put("startlat",startLat); 
     	postParams.put("startlon",startLon);
     	postParams.put("destlat",destLat);
@@ -216,6 +219,8 @@ public class PostActivity extends FragmentActivity implements
 	        mMap.animateCamera(cameraUpdate);
 	        locationManager.removeUpdates(this);
 			LocationConverter(latLng, mLocStart);
+	    	startLat = latLng.latitude;
+	    	startLon = latLng.longitude;
 			initialized = true;
         }
     }
@@ -228,10 +233,8 @@ public class PostActivity extends FragmentActivity implements
         if (startSel)
         	mStartBtn.setEnabled(true);
         mDestBtn.setEnabled(true);
+        TimeZoneConverter(point);
 		LocationConverter(point, mAddr);
-		//Log.d(TAG, tapAddrStr);
-		
-		//getStringFromLatLng(point, mAddr);
     }
     
     public static void getStringFromLatLng(final LatLng loc, final TextView addr)
@@ -271,6 +274,7 @@ public class PostActivity extends FragmentActivity implements
     	mLocEnd.setText(mAddr.getText());
     	destLat = lastTapped.latitude;
     	destLon = lastTapped.longitude;
+    	destTZ = timeZone;
     	mPostBtn.setEnabled(true);
     }	            
     public void onStartSelClicked(View view) {
@@ -375,7 +379,34 @@ public class PostActivity extends FragmentActivity implements
     	});
     	
     }
-    
+
+    public static void TimeZoneConverter(LatLng latlng) {
+    	final String TZ_URI = "https://maps.googleapis.com/maps/api/timezone/json?location=%1$f,%2$f&timestamp=%3$s&sensor=true";    			
+    	final String TAG = "TimeZoneConverter";
+        AsyncHttpClient client = new AsyncHttpClient();
+        		
+        Long tsLong = System.currentTimeMillis()/1000;
+		String address = String.format(Locale.ENGLISH, TZ_URI, latlng.latitude, latlng.longitude, tsLong.toString());
+		Log.v(TAG,address);
+        client.get(address, null, new JsonHttpResponseHandler() {
+    		
+    		@Override
+            public void onSuccess(JSONObject response) {
+                String status;				                
+    			try {
+    				status = response.getString("status");
+    				Log.v(TAG,status);
+    	            if ("OK".equalsIgnoreCase(status)) {
+    	                timeZone = Integer.parseInt(response.getString("rawOffset"));
+                        Log.v(TAG,timeZone+"");
+                    }			        
+    			} catch (JSONException e) {
+    				e.printStackTrace();
+    			}
+            }	    
+    	});
+    	
+    }    
 }        
 	
 
