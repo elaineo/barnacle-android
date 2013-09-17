@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@layout/background" 
+    android:orientation="vertical" 
+    tools:context=".MenuListActivity">
+   <View
+         android:layout_width="match_parent"
+         android:layout_weight="1"
+         android:layout_height="0dip"></View>
+
+   <RelativeLayout         
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:paddingRight="100dp"
+        android:layout_weight="1">
+    <Button
+        style="@style/BarnacleMenuButtonLarge"        
+        android:text="@string/menu_create" 
+        android:onClick="launchCreateRoute"/>
+	</RelativeLayout>
+
+   <View
+         android:layout_width="match_parent"
+         android:layout_weight="1"
+         android:layout_height="0dip"></View>
+
+   <RelativeLayout         
+        android:layout_width="match_parent"
+       	android:paddingLeft="100dp"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+   <Button
+       android:layout_alignParentRight="true"
+       style="@style/BarnacleMenuButtonLarge"
+       android:text="@string/menu_track"
+       android:onClick="launchTracker" />
+   </RelativeLayout>
+
+   <View
+         android:layout_width="match_parent"
+         android:layout_weight="1"
+         android:layout_height="0dip"></View>
+
+   <RelativeLayout         
+        android:paddingRight="100dp"       
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">   
+   <Button
+        style="@style/BarnacleMenuButtonLarge"
+        android:text="@string/menu_manage"
+        android:onClick="launchManager" />
+   </RelativeLayout>
+
+   <View
+         android:layout_width="match_parent"
+         android:layout_weight="1"
+         android:layout_height="0dip"></View>
+      <!-- Footer Start -->
+      <LinearLayout android:id="@+id/footer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/fback"
+                    android:gravity="bottom">
+          <ImageView android:src="@drawable/footer"
+                     android:contentDescription="@string/imgFooterDesc"
+                     android:scaleType="fitXY"
+                     android:layout_width="fill_parent"
+                     android:layout_height="fill_parent" android:layout_gravity="bottom"
+                     android:baselineAlignBottom="true"/>
+      </LinearLayout>
+      <!-- Footer Ends -->
+</LinearLayout>

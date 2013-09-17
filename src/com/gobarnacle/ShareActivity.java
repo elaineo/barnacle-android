@@ -168,8 +168,8 @@ public class ShareActivity extends FragmentActivity {
 		String track_url = route.shareURL();
 		String descr = String.format("%s is driving to %s.\n Track %s's progress along the way with the Barnacle Driver Tracker.", name, route.locend(), name);   
 		String smsdescr = String.format("Track %s's progress at %s. Sent From Barnacle.", name, track_url);		
-		String emaildescr = descr + " " + track_url;
-		String emailsubj = String.format("Track %s's location at Barnacle", name);
+		// String emaildescr = descr + " " + track_url;
+		// String emailsubj = String.format("Track %s's location at Barnacle", name);
 		String smsList = "";
 		ArrayList <String> emailList = new ArrayList<String>();
 		

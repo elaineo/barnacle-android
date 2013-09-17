@@ -43,7 +43,7 @@ public class ManageActivity extends FragmentActivity {
         final ListView listview = (ListView) findViewById(R.id.listrview);
 
         Intent intent = getIntent();
-        routes = intent.getParcelableArrayListExtra(PageListActivity.ROUTE_LINKS);
+        routes = intent.getParcelableArrayListExtra(MenuListActivity.ROUTE_LINKS);
         completed = new ArrayList <Route>();
         
         /** split routes into complete and incomplete **/

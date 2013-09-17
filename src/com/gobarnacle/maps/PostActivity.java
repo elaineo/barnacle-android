@@ -23,8 +23,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gobarnacle.PageDetailActivity;
-import com.gobarnacle.PageListActivity;
+import com.gobarnacle.MenuListActivity;
 import com.gobarnacle.R;
 import com.gobarnacle.ShareActivity;
 import com.gobarnacle.utils.BarnacleClient;
@@ -310,7 +309,7 @@ public class PostActivity extends FragmentActivity implements
         intent.putExtra(ROUTE_POST, route);
 		startActivity(intent);
 		
-		PageListActivity.addRoute(route);
+		MenuListActivity.addRoute(route);
 		finish();
     }
     

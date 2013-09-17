@@ -16,7 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.gobarnacle.PageListActivity;
+import com.gobarnacle.MenuListActivity;
 import com.gobarnacle.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -114,12 +114,12 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 				        if (status.equals("ok")) {
 				        	if (statAction<1) {
 				        		Tools.showToast("Deleted.", context);
-				        		PageListActivity.deleteRoute(routekey);
+				        		MenuListActivity.deleteRoute(routekey);
 				        		killView(rowView);
 				        	} else {
 				        		int newStat = Integer.parseInt(response.getString("newstat"));
 				        		String statDescr = updateStatBtn(rowView, newStat);
-				        		PageListActivity.updateRoute(routekey, newStat);
+				        		MenuListActivity.updateRoute(routekey, newStat);
 				        		Tools.showToast("Route is now "+statDescr+".", context);
 				        	}
 				        } else {

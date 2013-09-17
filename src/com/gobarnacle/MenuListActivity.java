@@ -9,12 +9,12 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.view.View;
 
 import com.gobarnacle.maps.MapActivity;
 import com.gobarnacle.maps.PostActivity;
 import com.gobarnacle.utils.BarnacleClient;
+import com.gobarnacle.utils.BarnacleView;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.RouteSync;
 import com.gobarnacle.utils.Tools;
@@ -22,52 +22,22 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 
 /**
- * An activity representing a list of Pages. This activity has different
- * presentations for handset and tablet-size devices. On handsets, the activity
- * presents a list of items, which when touched, lead to a
- * {@link PageDetailActivity} representing item details. On tablets, the
- * activity presents the list of items and item details side-by-side using two
- * vertical panes.
- * <p>
- * The activity makes heavy use of fragments. The list of items is a
- * {@link PageListFragment} and the item details (if present) is a
- * {@link PageDetailFragment}.
- * <p>
- * This activity also implements the required {@link PageListFragment.Callbacks}
- * interface to listen for item selections.
+ * Main Menu for Barnacle
  */
-public class PageListActivity extends FragmentActivity implements
-		PageListFragment.Callbacks {
+public class MenuListActivity extends BarnacleView{
 
-	public final static String TAG = "PageListActivity";
+	public final static String TAG = "MenuListActivity";
 	public final static String ROUTE_LINKS = "com.gobarnacle.ROUTE_LINKS";
 	
 	private final static String InactiveStatusUri = "/track/inactivate";
-	/**
-	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-	 * device.
-	 */
-	private boolean mTwoPane;
+
 	private static ArrayList<Route> routes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_page_list);
+		setContentView(R.layout.menu_buttons);
 		
-		if (findViewById(R.id.page_detail_container) != null) {
-			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large and
-			// res/values-sw600dp). If this view is present, then the
-			// activity should be in two-pane mode.
-			mTwoPane = true;
-
-			// In two-pane mode, list items should be given the
-			// 'activated' state when touched.
-			((PageListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.page_list)).setActivateOnItemClick(true);
-		}
-
 		/** Sync stored routes with server **/
 		RouteSync rSync = new RouteSync();
 		
@@ -83,28 +53,21 @@ public class PageListActivity extends FragmentActivity implements
 				
 	}
 
-	/**
-	 * Callback method from {@link PageListFragment.Callbacks} indicating that
-	 * the item with the given ID was selected.
-	 */
-	@Override
-	public void onItemSelected(String id) {
-		Intent intent;
-
-		int Id = Integer.parseInt(id);
-		switch (Id) {
-			case 1: intent = new Intent(this, PostActivity.class); 
-					break;
-			case 3: intent = new Intent(this, ManageActivity.class); 
-					break;
-			default: intent = new Intent(this, MapActivity.class);
-		}										
-		
+	public void launchTracker(View view) {
+		Intent intent = new Intent(this, MapActivity.class);
 		intent.putParcelableArrayListExtra(ROUTE_LINKS, routes);
 		startActivity(intent);
-		
 	}
-	
+	public void launchCreateRoute(View view) {
+		Intent intent = new Intent(this, PostActivity.class);
+		startActivity(intent);
+	}
+	public void launchManager(View view) {
+		Intent intent = new Intent(this, ManageActivity.class);
+		intent.putParcelableArrayListExtra(ROUTE_LINKS, routes);
+		startActivity(intent);
+	}	
+
 	public static void addRoute(Route r) {
 		routes.add(r);
 		return;

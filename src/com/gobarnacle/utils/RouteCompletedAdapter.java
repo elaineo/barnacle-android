@@ -1,24 +1,15 @@
 package com.gobarnacle.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 
 public class RouteCompletedAdapter extends ArrayAdapter<Route> {
@@ -26,7 +17,6 @@ public class RouteCompletedAdapter extends ArrayAdapter<Route> {
 	
 	private final Context context;
 	private final ArrayList<Route> values;
-	private Button deleteBtn=null;
 
     public RouteCompletedAdapter(Context context, ArrayList<Route> values) {
       super(context, R.layout.manage_list, values);

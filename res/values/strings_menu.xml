@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_create">Create Route</string>
+    <string name="menu_track">Track Drive</string>
+    <string name="menu_manage">Manage Routes</string>
+</resources>

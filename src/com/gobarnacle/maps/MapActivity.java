@@ -33,8 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gobarnacle.ConfirmActivity;
-import com.gobarnacle.PageDetailActivity;
-import com.gobarnacle.PageListActivity;
+import com.gobarnacle.MenuListActivity;
 import com.gobarnacle.R;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
@@ -90,7 +89,6 @@ public class MapActivity extends FragmentActivity implements
     private static TextView mAutoText;
     
     private ArrayList <Route> activeRoutes;
-    private Boolean initialized = false;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -116,7 +114,7 @@ public class MapActivity extends FragmentActivity implements
         mAutoText = (TextView) findViewById(R.id.auto_text);
         
         mRouteView = (LinearLayout) findViewById(R.id.route_text);
-        activeRoutes = PageListActivity.getActives();
+        activeRoutes = MenuListActivity.getActives();
 		for(int i=0;i<activeRoutes.size();i++) {
 			TextView routeDescr = new TextView(this);
 			LayoutParams routeParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -214,7 +212,7 @@ public class MapActivity extends FragmentActivity implements
     	 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
  			@Override
  			public void onClick(DialogInterface arg0, int arg1) {
- 				PageListActivity.setAllInactive(context); 
+ 				MenuListActivity.setAllInactive(context); 
  				// go to manage page
  				finish();				
  			}}).show();            			

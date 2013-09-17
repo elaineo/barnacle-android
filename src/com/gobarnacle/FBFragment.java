@@ -51,6 +51,7 @@ public class FBFragment extends Fragment {
 	    return view;
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 	    if (state.isOpened()) {
 	        Log.i(TAG, "Logged in...");

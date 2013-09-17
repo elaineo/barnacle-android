@@ -54,7 +54,7 @@ public class ConfirmActivity extends FragmentActivity {
         checkCodeBtn = (Button)  findViewById(R.id.check_code_btn);
         //Populate Location Radio buttons
         locRadios = (RadioGroup)  findViewById(R.id.radio_locations); 
-        activeRoutes = PageListActivity.getActives();
+        activeRoutes = MenuListActivity.getActives();
         for(int i=0;i<activeRoutes.size();i++) {
             RadioButton locEnd = new RadioButton(this);
             locEnd.setText(activeRoutes.get(i).locend());
@@ -97,10 +97,10 @@ public class ConfirmActivity extends FragmentActivity {
 					status = response.getString("status");
 			        if (status.equals("ok")) {
 			        	Tools.showToast("Delivery Confirmed! We will send a notification to the sender.", context);
-			        	PageListActivity.updateRoute(activeRouteKey, 99);
+			        	MenuListActivity.updateRoute(activeRouteKey, 99);
 			        	finish();
 			        } else {
-			        	PageListActivity.updateRoute(activeRouteKey, 2);
+			        	MenuListActivity.updateRoute(activeRouteKey, 2);
 			        	Tools.showToast(status, context);
 			        }
 				} catch (JSONException e) {
@@ -126,7 +126,7 @@ public class ConfirmActivity extends FragmentActivity {
 			        if (status.equals("ok")) {
 			        	Tools.showToast("Delivery notification sent! Now awaiting confirmation from the recipient.", context);
 			        	// change route's status to waiting
-			        	PageListActivity.updateRoute(activeRouteKey, 2);
+			        	MenuListActivity.updateRoute(activeRouteKey, 2);
 			        	finish();
 			        } else {
 			        	Tools.showToast(status, context);
