@@ -1,5 +1,8 @@
 package com.gobarnacle.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -58,9 +61,23 @@ public class Route implements Parcelable {
 	public String locstart() {
 		return locstart;
 	}
+	public String abbrevstart() {
+		List<String> locList = Arrays.asList(locstart.split(","));
+		String locAbbrev = locList.get(0);
+		if (locList.size()>1)
+			locAbbrev = locAbbrev + ", "+locList.get(1);
+		return locAbbrev;
+	}
 	public String locend() {
 		return locend;
 	}
+	public String abbrevend() {
+		List<String> locList = Arrays.asList(locend.split(","));
+		String locAbbrev = locList.get(0);
+		if (locList.size()>1)
+			locAbbrev = locAbbrev + ", "+locList.get(1);
+		return locAbbrev;
+	}	
 	public String delivend() {
 		return delivend;
 	}

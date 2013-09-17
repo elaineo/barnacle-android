@@ -6,4 +6,5 @@
     <string name="label_date">Arrive By Date</string>
     <string name="label_status">Active?</string>
     <string name="label_delete">Delete</string>
+    <string name="label_completed">Completed</string>
 </resources>

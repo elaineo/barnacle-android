@@ -1,13 +1,12 @@
 package com.gobarnacle.utils;
 
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.loopj.android.http.JsonHttpResponseHandler;
-
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
@@ -32,4 +31,5 @@ public class Tools {
 	        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
 	    }
 	}
+	
 }

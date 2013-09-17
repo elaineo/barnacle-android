@@ -70,7 +70,6 @@ public class PageListActivity extends FragmentActivity implements
 
 		/** Sync stored routes with server **/
 		RouteSync rSync = new RouteSync();
-		Log.d("CALLING", "RouteSync");
 		
 		try {
 			routes = rSync.execute(this).get();
@@ -152,7 +151,7 @@ public class PageListActivity extends FragmentActivity implements
 	public static ArrayList <Route> getActives() {
 		ArrayList <Route> actives = new ArrayList<Route>();
 		for(int i=0;i<routes.size();i++) {
-			if (routes.get(i).status()!=1) 
+			if (routes.get(i).status()==0 || routes.get(i).status()==2) 
 				actives.add(routes.get(i));
 		}
     	return actives;

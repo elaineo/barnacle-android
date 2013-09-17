@@ -2,14 +2,20 @@ package com.gobarnacle.maps;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +28,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +39,9 @@ import com.gobarnacle.PageDetailActivity;
 import com.gobarnacle.PageListActivity;
 import com.gobarnacle.R;
 import com.gobarnacle.utils.BarnacleClient;
+import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.Tools;
+import com.gobarnacle.utils.UpdateReceiver;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -59,9 +69,12 @@ public class MapActivity extends FragmentActivity implements
 								OnMyLocationButtonClickListener, android.location.LocationListener {
 	
     private static AsyncHttpClient client = new AsyncHttpClient();
-	 
+
+    private static Activity activity;
+    
     public final static String TrackUri = "/track/updateloc";
 	public final static String TAG = "MapActivity";
+	public final static String EXTRA_MSG = "com.gobarnacle.maps.EXTRA_MSG";
 	public static final Integer ZOOM = 8;
 	
     private GoogleMap mMap;
@@ -70,12 +83,16 @@ public class MapActivity extends FragmentActivity implements
     private static final float MIN_DISTANCE = 1000;
 
     private LocationClient mLocationClient;
-    private TextView mRouteView;	
+    private LinearLayout mRouteView;	
     private static TextView mAddrView;	
     private static CheckBox mAutoSub;
     private static NumberPicker mMins;
     private static EditText mMsg;
+    private static LinearLayout mLL0;
+    private static LinearLayout mLL1;
+    private static TextView mAutoText;
     
+    private ArrayList <Route> activeRoutes;
     private Boolean initialized = false;
 
 	/**
@@ -84,8 +101,7 @@ public class MapActivity extends FragmentActivity implements
 	 */
 	public MapActivity() {
 	}
-    // These settings are the same as the settings for the map. They will in fact give you updates
-    // at the maximal rates currently possible.
+
     private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
             .setFastestInterval(16)    // 16ms = 60fps
@@ -96,8 +112,23 @@ public class MapActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_sendloc);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
-        mRouteView = (TextView) findViewById(R.id.route_text);
-        //mRouteView.setText("Location = " + location);
+        
+        activity=this;
+        mLL0 = (LinearLayout) findViewById(R.id.auto0);
+        mLL1 = (LinearLayout) findViewById(R.id.auto1);
+        mAutoText = (TextView) findViewById(R.id.auto_text);
+        
+        mRouteView = (LinearLayout) findViewById(R.id.route_text);
+        activeRoutes = PageListActivity.getActives();
+		for(int i=0;i<activeRoutes.size();i++) {
+			TextView routeDescr = new TextView(this);
+			LayoutParams routeParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	        routeDescr.setText(activeRoutes.get(i).abbrevstart()+" to "+activeRoutes.get(i).abbrevend());
+	        mRouteView.addView(routeDescr, routeParams);
+		}
+
+        
+        
         mAddrView = (TextView) findViewById(R.id.addr_text);
         
         mAutoSub = (CheckBox) findViewById(R.id.auto_submit);
@@ -210,7 +241,6 @@ public class MapActivity extends FragmentActivity implements
 
     public static void getStringFromLocation(final Location loc, final Context context)
             throws ClientProtocolException, IOException, JSONException {
-
     	
         String address = String
                 .format(Locale.ENGLISH, "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language="
@@ -250,29 +280,30 @@ public class MapActivity extends FragmentActivity implements
     	locParams.put("locstr",locstr);
     	String msg = mMsg.getText().toString();
     	locParams.put("msg",msg);
-    	Integer mins = mMins.getValue();
+    	int mins = mMins.getValue();
     	Boolean auto = mAutoSub.isChecked();
     	
-    	BarnacleClient.postJSON(context, TrackUri, locParams, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                String status;
-				try {
-					status = response.getString("status");
-					Log.d(TAG, status);
-			        if (status.equals("ok")) {
-				      	// drop marker
-			        	Tools.showToast("Location updated at Barnacle.", context);
-			        } else {
-			        	Tools.showToast("Barnacle login failed.", context);
-			        }
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-        });		
-    	
+    	if (auto)
+    		setRecurringAlarm(context, mins);
+    	else {
+			BarnacleClient.postJSON(context, TrackUri, locParams, new JsonHttpResponseHandler() {
+		        @Override
+		        public void onSuccess(JSONObject response) {
+		            String status;
+					try {
+						status = response.getString("status");
+						Log.d(TAG, status);
+				        if (status.equals("ok")) 
+				        	Tools.showToast("Location updated at Barnacle.", context);
+				        else 
+				        	Tools.showToast("Barnacle login failed.", context);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		    });		
+    	}
     }      
 	 @Override
 	 public void onStatusChanged(String provider, int status, Bundle extras) { }
@@ -315,7 +346,36 @@ public class MapActivity extends FragmentActivity implements
 	        // (the camera animates to the user's current position).
 	        return false;
 	    }
-	    	 
+
+	    
+		private static void setRecurringAlarm(Context context, int minutes) {
+		    // Set alarm at minute interval
+		    Intent updater = new Intent(Intent.ACTION_MAIN);
+		    PendingIntent recurringUpdate = PendingIntent.getBroadcast(context,
+		            0, updater, PendingIntent.FLAG_CANCEL_CURRENT);
+	    	String msg = mMsg.getText().toString();
+	    	updater.putExtra(EXTRA_MSG,msg);
+		    
+		    AlarmManager alarms = (AlarmManager) activity.getSystemService(
+		            Context.ALARM_SERVICE);
+		    if (minutes < 0)
+		    	alarms.cancel(recurringUpdate);
+		    else if (minutes == 0)
+		    	alarms.set(AlarmManager.ELAPSED_REALTIME,0,recurringUpdate);
+		    else {
+		    	alarms.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, minutes*60000, recurringUpdate);
+				mLL0.setVisibility(View.GONE);
+				mLL1.setVisibility(View.VISIBLE);
+				mAutoText.setText("Updating every "+minutes+" minutes.");
+		    }
+		}	
+		
+		public void cancelUpdate(View view) {
+			Context context = this.getApplicationContext();
+			setRecurringAlarm(context,-1);	
+			mLL1.setVisibility(View.GONE);
+			mLL0.setVisibility(View.VISIBLE);
+		}
 }        
 	
 

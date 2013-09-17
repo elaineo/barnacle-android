@@ -62,6 +62,7 @@ public class PostActivity extends FragmentActivity implements
 	public final static String ROUTE_POST = "com.gobarnacle.ROUTE_POST"; 
     public final static String PostUri = "/track/create";
 	public final static String TAG = "PostActivity";
+	private static final String MAP_URI = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language=";
 	public static final Integer ZOOM = 8;
 	
 	private Boolean startSel = false;
@@ -72,6 +73,7 @@ public class PostActivity extends FragmentActivity implements
     private LocationManager locationManager;
     private static final long MIN_TIME = 400;
     private static final float MIN_DISTANCE = 1000;
+    
 
     private LocationClient mLocationClient;
     private TextView mLocStart;
@@ -213,21 +215,7 @@ public class PostActivity extends FragmentActivity implements
         	CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
 	        mMap.animateCamera(cameraUpdate);
 	        locationManager.removeUpdates(this);
-	        Log.d(TAG,""+latLng);
-	        startLat = latLng.latitude;
-	        startLon = latLng.longitude;
-			try {
-				getStringFromLatLng(latLng, mLocStart);
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			LocationConverter(latLng, mLocStart);
 			initialized = true;
         }
     }
@@ -240,25 +228,17 @@ public class PostActivity extends FragmentActivity implements
         if (startSel)
         	mStartBtn.setEnabled(true);
         mDestBtn.setEnabled(true);
-        try {
-			getStringFromLatLng(point, mAddr);
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		LocationConverter(point, mAddr);
+		//Log.d(TAG, tapAddrStr);
+		
+		//getStringFromLatLng(point, mAddr);
     }
     
     public static void getStringFromLatLng(final LatLng loc, final TextView addr)
             throws ClientProtocolException, IOException, JSONException {
     	
         String address = String
-                .format(Locale.ENGLISH, "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language="
+                .format(Locale.ENGLISH, MAP_URI
                                 + Locale.getDefault().getCountry(), loc.latitude, loc.longitude);
         addr.setText(" " +loc);
         client.get(address, null, new JsonHttpResponseHandler() {
@@ -360,6 +340,42 @@ public class PostActivity extends FragmentActivity implements
 		PageListActivity.addRoute(route);
 		finish();
     }
+    
+    
+    
+    
+    /** ANDROID IS SO STUPID!!! WHY DO I HAVE TO COPY AND PASTE CODE HERE??? **/
+    public static void LocationConverter(LatLng latlng, final TextView t) {
+    	final String MAP_URI = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language=";
+    	final String TAG = "LocationConverter";
+        AsyncHttpClient client = new AsyncHttpClient();
+        		
+		String address = String
+                .format(Locale.ENGLISH, MAP_URI + Locale.getDefault().getCountry(), latlng.latitude, latlng.longitude);
+        
+        client.get(address, null, new JsonHttpResponseHandler() {
+    		String formAddress = "";
+    		
+    		@Override
+            public void onSuccess(JSONObject response) {
+                String status;
+    			try {
+    				status = response.getString("status");
+    	            if ("OK".equalsIgnoreCase(status)) {
+    	                JSONArray results = response.getJSONArray("results");
+                        formAddress = results.getJSONObject(0).getString("formatted_address");
+                        Log.v(TAG,formAddress);
+                        t.setText(formAddress);
+                    }			        
+    			} catch (JSONException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+            }	    
+    	});
+    	
+    }
+    
 }        
 	
 
