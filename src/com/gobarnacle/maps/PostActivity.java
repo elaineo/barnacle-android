@@ -34,8 +34,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,8 +52,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class PostActivity extends FragmentActivity implements
 								ConnectionCallbacks,
 								OnConnectionFailedListener,
-								LocationListener,  OnMapClickListener,
-								OnMyLocationButtonClickListener, android.location.LocationListener {
+								OnMapClickListener, OnMyLocationButtonClickListener {
 	
     private static AsyncHttpClient client = new AsyncHttpClient();
 	 
@@ -70,10 +67,7 @@ public class PostActivity extends FragmentActivity implements
 	private LatLng lastTapped;
 	
     private GoogleMap mMap;
-    private LocationManager locationManager;
-    private static final long MIN_TIME = 400;
-    private static final float MIN_DISTANCE = 1000;
-    
+    private LocationManager locationManager;    
 
     private LocationClient mLocationClient;
     private TextView mLocStart;
@@ -84,7 +78,6 @@ public class PostActivity extends FragmentActivity implements
     private Button mStartBtn, mDestBtn;
     private Button mPostBtn;
     
-    private Boolean initialized = false;
     private static int timeZone = 0;
     private int destTZ;
 
@@ -95,12 +88,6 @@ public class PostActivity extends FragmentActivity implements
 	 */
 	public PostActivity() {
 	}
-    // These settings are the same as the settings for the map. They will in fact give you updates
-    // at the maximal rates currently possible.
-    private static final LocationRequest REQUEST = LocationRequest.create()
-            .setInterval(5000)         // 5 seconds
-            .setFastestInterval(16)    // 16ms = 60fps
-            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,8 +106,7 @@ public class PostActivity extends FragmentActivity implements
         mDestBtn = (Button) findViewById(R.id.set_dest_btn); 
         mPostBtn = (Button) findViewById(R.id.post_btn); 
         
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER        
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);                
     }
 
     @Override
@@ -207,23 +193,6 @@ public class PostActivity extends FragmentActivity implements
         });				
     }
 
-    /**
-     * Implementation of {@link LocationListener}.
-     */
-    @Override
-    public void onLocationChanged(Location location) {
-        LatLng latLng;
-        if (initialized == false) {
-        	latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        	CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
-	        mMap.animateCamera(cameraUpdate);
-	        locationManager.removeUpdates(this);
-			LocationConverter(latLng, mLocStart);
-	    	startLat = latLng.latitude;
-	    	startLon = latLng.longitude;
-			initialized = true;
-        }
-    }
 
     @Override
     public void onMapClick(LatLng point) {
@@ -295,22 +264,22 @@ public class PostActivity extends FragmentActivity implements
         }
     }	            
 
-	 @Override
-	 public void onStatusChanged(String provider, int status, Bundle extras) { }
-
-	 @Override
-	 public void onProviderEnabled(String provider) { }
-
-	 @Override
-	 public void onProviderDisabled(String provider) { }
     /**
      * Callback called when connected to GCore. Implementation of {@link ConnectionCallbacks}.
      */
     @Override
     public void onConnected(Bundle connectionHint) {
-        mLocationClient.requestLocationUpdates(
-                REQUEST,
-                this);  // LocationListener	        	        
+    	String locationProvider = LocationManager.NETWORK_PROVIDER;
+    	// Or use LocationManager.GPS_PROVIDER
+
+    	Location location = locationManager.getLastKnownLocation(locationProvider);
+        LatLng latLng;
+    	latLng = new LatLng(location.getLatitude(), location.getLongitude());
+    	CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
+        mMap.animateCamera(cameraUpdate);
+		LocationConverter(latLng, mLocStart);
+    	startLat = latLng.latitude;
+    	startLon = latLng.longitude;
     }
 
     /**

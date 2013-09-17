@@ -3,9 +3,7 @@ package com.gobarnacle.maps;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
@@ -41,7 +39,6 @@ import com.gobarnacle.R;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.Tools;
-import com.gobarnacle.utils.UpdateReceiver;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -224,18 +221,9 @@ public class MapActivity extends FragmentActivity implements
 
     }
 
-    /**
-     * Implementation of {@link LocationListener}.
-     */
+
     @Override
     public void onLocationChanged(Location location) {
-    	if (initialized==false) {
-	        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-	        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
-	        mMap.animateCamera(cameraUpdate);
-	        locationManager.removeUpdates(this);
-	        initialized = true;
-    	}
     }
 
 
@@ -320,7 +308,13 @@ public class MapActivity extends FragmentActivity implements
 	    public void onConnected(Bundle connectionHint) {
 	        mLocationClient.requestLocationUpdates(
 	                REQUEST,
-	                this);  // LocationListener
+	                this);  
+	        String locationProvider = LocationManager.NETWORK_PROVIDER;
+	    	Location location = locationManager.getLastKnownLocation(locationProvider);
+	        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+	    	CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
+	        mMap.animateCamera(cameraUpdate);
+	        locationManager.removeUpdates(this);
 	    }
 
 	    /**
