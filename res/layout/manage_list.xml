@@ -4,13 +4,22 @@
     android:layout_height="wrap_content"
     android:padding="5dp" >
 
+    <!-- 
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:id="@+id/status"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1">        
+    </LinearLayout>
+    -->
+     
     <Button
         android:id="@+id/status"
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="Status"
+        android:layout_weight="0.5"
+        android:layout_margin="10dp"
+        android:layout_height="fill_parent"
         android:focusable="false"
 		android:focusableInTouchMode="false" />
 		
@@ -20,8 +29,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="4"
         android:gravity="left"
-		android:text="@+id/start"
-        android:textSize="18sp" >
+		android:text="@+id/start" >
     </TextView>
   	    <TextView
        	android:id="@+id/dest"
@@ -29,8 +37,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="4"
         android:gravity="left"
-		android:text="@+id/dest"
-        android:textSize="18sp" >
+		android:text="@+id/dest" >
     </TextView>
     <TextView
        	android:id="@+id/date"
@@ -38,16 +45,19 @@
         android:layout_height="fill_parent"
         android:layout_weight="2"
         android:gravity="right"
-		android:text="@+id/date"
-        android:textSize="18sp" >
+		android:text="@+id/date">
     </TextView>
-    <Button
+    <ImageButton
         android:id="@+id/delete"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="X"
+		android:src="@drawable/trash"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:layout_height="wrap_content"     
+        android:layout_width="0dip"          
+        android:layout_weight="1"          
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:focusable="false"
 		android:focusableInTouchMode="false" />
 </LinearLayout>

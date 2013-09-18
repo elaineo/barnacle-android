@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.gobarnacle.MenuListActivity;
@@ -26,7 +27,7 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 	
 	private final Context context;
 	private final ArrayList<Route> values;
-	private Button deleteBtn=null;
+	private ImageButton deleteBtn=null;
 	private Button statusBtn=null;
 
     public RouteLinkAdapter(Context context, ArrayList<Route> values) {
@@ -39,16 +40,14 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
     	convertView.setVisibility(View.GONE);
     }
     public String updateStatBtn(View convertView, Integer s) {
-    	Button btn = (Button) convertView.findViewById(R.id.status);
-    	String statDescr = (String) btn.getText();
+    	statusBtn= (Button) convertView.findViewById(R.id.status);	
 		if (s==1)
-			statDescr = "inactive";
+			statusBtn.setBackgroundResource(R.drawable.button_inactive);
 		else if (s==0)
-			statDescr = "active";
+			statusBtn.setBackgroundResource(R.drawable.button_active);
 		else 
-			statDescr = "waiting";
-		btn.setText(statDescr);
-		return statDescr;
+			statusBtn.setBackgroundResource(R.drawable.button_wait);
+		return Route.statusStr(s);
     }
     
 	@Override
@@ -63,11 +62,12 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 		destText.setText(values.get(position).locend());
 		TextView dateText = (TextView) rowView.findViewById(R.id.date);
 		dateText.setText(values.get(position).delivend()); 
-
-		Integer statInt = values.get(position).status();
-		statusBtn= (Button) rowView.findViewById(R.id.status);		
+		
+		Integer statInt = values.get(position).status();			
 		updateStatBtn(rowView, statInt);
 		statusBtn.setTag(values.get(position).routekey());
+		statusBtn.setFocusableInTouchMode(false);
+		statusBtn.setFocusable(false);
         statusBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -77,8 +77,10 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
             }            
         });
         
-		deleteBtn= (Button) rowView.findViewById(R.id.delete);
+		deleteBtn= (ImageButton) rowView.findViewById(R.id.delete);
         deleteBtn.setTag(values.get(position).routekey());
+        deleteBtn.setFocusableInTouchMode(false);
+        deleteBtn.setFocusable(false);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override

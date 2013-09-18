@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="fillpost_head">Drive a New Route</string>
-    <string name="start">Start Address</string>
+    <string name="fillpost_head">Create Route</string>
+    <string name="start">Start</string>
     <string name="dest">Destination</string>
     <string name="startdate">Departure Date</string>
     <string name="enddate">Arrival Date</string>
+    <string name="label_set">"set to  "</string>
+    <string name="sel_optcur">Use Current Location</string>
+    <string name="sel_opttap">Tap on Map to Select Location</string>
     <string name="roundt">Roundtrip?</string>
     <string name="repeat">Repeat Route</string>
     <string name="repeatno">No</string>

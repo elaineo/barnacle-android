@@ -205,19 +205,24 @@ public class MapActivity extends BarnacleView implements
     	new AlertDialog.Builder(this)
     	.setMessage("Do you want to confirm your arrival?")
     	.setIcon(android.R.drawable.ic_dialog_alert)
-    	.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+    	.setNeutralButton("Confirm", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 				Intent intent = new Intent(context, ConfirmActivity.class);
 				startActivity(intent);
 				finish();				
 			}})
-    	 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+    	 .setPositiveButton("No, Just End", new DialogInterface.OnClickListener() {
  			@Override
  			public void onClick(DialogInterface arg0, int arg1) {
  				MenuListActivity.setAllInactive(context); 
  				// go to manage page
  				finish();				
+ 			}})
+    	 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+ 			@Override
+ 			public void onClick(DialogInterface arg0, int arg1) {
+ 				return;
  			}}).show();            			
 
     }

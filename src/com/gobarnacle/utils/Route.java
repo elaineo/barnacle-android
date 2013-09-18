@@ -108,6 +108,24 @@ public class Route implements Parcelable {
             return new Route[size];
         }
     };
+    public static String statusStr(int s) {
+    	String status="waiting";    	
+    	switch(s) {
+    		case 0:
+    			status="active";
+    			break;
+    		case 1:
+    			status="inactive";
+    			break;
+    		case 2:
+    			status="waiting";
+    			break;
+    		case 99:
+    			status="completed";
+    			break;
+    	}
+		return status;
+    }
 
     //takes a Parcel and craps out Route
     private Route(Parcel in) {

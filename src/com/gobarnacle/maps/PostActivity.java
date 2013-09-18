@@ -1,6 +1,7 @@
 package com.gobarnacle.maps;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Locale;
 
 import org.apache.http.client.ClientProtocolException;
@@ -13,12 +14,10 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +25,8 @@ import android.widget.Toast;
 import com.gobarnacle.MenuListActivity;
 import com.gobarnacle.R;
 import com.gobarnacle.ShareActivity;
+import com.gobarnacle.layout.BarnacleView;
+import com.gobarnacle.layout.SliderContainer;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.Tools;
@@ -48,7 +49,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * contained in a {@link PageListActivity} in two-pane mode (on tablets) or a
  * {@link PageDetailActivity} on handsets.
  */
-public class PostActivity extends FragmentActivity implements
+public class PostActivity extends BarnacleView implements
 								ConnectionCallbacks,
 								OnConnectionFailedListener,
 								OnMapClickListener, OnMyLocationButtonClickListener {
@@ -73,12 +74,15 @@ public class PostActivity extends FragmentActivity implements
     private TextView mLocEnd;
     private static TextView mTapped;	
     private TextView mAddr;	
-    private static DatePicker mDate;
     private Button mStartBtn, mDestBtn;
     private Button mPostBtn;
     
+    private SliderContainer mContainer;
+    
     private static int timeZone = 0;
     private int destTZ;
+    
+    Context context;
 
     
 	/**
@@ -92,10 +96,8 @@ public class PostActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_fillpost);
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);         
-
-        mDate = (DatePicker) findViewById(R.id.arrival_date);
-        mDate.setMinDate(System.currentTimeMillis() - 1000);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);     
+        context = this;
         
         mLocStart = (TextView) findViewById(R.id.locstart);
         mLocEnd = (TextView) findViewById(R.id.locend);
@@ -105,6 +107,8 @@ public class PostActivity extends FragmentActivity implements
         mDestBtn = (Button) findViewById(R.id.set_dest_btn); 
         mPostBtn = (Button) findViewById(R.id.post_btn); 
         
+        mContainer = (SliderContainer) this.findViewById(R.id.dateSliderContainer);
+
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);                
     }
 
@@ -166,7 +170,9 @@ public class PostActivity extends FragmentActivity implements
     	postParams.put("locstart",mLocStart.getText());
     	postParams.put("locend",mLocEnd.getText());
     	
-    	postParams.put("delivend",(mDate.getMonth()+1) + "/" + mDate.getDayOfMonth()+"/" + mDate.getYear());
+    	Log.v(TAG,mContainer.getTime().toString());
+    	Calendar c = mContainer.getTime();
+    	postParams.put("delivend",(c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.DAY_OF_MONTH)+"/" + c.get(Calendar.YEAR));
     	    	
     	BarnacleClient.postJSON(context, PostUri, postParams, new JsonHttpResponseHandler() {
             @Override

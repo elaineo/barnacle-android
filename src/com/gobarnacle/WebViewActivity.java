@@ -2,11 +2,12 @@ package com.gobarnacle;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-public class WebViewActivity extends FragmentActivity{
+import com.gobarnacle.layout.BarnacleView;
+
+public class WebViewActivity extends BarnacleView{
 
 	private String track_url;
 	

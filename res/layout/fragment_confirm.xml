@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+  		android:layout_height="fill_parent"
+  		android:padding="20dp"
+  		android:background="@layout/backgroundpage" 
+    	tools:context=".ConfirmActivity"
+ 		android:orientation="vertical" >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm Arrival"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="@string/confirm_head"
+        style="@style/textTitleLarge" />
 
     <TextView
+        android:padding="10dp"
+        style="@style/textHeaderLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm_sel" />
     <RadioGroup
+        android:padding="10dp"
         android:id="@+id/radio_locations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
@@ -22,16 +29,19 @@
     </RadioGroup>
         
     <TextView
+        style="@style/textHeaderLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm1" />
         
     <LinearLayout
+        android:padding="10dp"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <EditText
+        <EditText            
             android:id="@+id/confirm_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +49,7 @@
             android:inputType="number" >
         </EditText>
 
-        <Button
+        <Button            
             android:id="@+id/check_code_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,16 +59,20 @@
     </LinearLayout>
 
     <TextView
+        style="@style/textHeaderLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm2" />
-
-    <Button
-        android:id="@+id/send_confirm_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="sendConfirm"
-        android:enabled="false"
-        android:text="@string/submit" />
-
+	<LinearLayout
+	    android:gravity="center"
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+	    <Button
+	        android:id="@+id/send_confirm_btn"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="sendConfirm"
+	        android:enabled="false"
+	        android:text="@string/submit" />
+	</LinearLayout>
 </LinearLayout>

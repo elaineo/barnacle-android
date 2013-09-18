@@ -1,64 +1,82 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.gobarnacle"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_sendloc"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:id="@+id/fragment_fillpost"
+    android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:padding="20dp"
+	android:background="@layout/backgroundpage" 
     android:orientation="vertical"
-    android:padding="10dip"
     tools:context=".PostActivity" >
 
     <!-- origin and destination -->
-
-    <TextView
+	<LinearLayout 
+	    android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Route"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#372c24" />
-	<LinearLayout 
-	    android:orientation="horizontal" 
-	    android:layout_height="fill_parent"
-	    android:layout_width="wrap_content">
-	    <TextView 
-	        android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+	    <TextView
+        	android:padding="10dp"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Start" />
-	    <RadioGroup
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" >
-	    <RadioButton
-	        android:id="@+id/startsel0"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:checked="true"
-	        android:onClick="onStartSelClicked"
-	        android:text="Use Current Location" />
-	    <RadioButton
-	        android:id="@+id/startsel1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="onStartSelClicked"
-	        android:text="Tap on Map to Select Location" />
-   	    <TextView
-   	        android:id="@+id/locstart" 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
-		</RadioGroup>
+	        android:text="@string/fillpost_head"
+	        style="@style/textTitleLarge" />
+		<LinearLayout 
+		    android:orientation="horizontal"
+		    android:weightSum="12" 
+		    android:layout_height="wrap_content"
+		    android:layout_width="fill_parent">
+		    <RadioGroup
+		        android:layout_weight="6"
+	    		android:layout_width="0dp"
+	    		android:layout_height="wrap_content" >
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/start"
+		        style="@style/textHeaderLarge" />		        	    		
+		    <RadioButton
+		        android:id="@+id/startsel0"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:checked="true"
+		        android:onClick="onStartSelClicked"
+		        android:text="@string/sel_optcur" />
+		    <RadioButton
+		        android:id="@+id/startsel1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:onClick="onStartSelClicked"
+		        android:text="@string/sel_opttap" />
+			</RadioGroup>
+	   	    <EditText
+	   	        style="@style/BarnacleEditTextSmall"
+	   	        android:layout_weight="6"
+	   	        android:enabled="false"
+	   	        android:id="@+id/locstart" 
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"/>
+		</LinearLayout>
+		<LinearLayout 
+		    android:orientation="horizontal"
+		    android:weightSum="12"  
+		    android:layout_height="wrap_content"
+		    android:layout_width="fill_parent">
+		    <TextView 
+		        style="@style/textHeaderLarge"
+		        android:layout_weight="6"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:text="@string/dest" />
+	   	    <EditText
+	   	        style="@style/BarnacleEditTextSmall"
+	   	        android:enabled="false"
+	   	        android:id="@+id/locend" 
+	   	        android:layout_weight="6"
+	    		android:layout_width="0dp"
+		        android:layout_height="wrap_content"/>
+		</LinearLayout>    
 	</LinearLayout>
-	<LinearLayout 
-	    android:orientation="horizontal" 
-	    android:layout_height="fill_parent"
-	    android:layout_width="wrap_content">
-	    <TextView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Destination" />
-   	    <TextView
-   	        android:id="@+id/locend" 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"/>
-	</LinearLayout>    
-    <FrameLayout
+	<FrameLayout
         android:id="@+id/map_frame"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
@@ -74,7 +92,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="10" >
         <LinearLayout
@@ -100,42 +118,64 @@
             android:gravity="center"
             android:orientation="horizontal" >
         	<TextView
-	            android:text="set to "
+        	    style="@style/textViewLarge"
+	            android:text="@string/label_set"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
 	        <Button
 	            android:id="@+id/set_start_btn"
-	            style="?android:attr/buttonStyleSmall"
+	            style="@style/PrimaryButtonSmall"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:onClick="setStartLocation"
 	            android:enabled="false"
-	            android:text="start" />
+	            android:text="@string/start" />
 	        <Button
+	            android:layout_marginLeft="10dp"
 	            android:id="@+id/set_dest_btn"
-	            style="?android:attr/buttonStyleSmall"
+	            style="@style/PrimaryButtonSmall"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:onClick="setDestLocation"
 	            android:enabled="false"
-	            android:text="destination" />
+	            android:text="@string/dest" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal" >
+            android:paddingBottom="10dp"
+            android:orientation="vertical" >
         <TextView
-	            android:text="Arrival Date: "
+            	style="@style/textViewLarge"
+	            android:text="@string/enddate"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
-	    <DatePicker
-	        android:id="@+id/arrival_date"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-        android:calendarViewShown="false" />
+		<!-- <TextView
+   	        style="@style/BarnacleEditTextSmall"
+   	        android:id="@+id/enddate"
+   	        android:text="click on me" 
+    		android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>-->
+			<com.gobarnacle.layout.SliderContainer    
+			    android:id="@+id/dateSliderContainer"
+			    android:layout_width="fill_parent"
+                android:layout_height="130dp"
+			    >
+			    <com.gobarnacle.layout.ScrollLayout
+			        style="@style/Scroller"
+			        app:labelerClass="com.gobarnacle.layout.MonthYearLabeler"
+			        app:labelerFormat="%tb %tY"
+			        app:childWidth="90dp"
+			        />
+			    <com.gobarnacle.layout.ScrollLayout
+			        style="@style/Scroller"
+			        app:labelerClass="com.gobarnacle.layout.DayDateLabeler"
+			        app:labelerFormat="%td %ta"
+			        app:childWidth="45dp"
+			        />
+			</com.gobarnacle.layout.SliderContainer>		
     </LinearLayout>
 
     <LinearLayout
@@ -151,9 +191,8 @@
             android:gravity="center"
             android:onClick="submitPost"
             android:enabled="false"
-            android:padding="8dp"
             android:text="@string/submit_loc" />
 
     </LinearLayout>
-
+	
 </LinearLayout>

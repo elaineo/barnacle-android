@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,12 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gobarnacle.layout.BarnacleView;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.RouteCompletedAdapter;
 import com.gobarnacle.utils.RouteLinkAdapter;
 
 /* Manage Routes */
-public class ManageActivity extends FragmentActivity {
+public class ManageActivity extends BarnacleView {
 	
 	 
 	public final static String TAG = "ManageActivity";

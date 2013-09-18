@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,13 +15,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.gobarnacle.layout.BarnacleView;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.Tools;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /* Manage Routes */
-public class ConfirmActivity extends FragmentActivity {
+public class ConfirmActivity extends BarnacleView {
 	
 	 
 	public final static String TAG = "ConfirmActivity";
