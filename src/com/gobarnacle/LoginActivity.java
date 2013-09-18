@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
@@ -41,6 +43,11 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //printHashKey();
+      //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //Remove notification bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        
         if (savedInstanceState == null) {
             // Add the fragment on initial activity setup
             fbFragment = new FBFragment();

@@ -3,6 +3,7 @@ package com.gobarnacle;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,10 +12,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gobarnacle.layout.BarnacleView;
 import com.gobarnacle.maps.MapActivity;
 import com.gobarnacle.maps.PostActivity;
 import com.gobarnacle.utils.BarnacleClient;
-import com.gobarnacle.utils.BarnacleView;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.RouteSync;
 import com.gobarnacle.utils.Tools;

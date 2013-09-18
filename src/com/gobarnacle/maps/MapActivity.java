@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,13 +27,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gobarnacle.ConfirmActivity;
 import com.gobarnacle.MenuListActivity;
 import com.gobarnacle.R;
+import com.gobarnacle.layout.BarnacleView;
+import com.gobarnacle.layout.ValueSpinner;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.Tools;
@@ -58,7 +58,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  * contained in a {@link PageListActivity} in two-pane mode (on tablets) or a
  * {@link PageDetailActivity} on handsets.
  */
-public class MapActivity extends FragmentActivity implements
+public class MapActivity extends BarnacleView implements
 								ConnectionCallbacks,
 								OnConnectionFailedListener,
 								LocationListener,
@@ -82,7 +82,7 @@ public class MapActivity extends FragmentActivity implements
     private LinearLayout mRouteView;	
     private static TextView mAddrView;	
     private static CheckBox mAutoSub;
-    private static NumberPicker mMins;
+    private static ValueSpinner mMins;
     private static EditText mMsg;
     private static LinearLayout mLL0;
     private static LinearLayout mLL1;
@@ -112,11 +112,13 @@ public class MapActivity extends FragmentActivity implements
         mLL0 = (LinearLayout) findViewById(R.id.auto0);
         mLL1 = (LinearLayout) findViewById(R.id.auto1);
         mAutoText = (TextView) findViewById(R.id.auto_text);
+        mLL1.setVisibility(View.GONE);
+                
         
         mRouteView = (LinearLayout) findViewById(R.id.route_text);
         activeRoutes = MenuListActivity.getActives();
 		for(int i=0;i<activeRoutes.size();i++) {
-			TextView routeDescr = new TextView(this);
+			TextView routeDescr = (TextView)getLayoutInflater().inflate(R.layout.template_textview_header,null);
 			LayoutParams routeParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 	        routeDescr.setText(activeRoutes.get(i).abbrevstart()+" to "+activeRoutes.get(i).abbrevend());
 	        mRouteView.addView(routeDescr, routeParams);
@@ -128,7 +130,8 @@ public class MapActivity extends FragmentActivity implements
         
         mAutoSub = (CheckBox) findViewById(R.id.auto_submit);
         mMsg = (EditText) findViewById(R.id.msg_text);
-        mMins = (NumberPicker) findViewById(R.id.mininterval);
+        mMins = (ValueSpinner) findViewById(R.id.mininterval);
+        mMins = new ValueSpinner(this);
         mMins.setMaxValue(60);
         mMins.setMinValue(1);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

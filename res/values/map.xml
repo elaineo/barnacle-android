@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="cancel">Cancel</string>
+    <string name="add_msg">Add Message </string>
+    <string name="end_drive">End Drive</string>
     <string name="submit_loc">Submit</string>
+    <string name="label_auto_value">"   minutes."</string>
+    <string name="label_auto">Auto submit every </string>    
 </resources>
