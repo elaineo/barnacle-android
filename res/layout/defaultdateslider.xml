@@ -18,5 +18,4 @@
         app:labelerFormat="%td %ta"
         app:childWidth="45dp"
         />
-        <include layout="@layout/dialogbuttons"/>
 </com.gobarnacle.layout.SliderContainer>

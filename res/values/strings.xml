@@ -10,12 +10,13 @@
 
     <string name="invite_email_hint">Enter an Email</string>
     <string name="invite_phone_hint">or a Phone Number</string>
-    <string name="pick_email_label">Browse</string>
+    <string name="pick_email_label">Browse Contact List</string>
     <string name="add_label">Add</string>
     <string name="name_head">Selected Contacts</string>
     <string name="sms_head">SMS</string>
     <string name="eml_head">Email</string>
-    <string name="share_btn">Share</string>
+    <string name="share_btn">Submit</string>
+    <string name="share_head">Share Your Route</string>
     <string name="share_fb">Post on Facebook</string>
     
     <string name="dateSliderTitle">Selected date</string>    

@@ -1,6 +1,7 @@
 package com.gobarnacle.utils;
 
 import android.content.Context;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
@@ -25,5 +26,12 @@ public class Tools {
 	        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
 	    }
 	}
-	
+	public final static boolean validPhone(CharSequence target) {
+		if (target == null) {
+	        return false;
+	    } else {
+	        return PhoneNumberUtils.isGlobalPhoneNumber((String)target);
+	    }
+	}
+		
 }

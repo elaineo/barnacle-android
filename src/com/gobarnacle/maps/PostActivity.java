@@ -201,8 +201,7 @@ public class PostActivity extends BarnacleView implements
 
     @Override
     public void onMapClick(LatLng point) {
-    	Log.d(TAG, "tapped");
-        mTapped.setText("" + point);
+        mTapped.setText(String.format("(%.2f,%.2f)  ", point.latitude, point.longitude));
         lastTapped = point;
         if (startSel)
         	mStartBtn.setEnabled(true);

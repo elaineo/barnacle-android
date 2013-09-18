@@ -16,7 +16,6 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +29,14 @@ import com.facebook.FacebookException;
 import com.facebook.Session;
 import com.facebook.widget.WebDialog;
 import com.facebook.widget.WebDialog.OnCompleteListener;
+import com.gobarnacle.layout.BarnacleView;
 import com.gobarnacle.maps.PostActivity;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.Tools;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-public class ShareActivity extends FragmentActivity {
+public class ShareActivity extends BarnacleView {
 	
 	public final static String ROUTE_POST = "com.gobarnacle.ROUTE_POST"; 
 	private static final String TAG = "ShareActivity";  
@@ -157,10 +157,14 @@ public class ShareActivity extends FragmentActivity {
 	public void addPhoneContact(View view) {
 		EditText textField = (EditText) findViewById(R.id.invite_phone);
 		String newAddr = textField.getText().toString();
-		textField.setText("");
-		smsNumbers.add(newAddr);
-		emailAddrs.add("");
-		addtoContactList(newAddr, true, false);
+		Boolean valid = Tools.validPhone(newAddr);
+		if (valid) {
+			textField.setText("");
+			smsNumbers.add(newAddr);
+			emailAddrs.add("");
+			addtoContactList(newAddr, true, false);
+		} else
+			Tools.showToast("Invalid Number.", this.getApplicationContext() );
 	}
 	
 	public void shareMsg(View view) throws UnsupportedEncodingException, JSONException {  

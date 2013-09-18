@@ -27,6 +27,7 @@ public class SliderContainer extends LinearLayout {
     @Override
     protected void onFinishInflate() {
         final int childCount = getChildCount();
+    	mTime = Calendar.getInstance();
         for (int i = 0; i < childCount; i++) {
             View v = getChildAt(i);
             if (v instanceof ScrollLayout) {
@@ -34,7 +35,6 @@ public class SliderContainer extends LinearLayout {
                 sl.setOnScrollListener(
                         new ScrollLayout.OnScrollListener() {
                             public void onScroll(long x) {
-                            	mTime = Calendar.getInstance();
                                 mTime.setTimeInMillis(x);
                                 arrangeScrollers(sl);
                             }

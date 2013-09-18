@@ -35,7 +35,7 @@ public class ValueSpinner extends LinearLayout {
     private int max=100;
      
     private ArrayList<String> valueString=new ArrayList<String>();
-    private int value=0;
+    private int value=1;
     private TextView textLabel;
     private String textLabelVal;
      

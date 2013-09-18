@@ -64,6 +64,7 @@
         android:layout_height="wrap_content"
         android:text="@string/confirm2" />
 	<LinearLayout
+	    android:padding="10dp"
 	    android:gravity="center"
 	    android:layout_width="fill_parent"
         android:layout_height="wrap_content">
