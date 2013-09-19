@@ -4,7 +4,7 @@
     android:id="@+id/fragment_fillpost"
     android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:padding="5dp"
+	android:padding="10dp"
 	android:background="@layout/backgroundpage" 
     android:orientation="vertical"
     tools:context=".PostActivity" >
@@ -14,68 +14,68 @@
 	    android:orientation="vertical"
         android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
-	<LinearLayout 
-	    android:orientation="horizontal"
-        android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-   	    <TextView 
-   	        android:layout_weight="2"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:text="@string/start"
-	        style="@style/textHeader" />
-   	    <TextView
-   	        style="@style/textHeader"
- 	        android:layout_weight="4"
- 	        android:id="@+id/locstart" 
-	       android:layout_width="0dp"
-	       android:layout_height="wrap_content"/>   	    
- 	</LinearLayout>		        	    		
-	    <RadioGroup
-	        style="@style/RadioSmall"
-	        android:orientation="horizontal"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" >
-	    <RadioButton
-	        style="@style/RadioSmall"
-	        android:id="@+id/startsel0"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:checked="true"
-	        android:onClick="onStartSelClicked"
-	        android:text="@string/sel_optcur" />
-	    <RadioButton
-	        style="@style/RadioSmall"
-	        android:id="@+id/startsel1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="onStartSelClicked"
-	        android:text="@string/sel_opttap" />
-		</RadioGroup>
-	<LinearLayout 
-	    android:orientation="horizontal"
-        android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-	    <TextView 
-	       style="@style/textHeader"
-	       android:layout_weight="2"
-	       android:layout_width="0dp"
-	       android:layout_height="wrap_content"
-	       android:text="@string/dest" />   	    
-   	    <TextView
-   	        style="@style/textHeader"   	        
-   	        android:id="@+id/locend" 
-   	        android:layout_weight="4"
-    		android:layout_width="0dp"
-	        android:layout_height="wrap_content"/>
-   	    </LinearLayout>
+		<LinearLayout 
+		    android:orientation="horizontal"
+		    android:weightSum="12" 
+		    android:layout_height="wrap_content"
+		    android:layout_width="fill_parent">
+		    <RadioGroup
+		        android:layout_weight="6"
+	    		android:layout_width="0dp"
+	    		android:layout_height="wrap_content" >
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/start"
+		        style="@style/textHeaderLarge" />		        	    		
+		    <RadioButton
+		        android:id="@+id/startsel0"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:checked="true"
+		        android:onClick="onStartSelClicked"
+		        android:text="@string/sel_optcur" />
+		    <RadioButton
+		        android:id="@+id/startsel1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:onClick="onStartSelClicked"
+		        android:text="@string/sel_opttap" />
+			</RadioGroup>
+	   	    <EditText
+	   	        style="@style/BarnacleEditText"
+	   	        android:layout_weight="6"
+	   	        android:enabled="false"
+	   	        android:id="@+id/locstart" 
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"/>
+		</LinearLayout>
+		<LinearLayout 
+		    android:orientation="horizontal"
+		    android:weightSum="12"  
+		    android:layout_height="wrap_content"
+		    android:layout_width="fill_parent">
+		    <TextView 
+		        style="@style/textHeaderLarge"
+		        android:layout_weight="6"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:text="@string/dest" />
+	   	    <EditText
+	   	        style="@style/BarnacleEditText"
+	   	        android:enabled="false"
+	   	        android:id="@+id/locend" 
+	   	        android:layout_weight="6"
+	    		android:layout_width="0dp"
+		        android:layout_height="wrap_content"/>
+		</LinearLayout>    
 	</LinearLayout>
 	<FrameLayout
         android:id="@+id/map_frame"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="0.1"
-        android:padding="5dp" >
+        android:padding="10dip" >
 
         <fragment
             android:id="@+id/maptap"
@@ -112,12 +112,13 @@
             android:gravity="center"
             android:orientation="horizontal" >
         	<TextView
+        	    style="@style/textViewLarge"
 	            android:text="@string/label_set"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
 	        <Button
 	            android:id="@+id/set_start_btn"
-	            style="@style/PrimaryButtonXSmall"
+	            style="@style/PrimaryButtonSmall"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:onClick="setStartLocation"
@@ -126,7 +127,7 @@
 	        <Button
 	            android:layout_marginLeft="10dp"
 	            android:id="@+id/set_dest_btn"
-	            style="@style/PrimaryButtonXSmall"
+	            style="@style/PrimaryButtonSmall"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:onClick="setDestLocation"
@@ -141,6 +142,7 @@
             android:paddingBottom="10dp"
             android:orientation="vertical" >
         <TextView
+            	style="@style/textViewLarge"
 	            android:text="@string/enddate"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
@@ -153,7 +155,7 @@
 			<com.gobarnacle.layout.SliderContainer    
 			    android:id="@+id/dateSliderContainer"
 			    android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
 			    >
 			    <com.gobarnacle.layout.ScrollLayout
 			        style="@style/Scroller"

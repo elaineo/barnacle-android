@@ -15,10 +15,10 @@
    <RelativeLayout         
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:paddingRight="50dp"
+        android:paddingRight="100dp"
         android:layout_weight="1">
     <Button
-        style="@style/BarnacleMenuButtonSmall"        
+        style="@style/BarnacleMenuButton"        
         android:text="@string/menu_create"
         android:onClick="launchCreateRoute" />
 	</RelativeLayout>
@@ -30,12 +30,12 @@
 
    <RelativeLayout         
         android:layout_width="match_parent"
-       	android:paddingLeft="50dp"
+       	android:paddingLeft="100dp"
         android:layout_height="0dip"
         android:layout_weight="1">
    <Button
        android:layout_alignParentRight="true"
-       style="@style/BarnacleMenuButtonSmall"
+       style="@style/BarnacleMenuButton"
        android:text="@string/menu_track" 
        android:onClick="launchTracker"/>
    </RelativeLayout>
@@ -46,12 +46,12 @@
          android:layout_height="0dip"></View>
 
    <RelativeLayout         
-        android:paddingRight="50dp"       
+        android:paddingRight="100dp"       
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1">   
    <Button
-        style="@style/BarnacleMenuButtonSmall"
+        style="@style/BarnacleMenuButton"
         android:text="@string/menu_manage"
         android:onClick="launchManager" />
    </RelativeLayout>

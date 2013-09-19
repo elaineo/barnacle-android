@@ -69,11 +69,14 @@ public class ValueSpinner extends LinearLayout {
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-        int buttSize = 50;
+        int buttSize = 30;
         Log.d("dims", width+","+height);
-        if (height>900)
+        if (height>1300)
         	buttSize = 80;
-        	
+        else if (height>800)
+        	buttSize = 50;
+        Log.d("dims", buttSize+"");
+        
     	LayoutInflater inflater = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         valueView = new TextView(getContext());
         textLabel = new TextView(getContext());
@@ -155,7 +158,7 @@ public class ValueSpinner extends LinearLayout {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    touchSet(0);
+                    touchSet(1);
                     Message msg = new Message();
                     msg.what = 1;
                     msg.arg1 = 1; //1 for incButton

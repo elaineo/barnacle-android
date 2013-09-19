@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
    android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:padding="5dp"
+	android:padding="20dp"
 	android:background="@layout/backgroundpage" 
     android:orientation="vertical" >
     
@@ -29,7 +29,7 @@
 	    android:orientation="horizontal"
 	    android:layout_height="wrap_content"  
 	    android:layout_width="match_parent">  
-	    <EditText
+	    <EditText 
      	    android:layout_width="0dp"
 	        android:layout_weight="6"  
 	        android:layout_height="wrap_content"  
@@ -71,19 +71,19 @@
 			android:layout_weight="4"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			style="@style/textHeader"
+			style="@style/textHeaderLarge"
 			android:text="@string/name_head"></TextView>
 		<TextView
 			android:layout_weight="1"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			style="@style/textHeader"
+			style="@style/textHeaderLarge"
 			android:text="@string/sms_head"></TextView>
 		<TextView
 			android:layout_weight="1"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			style="@style/textHeader"
+			style="@style/textHeaderLarge"
 			android:text="@string/eml_head"></TextView>                    
     </LinearLayout>
 </LinearLayout>

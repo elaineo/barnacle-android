@@ -588,6 +588,7 @@ containing a value of this type.
         public static final int fragment_sendloc=0x7f050035;
         public static final int header=0x7f050048;
         public static final int hybrid=0x7f050004;
+        public static final int image=0x7f050052;
         public static final int invite_email=0x7f050042;
         public static final int invite_phone=0x7f050043;
         public static final int large=0x7f050006;
@@ -595,7 +596,7 @@ containing a value of this type.
         public static final int listrview=0x7f050031;
         public static final int location_btn=0x7f050040;
         public static final int locend=0x7f050027;
-        public static final int locstart=0x7f050026;
+        public static final int locstart=0x7f050024;
         public static final int map0=0x7f050037;
         public static final int map_frame=0x7f050028;
         public static final int maptap=0x7f050029;
@@ -617,15 +618,17 @@ containing a value of this type.
         public static final int share_btn=0x7f050046;
         public static final int small=0x7f050005;
         public static final int start=0x7f05004b;
-        public static final int startsel0=0x7f050024;
-        public static final int startsel1=0x7f050025;
+        public static final int startsel0=0x7f050025;
+        public static final int startsel1=0x7f050026;
         public static final int status=0x7f05004a;
         public static final int tapped_addr=0x7f05002b;
         public static final int tapped_text=0x7f05002a;
         public static final int tbl_head=0x7f050030;
         public static final int terrain=0x7f050003;
+        public static final int text=0x7f050053;
         public static final int title=0x7f050050;
-        public static final int view_track=0x7f050051;
+        public static final int toast_layout_id=0x7f050051;
+        public static final int view_track=0x7f050054;
     }
     public static final class layout {
         public static final int activity_page_detail=0x7f030000;
@@ -663,12 +666,13 @@ containing a value of this type.
         public static final int template_textview=0x7f030020;
         public static final int template_textview_header=0x7f030021;
         public static final int titleview=0x7f030022;
-        public static final int view_track=0x7f030023;
+        public static final int toast=0x7f030023;
+        public static final int view_track=0x7f030024;
     }
     public static final class string {
-        public static final int add_label=0x7f06005a;
+        public static final int add_label=0x7f06005f;
         public static final int add_msg=0x7f06003c;
-        public static final int app_id=0x7f060053;
+        public static final int app_id=0x7f060058;
         public static final int app_name=0x7f060052;
         /**   Title for notification shown when GooglePlayServices needs to be
           enabled for a application to work. [CHAR LIMIT=70] 
@@ -779,17 +783,18 @@ containing a value of this type.
         public static final int confirm2=0x7f060031;
         public static final int confirm_head=0x7f06002e;
         public static final int confirm_sel=0x7f060030;
-        public static final int dateSliderTitle=0x7f060061;
+        public static final int confirm_title=0x7f060056;
+        public static final int dateSliderTitle=0x7f060066;
         public static final int dest=0x7f060043;
         public static final int details=0x7f06004f;
-        public static final int eml_head=0x7f06005d;
+        public static final int eml_head=0x7f060062;
         public static final int end_drive=0x7f06003d;
         public static final int enddate=0x7f060045;
         public static final int fillpost_head=0x7f060041;
-        public static final int imgFooterDesc=0x7f060054;
-        public static final int imgLogoDesc=0x7f060055;
-        public static final int invite_email_hint=0x7f060057;
-        public static final int invite_phone_hint=0x7f060058;
+        public static final int imgFooterDesc=0x7f060059;
+        public static final int imgLogoDesc=0x7f06005a;
+        public static final int invite_email_hint=0x7f06005c;
+        public static final int invite_phone_hint=0x7f06005d;
         public static final int label_auto=0x7f060040;
         public static final int label_auto_value=0x7f06003f;
         public static final int label_completed=0x7f06003a;
@@ -800,13 +805,16 @@ containing a value of this type.
         public static final int label_start=0x7f060035;
         public static final int label_status=0x7f060038;
         public static final int manage_head=0x7f060034;
-        public static final int menu_create=0x7f060062;
-        public static final int menu_manage=0x7f060064;
-        public static final int menu_track=0x7f060063;
-        public static final int name_head=0x7f06005b;
+        public static final int manage_title=0x7f060054;
+        public static final int map_title=0x7f060053;
+        public static final int menu_create=0x7f060067;
+        public static final int menu_manage=0x7f060069;
+        public static final int menu_track=0x7f060068;
+        public static final int name_head=0x7f060060;
         public static final int notify=0x7f060032;
         public static final int ok=0x7f060033;
-        public static final int pick_email_label=0x7f060059;
+        public static final int pick_email_label=0x7f06005e;
+        public static final int post_title=0x7f060055;
         public static final int repeat=0x7f06004a;
         public static final int repeatno=0x7f06004b;
         public static final int repeatr1=0x7f06004c;
@@ -815,18 +823,19 @@ containing a value of this type.
         public static final int sel_optcur=0x7f060047;
         public static final int sel_opttap=0x7f060048;
         public static final int share=0x7f060051;
-        public static final int share_btn=0x7f06005e;
-        public static final int share_fb=0x7f060060;
-        public static final int share_head=0x7f06005f;
-        public static final int sms_head=0x7f06005c;
+        public static final int share_btn=0x7f060063;
+        public static final int share_fb=0x7f060065;
+        public static final int share_head=0x7f060064;
+        public static final int share_title=0x7f060057;
+        public static final int sms_head=0x7f060061;
         public static final int start=0x7f060042;
         public static final int startdate=0x7f060044;
         public static final int submit=0x7f060050;
         public static final int submit_loc=0x7f06003e;
-        public static final int title_page_detail=0x7f060056;
+        public static final int title_page_detail=0x7f06005b;
     }
     public static final class style {
-        public static final int ActiveRouteButton=0x7f080012;
+        public static final int ActiveRouteButton=0x7f080013;
         /** 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -846,32 +855,35 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f080018;
+        public static final int AppBaseTheme=0x7f08001b;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f080019;
+        public static final int AppTheme=0x7f08001c;
         public static final int BarnacleActionBar=0x7f080003;
         public static final int BarnacleButton=0x7f08000b;
         public static final int BarnacleButtonSmall=0x7f08000c;
-        public static final int BarnacleCheckBox=0x7f080015;
+        public static final int BarnacleCheckBox=0x7f080016;
         public static final int BarnacleEditText=0x7f080004;
         public static final int BarnacleEditTextSmall=0x7f080005;
-        public static final int BarnacleMenuButton=0x7f080016;
-        public static final int BarnacleMenuButtonLarge=0x7f080017;
-        public static final int ButtonBar=0x7f08001b;
-        public static final int ButtonBarButton=0x7f08001c;
-        public static final int FullscreenActionBarStyle=0x7f08001e;
-        public static final int FullscreenTheme=0x7f08001a;
-        public static final int InactiveRouteButton=0x7f080014;
-        public static final int LeftArrowButton=0x7f080010;
+        public static final int BarnacleMenuButton=0x7f080018;
+        public static final int BarnacleMenuButtonLarge=0x7f080019;
+        public static final int BarnacleMenuButtonSmall=0x7f08001a;
+        public static final int ButtonBar=0x7f08001e;
+        public static final int ButtonBarButton=0x7f08001f;
+        public static final int FullscreenActionBarStyle=0x7f080021;
+        public static final int FullscreenTheme=0x7f08001d;
+        public static final int InactiveRouteButton=0x7f080015;
+        public static final int LeftArrowButton=0x7f080011;
         public static final int PrimaryButton=0x7f08000d;
         public static final int PrimaryButtonSmall=0x7f08000e;
-        public static final int RightArrowButton=0x7f080011;
-        public static final int Scroller=0x7f08001d;
+        public static final int PrimaryButtonXSmall=0x7f08000f;
+        public static final int RadioSmall=0x7f080017;
+        public static final int RightArrowButton=0x7f080012;
+        public static final int Scroller=0x7f080020;
         public static final int Theme_Barnacle=0x7f080002;
-        public static final int WaitRouteButton=0x7f080013;
-        public static final int WarningButton=0x7f08000f;
+        public static final int WaitRouteButton=0x7f080014;
+        public static final int WarningButton=0x7f080010;
         public static final int com_facebook_loginview_default_style=0x7f080000;
         public static final int com_facebook_loginview_silver_style=0x7f080001;
         public static final int textHeader=0x7f080009;

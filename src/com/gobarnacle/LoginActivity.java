@@ -9,12 +9,17 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
@@ -26,6 +31,8 @@ import com.facebook.Session;
 import com.facebook.model.GraphUser;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Tools;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class LoginActivity extends FragmentActivity implements FBFragment.LoginListener  {
@@ -69,16 +76,7 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 	@Override
 	public void onLoggedIn(GraphUser user) {
 		FBuser = user;
-		try {
-			PostLogin(user);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		mapSetup(user);
     }
 				 
 			
@@ -144,4 +142,51 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 	 public static String userFirstName() {
 		 return (String) FBuser.getProperty("first_name");
 	 }
+	 
+		public void mapSetup(GraphUser user) {
+			/** check for google maps and play services. THEN log in. **/
+	        if (!isGoogleMapsInstalled()) {
+	            Builder builder = new AlertDialog.Builder(this);
+	            builder.setMessage("Please install Google Maps");
+	            builder.setCancelable(false);
+	            builder.setPositiveButton("Install", getGoogleMapsListener());
+	            AlertDialog dialog = builder.create();
+	            dialog.show();
+	        } else {
+		        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+		        
+		        if (resultCode != ConnectionResult.SUCCESS)
+		        	GooglePlayServicesUtil.getErrorDialog(resultCode, this, 1).show();	        	        
+		        else {
+		    		try {
+		    			PostLogin(user);
+		    		} catch (UnsupportedEncodingException e) {
+		    			// TODO Auto-generated catch block
+		    			e.printStackTrace();
+		    		} catch (JSONException e) {
+		    			// TODO Auto-generated catch block
+		    			e.printStackTrace();
+		    		}
+		        }
+	        }
+		}
+		public boolean isGoogleMapsInstalled() {
+		    try {
+		        getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0 );
+		        return true;
+		    } catch(PackageManager.NameNotFoundException e) {
+		        return false;
+		    }
+		}
+		 
+		public OnClickListener getGoogleMapsListener() {
+		    return new OnClickListener() {
+		        @Override
+		        public void onClick(DialogInterface dialog, int which) {
+		            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.apps.maps"));
+		            startActivity(intent);
+		            finish();
+		        }
+		    };
+		}	 
 }

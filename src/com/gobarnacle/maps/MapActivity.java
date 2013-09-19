@@ -149,6 +149,9 @@ public class MapActivity extends BarnacleView implements
     @Override
     public void onPause() {
         super.onPause();
+        
+        locationManager.removeUpdates(this);
+        
         if (mLocationClient != null) {
             mLocationClient.disconnect();
         }
@@ -158,13 +161,11 @@ public class MapActivity extends BarnacleView implements
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map0))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map0)).getMap();
             if (mMap != null) {
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
-            }
+            }    
         }
     }
 
@@ -182,8 +183,10 @@ public class MapActivity extends BarnacleView implements
      */
     public void submitLocation(View view) throws ClientProtocolException, IOException {
         if (mLocationClient != null && mLocationClient.isConnected()) {
+        	// First check for active routes
+        	
         	Location lastLoc = mLocationClient.getLastLocation();
-
+        	
         	Context context = this.getApplicationContext();
 			
 			try {
@@ -201,7 +204,7 @@ public class MapActivity extends BarnacleView implements
     public void submitConfirm(View view) {
     	/** end drive. Start next intent. Don't care if destination has been reached. **/
     	final Context context = this.getApplicationContext();
-    	
+    	    	
     	new AlertDialog.Builder(this)
     	.setMessage("Do you want to confirm your arrival?")
     	.setIcon(android.R.drawable.ic_dialog_alert)
@@ -290,7 +293,7 @@ public class MapActivity extends BarnacleView implements
 				        if (status.equals("ok")) 
 				        	Tools.showToast("Location updated at Barnacle.", context);
 				        else 
-				        	Tools.showToast("Barnacle login failed.", context);
+				        	Tools.showToast(status, context);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -314,13 +317,12 @@ public class MapActivity extends BarnacleView implements
 	    public void onConnected(Bundle connectionHint) {
 	        mLocationClient.requestLocationUpdates(
 	                REQUEST,
-	                this);  
-	        String locationProvider = LocationManager.NETWORK_PROVIDER;
-	    	Location location = locationManager.getLastKnownLocation(locationProvider);
+	                this);
+	        Location location = MapTools.getLocation(locationManager);
+
 	        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 	    	CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
 	        mMap.animateCamera(cameraUpdate);
-	        locationManager.removeUpdates(this);
 	    }
 
 	    /**

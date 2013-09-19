@@ -273,17 +273,15 @@ public class PostActivity extends BarnacleView implements
      */
     @Override
     public void onConnected(Bundle connectionHint) {
-    	String locationProvider = LocationManager.NETWORK_PROVIDER;
-    	// Or use LocationManager.GPS_PROVIDER
 
-    	Location location = locationManager.getLastKnownLocation(locationProvider);
-        LatLng latLng;
-    	latLng = new LatLng(location.getLatitude(), location.getLongitude());
+    	Location location = MapTools.getLocation(locationManager);
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
     	CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
         mMap.animateCamera(cameraUpdate);
 		LocationConverter(latLng, mLocStart);
     	startLat = latLng.latitude;
     	startLon = latLng.longitude;
+
     }
 
     /**

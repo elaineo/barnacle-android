@@ -3,13 +3,15 @@ package com.gobarnacle;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.gobarnacle.layout.BarnacleView;
@@ -19,18 +21,20 @@ import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.RouteSync;
 import com.gobarnacle.utils.Tools;
+import com.google.android.gms.location.LocationListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 
 /**
  * Main Menu for Barnacle
  */
-public class MenuListActivity extends BarnacleView{
+public class MenuListActivity extends BarnacleView implements LocationListener, android.location.LocationListener{
 
 	public final static String TAG = "MenuListActivity";
 	public final static String ROUTE_LINKS = "com.gobarnacle.ROUTE_LINKS";
 	
 	private final static String InactiveStatusUri = "/track/inactivate";
+	private LocationManager locationManager;
 
 	private static ArrayList<Route> routes;
 
@@ -51,6 +55,10 @@ public class MenuListActivity extends BarnacleView{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		String locationProvider = LocationManager.NETWORK_PROVIDER;								
+		locationManager.requestLocationUpdates(locationProvider, (long) 0, (float) 0, this);
 				
 	}
 
@@ -120,4 +128,18 @@ public class MenuListActivity extends BarnacleView{
 		}
     	return actives;
 	}
+	
+	@Override
+	public void onLocationChanged(Location location) {
+		   Log.e("SETUP", "location update : " + location);
+		   locationManager.removeUpdates( this);
+   }
+	 @Override
+	 public void onStatusChanged(String provider, int status, Bundle extras) { }
+
+	 @Override
+	 public void onProviderEnabled(String provider) { }
+
+	 @Override
+	 public void onProviderDisabled(String provider) { }	
 }

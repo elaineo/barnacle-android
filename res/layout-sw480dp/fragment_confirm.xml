@@ -3,14 +3,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
   		android:layout_height="fill_parent"
-  		android:padding="10dp"
+  		android:padding="20dp"
   		android:background="@layout/backgroundpage" 
     	tools:context=".ConfirmActivity"
  		android:orientation="vertical" >
 
     <TextView
         android:padding="10dp"
-        style="@style/textHeader"
+        style="@style/textHeaderLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm_sel" />
@@ -23,7 +23,7 @@
     </RadioGroup>
         
     <TextView
-        style="@style/textHeader"
+        style="@style/textHeaderLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm1" />
@@ -53,7 +53,7 @@
     </LinearLayout>
 
     <TextView
-        style="@style/textHeader"
+        style="@style/textHeaderLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm2" />

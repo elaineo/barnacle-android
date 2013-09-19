@@ -2,6 +2,12 @@
 <resources>
 
     <string name="app_name">Barnacle</string>
+    <string name="map_title">Track Drive</string>
+    <string name="manage_title">Manage Routes</string>
+    <string name="post_title">Create Route</string>
+    <string name="confirm_title">Confirm Arrival</string>
+    <string name="share_title">Share Route</string>
+    
     <string name="app_id">540602052657989</string>
     <string name="imgFooterDesc">Footer Image</string>
     <string name="imgLogoDesc">Logo Image</string>
