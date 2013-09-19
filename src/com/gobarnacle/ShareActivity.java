@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
+import android.provider.ContactsContract.CommonDataKinds.Nickname;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
@@ -91,22 +92,32 @@ public class ShareActivity extends BarnacleView {
 	                    email = cursor.getString(emailIdx);
 	                    emailAddrs.add(email);
 	                    Log.v(TAG, "Got email: " + email);  
-	                } 
+	                }
+	                cursor = getContentResolver().query(Phone.CONTENT_URI,  
+	                        null, Phone.CONTACT_ID + "=?", new String[] { id },  
+	                        null);  
 	                int phoneIdx = cursor.getColumnIndex(Phone.DATA);  
 	                if (cursor.moveToFirst()) {  
 	                    phone = cursor.getString(phoneIdx);
 	                    smsNumbers.add(phone);
 	                    Log.v(TAG, "Got phone: " + phone);  
 	                }
-	                name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME));
-
+	                cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,  
+	                        null, ContactsContract.Contacts._ID + "=?", new String[] { id },  
+	                        null);  
+	                int nameIdx = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+	                if (cursor.moveToFirst()) {  
+	                    name = cursor.getString(nameIdx);
+	                    Log.v(TAG, "Got name: " + name);  
+	                }
 	            } catch (Exception e) {  
 	                Log.e(TAG, "Failed to get email data", e);  
 	            } finally {  
 	                if (cursor != null) {  
 	                    cursor.close();  
 	                }  
-	                addtoContactList(name,true,true);
+	                if (name !="")
+	                	addtoContactList(name,(phone!=""),(email!=""));
                 }  
 	            break;  
 	        }  

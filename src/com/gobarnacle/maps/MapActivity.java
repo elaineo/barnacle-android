@@ -131,8 +131,7 @@ public class MapActivity extends BarnacleView implements
         mAutoSub = (CheckBox) findViewById(R.id.auto_submit);
         mMsg = (EditText) findViewById(R.id.msg_text);
         mMins = (ValueSpinner) findViewById(R.id.mininterval);
-        mMins = new ValueSpinner(this);
-        mMins.setMaxValue(60);
+        mMins.setMaxValue(100);
         mMins.setMinValue(1);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER        
@@ -183,11 +182,15 @@ public class MapActivity extends BarnacleView implements
      */
     public void submitLocation(View view) throws ClientProtocolException, IOException {
         if (mLocationClient != null && mLocationClient.isConnected()) {
-        	// First check for active routes
-        	
+       		Log.v("VALUE ",mMins.getValue()+"");
         	Location lastLoc = mLocationClient.getLastLocation();
-        	
-        	Context context = this.getApplicationContext();
+           	Context context = this.getApplicationContext();
+           	
+        	// First check for active routes
+        	if (MenuListActivity.getActives().size()==0){
+        		Tools.showToast("Please activate a route in the Route Manager.", context);
+        		return;
+        	}
 			
 			try {
 				getStringFromLocation(lastLoc, context);

@@ -69,7 +69,7 @@ public class ValueSpinner extends LinearLayout {
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-        int buttSize = 30;
+        int buttSize = 40;
         Log.d("dims", width+","+height);
         if (height>1300)
         	buttSize = 80;

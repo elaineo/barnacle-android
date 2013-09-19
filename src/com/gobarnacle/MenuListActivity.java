@@ -8,33 +8,30 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.gobarnacle.layout.BarnacleView;
 import com.gobarnacle.maps.MapActivity;
+import com.gobarnacle.maps.MapSync;
 import com.gobarnacle.maps.PostActivity;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;
 import com.gobarnacle.utils.RouteSync;
 import com.gobarnacle.utils.Tools;
-import com.google.android.gms.location.LocationListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 
 /**
  * Main Menu for Barnacle
  */
-public class MenuListActivity extends BarnacleView implements LocationListener, android.location.LocationListener{
+public class MenuListActivity extends BarnacleView {
 
 	public final static String TAG = "MenuListActivity";
 	public final static String ROUTE_LINKS = "com.gobarnacle.ROUTE_LINKS";
 	
 	private final static String InactiveStatusUri = "/track/inactivate";
-	private LocationManager locationManager;
 
 	private static ArrayList<Route> routes;
 
@@ -55,11 +52,8 @@ public class MenuListActivity extends BarnacleView implements LocationListener, 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		
-		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		String locationProvider = LocationManager.NETWORK_PROVIDER;								
-		locationManager.requestLocationUpdates(locationProvider, (long) 0, (float) 0, this);
-				
+		MapSync mSync = new MapSync();
+		mSync.execute(this);				
 	}
 
 	public void launchTracker(View view) {
@@ -108,9 +102,13 @@ public class MenuListActivity extends BarnacleView implements LocationListener, 
 		        String status;
 				try {
 					status = response.getString("status");
-			        if (status.equals("ok")) 
-		        		Tools.showToast("All routes are now inactive.", context);		        	
-			        else {
+			        if (status.equals("ok")) {
+		        		Tools.showToast("All routes are now inactive.", context);
+		        		for(int i=0;i<routes.size();i++) {
+		        			if (routes.get(i).status()==0) 
+		        				routes.get(i).setStatus(1);
+		        		}
+			        } else {
 			        	Tools.showToast(status, context);
 			        }
 				} catch (JSONException e) {
@@ -129,17 +127,4 @@ public class MenuListActivity extends BarnacleView implements LocationListener, 
     	return actives;
 	}
 	
-	@Override
-	public void onLocationChanged(Location location) {
-		   Log.e("SETUP", "location update : " + location);
-		   locationManager.removeUpdates( this);
-   }
-	 @Override
-	 public void onStatusChanged(String provider, int status, Bundle extras) { }
-
-	 @Override
-	 public void onProviderEnabled(String provider) { }
-
-	 @Override
-	 public void onProviderDisabled(String provider) { }	
 }

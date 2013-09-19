@@ -3,6 +3,8 @@
     <string name="fillpost_head">Create Route</string>
     <string name="start">"Start: "</string>
     <string name="dest">"Destination: "</string>
+    <string name="startbutt">Start</string>
+    <string name="destbutt">Destination</string>    
     <string name="startdate">Departure Date</string>
     <string name="enddate">Arrival Date</string>
     <string name="label_set">"set to  "</string>

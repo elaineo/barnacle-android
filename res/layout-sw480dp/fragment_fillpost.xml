@@ -123,7 +123,7 @@
 	            android:layout_height="wrap_content"
 	            android:onClick="setStartLocation"
 	            android:enabled="false"
-	            android:text="@string/start" />
+	            android:text="@string/startbutt" />
 	        <Button
 	            android:layout_marginLeft="10dp"
 	            android:id="@+id/set_dest_btn"
@@ -132,7 +132,7 @@
 	            android:layout_height="wrap_content"
 	            android:onClick="setDestLocation"
 	            android:enabled="false"
-	            android:text="@string/dest" />
+	            android:text="@string/destbutt" />
         </LinearLayout>
     </LinearLayout>
 
