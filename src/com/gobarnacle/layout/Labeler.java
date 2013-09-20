@@ -3,6 +3,7 @@ package com.gobarnacle.layout;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.googlecode.android.widgets.DateSlider.timeview.TimeTextView;
 import com.googlecode.android.widgets.DateSlider.timeview.TimeView;
@@ -55,7 +56,11 @@ public abstract class Labeler {
      * @return The new unpopulated TimeView object
      */
     public TimeView createView(Context context, boolean isCenterView) {
-        return new TimeTextView(context, isCenterView, 25);
+    	Log.e("WIDTH H",this.viewWidthDP +","+this.viewHeightDP);
+    	int fontSize = 25;
+    	if (this.viewHeightDP<100)
+    		fontSize = 15;    		
+        return new TimeTextView(context, isCenterView, fontSize);//!!!!
     }
 
     /**

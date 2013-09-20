@@ -5,5 +5,7 @@
     <string name="end_drive">End Drive</string>
     <string name="submit_loc">Submit</string>
     <string name="label_auto_value">"   minutes."</string>
+    <string name="label_auto_value_xs">" mins"</string>
     <string name="label_auto">Auto submit every </string>    
+    <string name="label_auto_xs">Submit every </string>    
 </resources>

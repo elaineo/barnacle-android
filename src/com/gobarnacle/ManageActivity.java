@@ -66,8 +66,22 @@ public class ManageActivity extends BarnacleView {
 	          Log.d(TAG,item.URL());
 	          callTrackingPage(item.URL());
 	        }
+	        
 
 	      });	
+	    listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+	        @Override
+	        public boolean onItemLongClick(AdapterView<?> parent, final View view,
+	            int position, long id) {
+	          Route item = (Route) parent.getItemAtPosition(position);
+	          Log.d(TAG,"Longclick "+item.routekey());
+	          RouteLinkAdapter.submitStatus(item.routekey(),1, view);	
+	          return true;
+	        }
+	        
+
+	      });	    
 	    if (completed.size()>0) {
 	        final ListView listcompleted = (ListView) findViewById(R.id.listcompleted);        
 	        RouteCompletedAdapter adaptercompl = new RouteCompletedAdapter(this, completed);

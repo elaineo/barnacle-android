@@ -11,11 +11,11 @@
 	    android:layout_height="wrap_content"  
 	    android:layout_width="match_parent">  
     	<EditText 
-	        android:layout_height="wrap_content"  
 	        android:hint="@string/invite_email_hint"  
 	        android:id="@+id/invite_email"   
 	        android:inputType="textEmailAddress"
 	        android:layout_width="0dp"
+	        android:layout_height="40dp" 
 	        android:layout_weight="6"></EditText>
 	    <Button  
 	        android:layout_width="0dp"
@@ -32,9 +32,9 @@
 	    <EditText
      	    android:layout_width="0dp"
 	        android:layout_weight="6"  
-	        android:layout_height="wrap_content"  
 	        android:hint="@string/invite_phone_hint"  
 	        android:id="@+id/invite_phone"   
+	        android:layout_height="40dp"
 	        android:inputType="phone"></EditText>
 	    <Button  
 			android:layout_width="0dp"

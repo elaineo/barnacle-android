@@ -25,10 +25,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 public class RouteLinkAdapter extends ArrayAdapter<Route> {
 	public final static String StatusUri = "/track/status";
 	
-	private final Context context;
+	private static Context context;
 	private final ArrayList<Route> values;
 	private ImageButton deleteBtn=null;
-	private Button statusBtn=null;
+	private static Button statusBtn=null;
 
     public RouteLinkAdapter(Context context, ArrayList<Route> values) {
       super(context, R.layout.manage_list, values);
@@ -36,10 +36,10 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
       this.values = values;
     }
   
-    public void killView(View convertView) {
+    public static void killView(View convertView) {
     	convertView.setVisibility(View.GONE);
     }
-    public String updateStatBtn(View convertView, Integer s) {
+    public static String updateStatBtn(View convertView, Integer s) {
     	statusBtn= (Button) convertView.findViewById(R.id.status);	
 		if (s==1)
 			statusBtn.setBackgroundResource(R.drawable.button_inactive);
@@ -73,7 +73,7 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
             @Override
             public void onClick(final View btnView) {            	
             	final String routekey = btnView.getTag()+"";
-				submitStatus(routekey,1, convertView, rowView);	 			
+				submitStatus(routekey,1, rowView);	 			
             }            
         });
         
@@ -92,7 +92,7 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
             	.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
-						submitStatus(routekey,0, convertView, rowView);						
+						submitStatus(routekey,0, rowView);						
 					}})
             	 .setNegativeButton(android.R.string.cancel, null).show();            			
             }
@@ -101,7 +101,7 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 		return rowView;
 	}
 	
-	public void submitStatus(final String routekey, final Integer statAction, final View view, final View rowView) {
+	public static void submitStatus(final String routekey, final Integer statAction, final View rowView) {
     	JSONObject postParams = new JSONObject();
     	
     	try {

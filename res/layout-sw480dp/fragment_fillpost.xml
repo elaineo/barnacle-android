@@ -42,10 +42,9 @@
 		        android:onClick="onStartSelClicked"
 		        android:text="@string/sel_opttap" />
 			</RadioGroup>
-	   	    <EditText
-	   	        style="@style/BarnacleEditText"
+	   	    <TextView
+	   	        style="@style/TextViewBorder"
 	   	        android:layout_weight="6"
-	   	        android:enabled="false"
 	   	        android:id="@+id/locstart" 
 		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"/>
@@ -61,13 +60,13 @@
 		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:text="@string/dest" />
-	   	    <EditText
-	   	        style="@style/BarnacleEditText"
-	   	        android:enabled="false"
+	   	    <TextView 	        
+	   	        style="@style/TextViewBorder"
+	   	        android:text="@string/destinit"
 	   	        android:id="@+id/locend" 
 	   	        android:layout_weight="6"
 	    		android:layout_width="0dp"
-		        android:layout_height="wrap_content"/>
+		        android:layout_height="wrap_content"/>	   	    
 		</LinearLayout>    
 	</LinearLayout>
 	<FrameLayout
@@ -162,12 +161,14 @@
 			        app:labelerClass="com.gobarnacle.layout.MonthYearLabeler"
 			        app:labelerFormat="%tb %tY"
 			        app:childWidth="90dp"
+			        app:childHeight="50dp"
 			        />
 			    <com.gobarnacle.layout.ScrollLayout
 			        style="@style/Scroller"
 			        app:labelerClass="com.gobarnacle.layout.DayDateLabeler"
 			        app:labelerFormat="%td %ta"
-			        app:childWidth="45dp"
+			        app:childWidth="60dp"
+			        app:childHeight="50dp"
 			        />
 			</com.gobarnacle.layout.SliderContainer>		
     </LinearLayout>

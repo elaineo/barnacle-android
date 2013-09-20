@@ -3,7 +3,7 @@
 
     <string name="app_name">Barnacle</string>
     <string name="map_title">Track Drive</string>
-    <string name="manage_title">Manage Routes</string>
+    <string name="manage_title">Routes</string>
     <string name="post_title">Create Route</string>
     <string name="confirm_title">Confirm Arrival</string>
     <string name="share_title">Share Route</string>

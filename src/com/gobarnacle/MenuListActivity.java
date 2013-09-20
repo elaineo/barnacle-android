@@ -52,8 +52,10 @@ public class MenuListActivity extends BarnacleView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		/** This sometimes causes issues
 		MapSync mSync = new MapSync();
-		mSync.execute(this);				
+		mSync.execute(this);			
+		**/	
 	}
 
 	public void launchTracker(View view) {

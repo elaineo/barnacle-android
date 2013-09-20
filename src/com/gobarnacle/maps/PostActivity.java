@@ -108,6 +108,7 @@ public class PostActivity extends BarnacleView implements
         mPostBtn = (Button) findViewById(R.id.post_btn); 
         
         mContainer = (SliderContainer) this.findViewById(R.id.dateSliderContainer);
+        mContainer.setMinTime(Calendar.getInstance());
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);                
     }

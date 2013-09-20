@@ -6,40 +6,50 @@
   	android:layout_height="fill_parent"
   	android:orientation="vertical"
 	android:background="@layout/backgroundpage"   	
-    android:padding="4dip"
     tools:context=".ManageActivity" >	
   		<!--  Header  Starts-->
-
-	<LinearLayout android:id="@+id/tbl_head" 
+	<LinearLayout
+	 	android:id="@+id/manage_instruct" 	    
+	    android:gravity="center"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="2dp" >
+	 	<TextView
+	 	    style="@style/TextViewBorder"
+	 	    android:textColor="#000066"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/manage_instruct" >
+	    </TextView>	
+	</LinearLayout>
+	<LinearLayout 	    android:layout_below="@id/manage_instruct"  
+	    android:id="@+id/tbl_head" 
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:padding="2dp" >
    	    <TextView
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
-	        android:layout_weight="1"
-	        style="@style/textHeader" >
+	        android:layout_weight="1" >
+	    </TextView>
+	    <TextView
+	        android:visibility="gone"
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="4"
+	        android:text="@string/label_start" >
 	    </TextView>
 	    <TextView
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="4"
-	        android:text="@string/label_start"
-	        style="@style/textHeader" >
-	    </TextView>
-	    <TextView
-	        android:layout_width="0dp"
-	        android:layout_height="fill_parent"
-	        android:layout_weight="4"
-	        android:text="@string/label_dest"
-	        style="@style/textHeader" >
+	        android:text="@string/label_dest" >
 	    </TextView>
 	    <TextView
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="3"
-  	        android:text="@string/label_date"
-	        style="@style/textHeader" >
+  	        android:text="@string/label_date" >
 	    </TextView>
     </LinearLayout>
     
@@ -58,7 +68,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/label_completed"
-        android:textSize="15sp"
         android:layout_below="@id/listrview" >
     </TextView>
 	<ListView

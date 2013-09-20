@@ -13,6 +13,7 @@
     <!-- origin and destination -->
 
     <LinearLayout
+        android:maxHeight="40dp"
         android:id="@+id/route_text"
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -40,8 +41,7 @@
 			android:layout_height="wrap_content"/>     
 		<LinearLayout 
 		    android:id="@+id/auto0"
-            android:layout_width="match_parent"
-			android:padding="5dp"            
+            android:layout_width="match_parent"       
         	android:layout_height="0dp"
    			android:layout_weight="10"
  			android:orientation="horizontal">
@@ -51,12 +51,12 @@
 			    android:layout_width="wrap_content"
 			    android:layout_height="fill_parent"
 			    android:layout_marginRight="5dp"
-			    android:text="@string/label_auto" />
+			    android:text="@string/label_auto_xs" />
     	    <com.gobarnacle.layout.ValueSpinner
 		        android:id="@+id/mininterval"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content" 
-		        custom:labelText="@string/label_auto_value" />
+		        custom:labelText="@string/label_auto_value_xs" />
     	    <!--  <NumberPicker
 		        android:id="@+id/mininterval"
 		        android:layout_width="60dp"
@@ -67,7 +67,6 @@
             android:layout_width="match_parent"
         	android:layout_height="0dp"
    			android:layout_weight="10"
-   			android:padding="5dp"
  			android:orientation="horizontal">
  	        <TextView
  	            android:id="@+id/auto_text"
@@ -77,7 +76,7 @@
 		        android:textColor="#372c24" />
 		    <Button
 		        android:id="@+id/cancel_btn"
-		        style="@style/PrimaryButtonSmall"
+		        style="@style/WarningButtonXSmall"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:onClick="cancelUpdate"
@@ -85,7 +84,7 @@
 		</LinearLayout>							
 	</LinearLayout>
 	<LinearLayout 
-        android:padding="10dp"
+	    android:padding="5dp"
         android:layout_width="fill_parent"
      	android:layout_height="wrap_content"
 		android:orientation="horizontal">
@@ -97,10 +96,9 @@
 		    android:id="@+id/msg_text"
 		    android:inputType="textShortMessage"
 		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content" />
+		    android:layout_height="35dp" />
 	</LinearLayout>	
 	<LinearLayout 
-	    android:padding="10dp"
         android:layout_width="wrap_content"
      	android:layout_height="wrap_content"
 		android:orientation="horizontal">
@@ -114,7 +112,7 @@
     <Button
         android:id="@+id/end_btn"
         style="@style/PrimaryButtonSmall"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="submitConfirm"

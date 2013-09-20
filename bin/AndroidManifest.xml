@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gobarnacle"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.0.1" >
 	<permission
 	  android:name="com.barnacle.permission.MAPS_RECEIVE"
 	  android:protectionLevel="signature"/>
 	<uses-permission android:name="com.barnacle.permission.MAPS_RECEIVE"/>
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
  	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -47,26 +47,32 @@
         </activity>
         <activity android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
             android:name="com.gobarnacle.maps.MapActivity"
+            android:parentActivityName="MenuListActivity"
             android:label="@string/map_title" >
         </activity>
         <activity android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
             android:name="com.gobarnacle.maps.PostActivity"
+            android:parentActivityName="MenuListActivity"
             android:label="@string/post_title" >
         </activity>            
         <activity android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
             android:name="com.gobarnacle.ManageActivity"
+            android:parentActivityName="MenuListActivity"
             android:label="@string/manage_title" >
         </activity>
         <activity android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"
             android:name="com.gobarnacle.ConfirmActivity"
+            android:parentActivityName="MenuListActivity"
             android:label="@string/confirm_title" >
         </activity>                
         <activity
             android:name="com.gobarnacle.WebViewActivity"
+            android:parentActivityName="MenuListActivity"
             android:label="@string/app_name" >
         </activity>            
         <activity
             android:name="com.gobarnacle.ShareActivity"
+            android:parentActivityName="MenuListActivity"
             android:label="@string/share_title" >
         </activity>           
         <meta-data android:value="@string/app_id" android:name="com.facebook.sdk.ApplicationId"/>
