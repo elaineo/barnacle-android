@@ -27,6 +27,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,7 +80,7 @@ public class MapActivity extends BarnacleView implements
     private static final float MIN_DISTANCE = 1000;
 
     private LocationClient mLocationClient;
-    private LinearLayout mRouteView;	
+    private ScrollView mRouteView;	
     private static TextView mAddrView;	
     private static CheckBox mAutoSub;
     private static ValueSpinner mMins;
@@ -115,15 +116,23 @@ public class MapActivity extends BarnacleView implements
         mLL1.setVisibility(View.GONE);
                 
         
-        mRouteView = (LinearLayout) findViewById(R.id.route_text);
+        mRouteView = (ScrollView) findViewById(R.id.route_text);
         activeRoutes = MenuListActivity.getActives();
-		for(int i=0;i<activeRoutes.size();i++) {
+		/**for(int i=0;i<activeRoutes.size();i++) {
 			TextView routeDescr = (TextView)getLayoutInflater().inflate(R.layout.template_textview_header,null);
 			LayoutParams routeParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 	        routeDescr.setText(activeRoutes.get(i).abbrevstart()+" to "+activeRoutes.get(i).abbrevend());
 	        mRouteView.addView(routeDescr, routeParams);
-		}
+		}**/
+    	TextView routeDescr = (TextView)getLayoutInflater().inflate(R.layout.template_textview_header,null);
+    	String textRoutes ="";        
+    	for(int i=0;i<activeRoutes.size();i++)         	
+			textRoutes=textRoutes + activeRoutes.get(i).abbrevstart()+" to "+activeRoutes.get(i).abbrevend() +"\n";	        
+		
+		LayoutParams routeParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
+    	routeDescr.setText(textRoutes);
+        mRouteView.addView(routeDescr, routeParams);
         
         
         mAddrView = (TextView) findViewById(R.id.addr_text);

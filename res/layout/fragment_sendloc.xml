@@ -2,8 +2,8 @@
     xmlns:custom="http://schemas.android.com/apk/res/com.gobarnacle"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_sendloc"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:fillViewport="true"
     android:orientation="vertical"
     android:padding="5dp"
@@ -11,18 +11,16 @@
     tools:context=".MapActivity" >
 
     <!-- origin and destination -->
-
-    <LinearLayout
+    <ScrollView
         android:id="@+id/route_text"
-        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:maxHeight="40dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="0.5"/>
 	<FrameLayout android:id="@+id/map_frame"
 	    	android:padding="5dp"
      		android:layout_width="fill_parent"
      		android:layout_height="0dip" 
-     		android:layout_weight="0.1"> 
+     		android:layout_weight="2.0"> 
 	 	<fragment
 	      	android:id="@+id/map0"
 	      	android:layout_width="wrap_content"
@@ -32,8 +30,7 @@
    	
     <LinearLayout 
             android:layout_width="fill_parent"
-        	android:layout_height="fill_parent"
-   			android:weightSum="10"
+        	android:layout_height="wrap_content"
  			android:orientation="vertical">
  	    <TextView
 			android:id="@+id/addr_text"
