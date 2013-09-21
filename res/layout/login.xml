@@ -59,7 +59,13 @@
 	        android:layout_gravity="center"
 	        style="@style/com_facebook_loginview_default_style"
             android:padding="@dimen/com_facebook_loginview_padding_bottom"/>
-
+		  <TextView 
+		    style="@style/textHeader"
+		    android:id="@+id/fbLogin"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+			android:text="" />
 		</LinearLayout>
       <View
               android:layout_width="match_parent"

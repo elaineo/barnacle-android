@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -21,7 +22,7 @@ import com.facebook.widget.LoginButton;
 
 public class FBFragment extends Fragment {
 	public final static String TAG = "FBLoginFragment";
-
+	TextView fbLogin;
 	
 	private UiLifecycleHelper uiHelper;
 
@@ -43,7 +44,8 @@ public class FBFragment extends Fragment {
 	        ViewGroup container, 
 	        Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.login, container, false);
-
+        fbLogin = (TextView) view.findViewById(R.id.fbLogin);
+	    
 	    LoginButton authButton = (LoginButton) view.findViewById(R.id.btnLogin);
 	    authButton.setFragment(this);
 	    authButton.setReadPermissions(Arrays.asList("email", "user_location"));
@@ -63,12 +65,14 @@ public class FBFragment extends Fragment {
 			  public void onCompleted(GraphUser user, Response response) {
 				  if (user != null) {
 					  Log.d(TAG,response.toString());
+				      fbLogin.setText("Please Wait...");
 				      mCallback.onLoggedIn(user);
 					}
 			  }
 			});	        
 	    } else if (state.isClosed()) {
 	        Log.i(TAG, "Logged out...");
+	        fbLogin.setText("");
 	    }
 	}		
 	private Session.StatusCallback callback = new Session.StatusCallback() {

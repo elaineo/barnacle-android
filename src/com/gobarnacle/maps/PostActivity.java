@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,9 +74,9 @@ public class PostActivity extends BarnacleView implements
     private TextView mLocStart;
     private TextView mLocEnd;
     private static TextView mTapped;	
-    private TextView mAddr;	
     private Button mStartBtn, mDestBtn;
     private Button mPostBtn;
+    private LinearLayout mTappedStuff;
     
     private SliderContainer mContainer;
     
@@ -102,10 +103,11 @@ public class PostActivity extends BarnacleView implements
         mLocStart = (TextView) findViewById(R.id.locstart);
         mLocEnd = (TextView) findViewById(R.id.locend);
         mTapped = (TextView) findViewById(R.id.tapped_text);
-        mAddr = (TextView) findViewById(R.id.tapped_addr);
+        //mAddr = (TextView) findViewById(R.id.tapped_addr);
         mStartBtn = (Button) findViewById(R.id.set_start_btn);
         mDestBtn = (Button) findViewById(R.id.set_dest_btn); 
         mPostBtn = (Button) findViewById(R.id.post_btn); 
+        mTappedStuff = (LinearLayout) findViewById(R.id.tapped_stuff);
         
         mContainer = (SliderContainer) this.findViewById(R.id.dateSliderContainer);
         mContainer.setMinTime(Calendar.getInstance());
@@ -202,13 +204,14 @@ public class PostActivity extends BarnacleView implements
 
     @Override
     public void onMapClick(LatLng point) {
+    	mTappedStuff.setVisibility(View.VISIBLE);
         mTapped.setText(String.format("(%.2f,%.2f)  ", point.latitude, point.longitude));
         lastTapped = point;
         if (startSel)
         	mStartBtn.setEnabled(true);
         mDestBtn.setEnabled(true);
         TimeZoneConverter(point);
-		LocationConverter(point, mAddr);
+		LocationConverter(point, mTapped);
     }
     
     public static void getStringFromLatLng(final LatLng loc, final TextView addr)
@@ -240,12 +243,12 @@ public class PostActivity extends BarnacleView implements
     }    
 
     public void setStartLocation(View view) {
-    	mLocStart.setText(mAddr.getText());
+    	mLocStart.setText(mTapped.getText());
     	startLat = lastTapped.latitude;
     	startLon = lastTapped.longitude;
     }	        
     public void setDestLocation(View view) {
-    	mLocEnd.setText(mAddr.getText());
+    	mLocEnd.setText(mTapped.getText());
     	destLat = lastTapped.latitude;
     	destLon = lastTapped.longitude;
     	destTZ = timeZone;

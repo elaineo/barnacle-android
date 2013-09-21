@@ -10,9 +10,9 @@ public class UpdateReceiver extends BroadcastReceiver {
     
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(DEBUG_TAG, "Recurring alarm; requesting upload service.");
         
     	String msgExtra = intent.getStringExtra(com.gobarnacle.maps.MapActivity.EXTRA_MSG);
+        Log.d(DEBUG_TAG, "Recurring alarm; requesting upload service.");
     	
         Intent uploader = new Intent(context, UploadLocService.class);
         uploader.putExtra(com.gobarnacle.maps.MapActivity.EXTRA_MSG,msgExtra);

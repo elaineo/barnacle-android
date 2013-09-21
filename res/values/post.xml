@@ -3,6 +3,7 @@
     <string name="fillpost_head">Create Route</string>
     <string name="start">"Start: "</string>
     <string name="dest">"Destination: "</string>
+    <string name="last">"Tapped: "</string>
     <string name="destinit">Tap on Map to select</string>
     <string name="startbutt">Start</string>
     <string name="destbutt">Destination</string>    

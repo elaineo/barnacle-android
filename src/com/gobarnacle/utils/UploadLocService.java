@@ -75,10 +75,10 @@ public class UploadLocService extends Service implements
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
     	/** Get current location. Convert to formatted address. Upload. **/
-    	Log.v(TAG, "starting update");
     	
     	context = this;
     	msgExtra = intent.getStringExtra(com.gobarnacle.maps.MapActivity.EXTRA_MSG);
+    	Log.v(TAG, "starting update  "+msgExtra);    	
     	
     	urh = new UploadResponseHandler();
     	locationClient.connect();

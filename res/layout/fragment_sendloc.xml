@@ -13,11 +13,11 @@
     <!-- origin and destination -->
 
     <LinearLayout
-        android:maxHeight="40dp"
         android:id="@+id/route_text"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" 
+        android:maxHeight="40dp"/>
 	<FrameLayout android:id="@+id/map_frame"
 	    	android:padding="5dp"
      		android:layout_width="fill_parent"

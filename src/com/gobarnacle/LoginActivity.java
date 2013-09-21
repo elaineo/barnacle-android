@@ -45,7 +45,7 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
 	 private FBFragment fbFragment;
 	 
 	 private static GraphUser FBuser;
-	
+	 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +67,6 @@ public class LoginActivity extends FragmentActivity implements FBFragment.LoginL
             fbFragment = (FBFragment) getSupportFragmentManager()
             .findFragmentById(android.R.id.content);
         }
-
         /* Check if already logged in, bypass to home screen */
         /* SharedPreferences */
     }

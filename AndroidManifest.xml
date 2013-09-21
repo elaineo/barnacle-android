@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gobarnacle"
-    android:versionCode="2"
-    android:versionName="1.0.1" >
+    android:versionCode="6"
+    android:versionName="1.0" >
 	<permission
 	  android:name="com.barnacle.permission.MAPS_RECEIVE"
 	  android:protectionLevel="signature"/>
@@ -14,12 +14,12 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-	<uses-permission android:name="android.permission.SEND_SMS" />
+	<uses-feature android:name="android.hardware.telephony" android:required="false"/>
 	<!-- External storage for caching. -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<!-- My Location -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-feature android:name="android.hardware.location.gps" android:required="false"/>
   	<uses-permission android:name="android.permission.READ_CONTACTS" />	
 	<!-- Maps API needs OpenGL ES 2.0. -->
 	<uses-feature

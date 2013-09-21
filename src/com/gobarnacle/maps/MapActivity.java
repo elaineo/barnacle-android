@@ -356,10 +356,10 @@ public class MapActivity extends BarnacleView implements
 		private static void setRecurringAlarm(Context context, int minutes) {
 		    // Set alarm at minute interval
 		    Intent updater = new Intent(Intent.ACTION_MAIN);
-		    PendingIntent recurringUpdate = PendingIntent.getBroadcast(context,
-		            0, updater, PendingIntent.FLAG_CANCEL_CURRENT);
 	    	String msg = mMsg.getText().toString();
 	    	updater.putExtra(EXTRA_MSG,msg);
+		    PendingIntent recurringUpdate = PendingIntent.getBroadcast(context,
+		            0, updater, PendingIntent.FLAG_UPDATE_CURRENT);
 		    
 		    AlarmManager alarms = (AlarmManager) activity.getSystemService(
 		            Context.ALARM_SERVICE);
