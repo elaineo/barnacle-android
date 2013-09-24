@@ -9,12 +9,10 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.gobarnacle.layout.BarnacleView;
 import com.gobarnacle.maps.MapActivity;
-import com.gobarnacle.maps.MapSync;
 import com.gobarnacle.maps.PostActivity;
 import com.gobarnacle.utils.BarnacleClient;
 import com.gobarnacle.utils.Route;

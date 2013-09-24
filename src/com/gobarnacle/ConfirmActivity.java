@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -59,7 +58,7 @@ public class ConfirmActivity extends BarnacleView {
         for(int i=0;i<activeRoutes.size();i++) {
             RadioButton locEnd = new RadioButton(this);
             locEnd.setText(activeRoutes.get(i).locend());
-            locEnd.setTag(activeRoutes.get(i).routekey()); // <-- this does not appear to be working
+            locEnd.setTag(activeRoutes.get(i).routekey());
             locEnd.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {

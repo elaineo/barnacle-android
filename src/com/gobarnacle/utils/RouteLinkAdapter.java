@@ -32,7 +32,6 @@ public class RouteLinkAdapter extends ArrayAdapter<Route> {
 
     public RouteLinkAdapter(Context context, ArrayList<Route> values) {
       super(context, R.layout.manage_list, values);
-      this.context = context;
       this.values = values;
     }
   

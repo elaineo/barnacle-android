@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gobarnacle.MenuListActivity;
 import com.gobarnacle.R;
@@ -55,12 +54,10 @@ public class PostActivity extends BarnacleView implements
 								OnConnectionFailedListener,
 								OnMapClickListener, OnMyLocationButtonClickListener {
 	
-    private static AsyncHttpClient client = new AsyncHttpClient();
 	 
 	public final static String ROUTE_POST = "com.gobarnacle.ROUTE_POST"; 
     public final static String PostUri = "/track/create";
 	public final static String TAG = "PostActivity";
-	private static final String MAP_URI = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&sensor=true&language=";
 	public static final Integer ZOOM = 8;
 	
 	private Boolean startSel = false;
@@ -214,33 +211,6 @@ public class PostActivity extends BarnacleView implements
 		LocationConverter(point, mTapped);
     }
     
-    public static void getStringFromLatLng(final LatLng loc, final TextView addr)
-            throws ClientProtocolException, IOException, JSONException {
-    	
-        String address = String
-                .format(Locale.ENGLISH, MAP_URI
-                                + Locale.getDefault().getCountry(), loc.latitude, loc.longitude);
-        addr.setText(" " +loc);
-        client.get(address, null, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                String status;
-                String indiStr;
-
-				try {
-					status = response.getString("status");
-		            if ("OK".equalsIgnoreCase(status)) {
-		                JSONArray results = response.getJSONArray("results");
-	                    indiStr = results.getJSONObject(0).getString("formatted_address");
-	                    addr.setText(indiStr);
-	                }			        
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-	    });
-    }    
 
     public void setStartLocation(View view) {
     	mLocStart.setText(mTapped.getText());
@@ -306,7 +276,7 @@ public class PostActivity extends BarnacleView implements
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+
         return false;
     }	    
 	    	 
